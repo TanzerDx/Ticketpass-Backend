@@ -23,21 +23,6 @@ public class AddTicketsRequest {
     private String QR;
 
     @NotBlank
-    private String userName;
-
-    @NotBlank
-    private String concertArtist;
-
-    @NotBlank
-    private String concertVenue;
-
-    @NotBlank
-    private Date concertDate;
-
-    @NotBlank
-    private String concertCity;
-
-    @NotBlank
     private String section;
 
     private Optional<Integer> row;

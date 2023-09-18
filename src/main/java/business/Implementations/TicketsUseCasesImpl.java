@@ -45,16 +45,14 @@ public class TicketsUseCasesImpl implements TicketsUseCases {
     }
 
     @Override
-    public GetTicketsResponse getTickets(GetTicketsRequest request)
+    public List<Ticket> getTickets(long orderId)
     {
-        List<Ticket> tickets= ticketRepository.getTickets(request.getOrderId())
+        List<Ticket> tickets= ticketRepository.getTickets(orderId)
                 .stream()
                 .map(TicketConverter::convert)
                 .toList();
 
-        return GetTicketsResponse.builder()
-                .tickets(tickets)
-                .build();
+        return tickets;
     }
 
     @Override
