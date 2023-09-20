@@ -1,0 +1,19 @@
+package com.example.individual_assignment_hristo_ganchev.business.Converters;
+
+import com.example.individual_assignment_hristo_ganchev.domain.Objects.User;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
+
+public final class UserConverter {
+
+    public static User convert(UserEntity user) {
+        return User.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .salt(user.getSalt())
+                .hashedPassword(user.getHashedPassword())
+                .orderList(user.getOrderList())
+                .orderListExpired(user.getOrderListExpired())
+                .build();
+
+    }
+}
