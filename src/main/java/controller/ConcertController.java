@@ -19,7 +19,7 @@ public class ConcertController {
     private final ConcertsUseCases concertsUseCases;
 
     @PostMapping()
-    public ResponseEntity<AddConcertResponse> addConcert(@RequestBody AddConcertRequest request) {
+    public ResponseEntity<AddConcertResponse> addConcert(@Valid @RequestBody AddConcertRequest request) {
         AddConcertResponse response = concertsUseCases.addConcert(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -31,7 +31,7 @@ public class ConcertController {
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Concert> getConcert(@RequestParam(name = "id", required = false) final long id) {
+    public ResponseEntity<Concert> getConcert(@RequestParam(name = "id", required = false) long id) {
         final Concert concert = concertsUseCases.getConcert(id);
         return ResponseEntity.ok().body(concert);
     }
@@ -39,7 +39,6 @@ public class ConcertController {
     @PutMapping("{id}")
     public ResponseEntity<Concert> updateConcert(@PathVariable("id") long id,
      @RequestBody @Valid UpdateConcertRequest request) {
-        request.setId(id);
         concertsUseCases.updateConcert(request);
 
         Concert concert = concertsUseCases.getConcert(id);

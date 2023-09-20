@@ -1,13 +1,7 @@
 package controller;
 
-import business.Converters.TicketConverter;
-import business.Interfaces.ConcertsUseCases;
+
 import business.Interfaces.TicketsUseCases;
-import domain.ConcertsRelated.AddConcertRequest;
-import domain.ConcertsRelated.AddConcertResponse;
-import domain.ConcertsRelated.GetConcertsResponse;
-import domain.ConcertsRelated.UpdateConcertRequest;
-import domain.Objects.Concert;
 import domain.Objects.Ticket;
 import domain.TicketsRelated.AddTicketsRequest;
 import domain.TicketsRelated.AddTicketsResponse;
@@ -17,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import persistence.entities.TicketEntity;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tickets")
