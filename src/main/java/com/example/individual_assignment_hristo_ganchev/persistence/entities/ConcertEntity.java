@@ -1,12 +1,13 @@
 package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ConcertEntity {
 
     private Long id;
