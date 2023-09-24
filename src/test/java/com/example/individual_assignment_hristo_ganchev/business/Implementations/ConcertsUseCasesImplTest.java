@@ -3,6 +3,7 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 import com.example.individual_assignment_hristo_ganchev.business.Converters.ConcertConverter;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.GetConcertsResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Concert;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;
@@ -30,18 +31,21 @@ public class ConcertsUseCasesImplTest {
                     "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
 
-
             when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
 
             ConcertsUseCasesImpl sut = new ConcertsUseCasesImpl(concertRepositoryMock);
+
+
 
         // Act
             Concert retrievedConcert = sut.getConcert(1L);
 
 
+
         // Assert
             assertThat(ConcertConverter.convert(toTest)).isEqualTo(retrievedConcert);
     }
+
 
     @Test
     public void getConcerts_shouldReturnEmptyListIfConcertsAreNotPresent() throws Exception {
@@ -53,8 +57,10 @@ public class ConcertsUseCasesImplTest {
             ConcertsUseCasesImpl sut = new ConcertsUseCasesImpl(concertRepository);
 
 
+
         // Act
             GetConcertsResponse sutResponse = sut.getAllConcerts();
+
 
 
         // Assert
@@ -78,12 +84,50 @@ public class ConcertsUseCasesImplTest {
 
             ConcertsUseCasesImpl sut = new ConcertsUseCasesImpl(concertRepository);
 
+
+
         // Act
             GetConcertsResponse sutResponse = sut.getAllConcerts();
 
 
+
         // Assert
             assertThat(sutResponse.getConcerts()).isNotEmpty();
+    }
 
+
+    @Test
+    public void updateConcert_shouldUpdateConcert() throws Exception {
+
+        // Arrange
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+            ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+            ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
+                    "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+
+            UpdateConcertRequest request = new UpdateConcertRequest(1L, "Chase Atlantic",
+                    "Indie", "TivoliRonda", "2023/09/07", "Utrecht",
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+
+            ConcertEntity updatedConcert = new ConcertEntity(1L, "Chase Atlantic",
+                    "Indie", "TivoliRonda", sdf.parse("2023/09/07"), "Utrecht",
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+
+            when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
+
+            ConcertsUseCasesImpl sut = new ConcertsUseCasesImpl(concertRepositoryMock);
+
+
+
+        // Act
+            sut.updateConcert(request);
+
+
+
+        // Assert
+            assertThat(toTest).isEqualTo(updatedConcert);
     }
 }
