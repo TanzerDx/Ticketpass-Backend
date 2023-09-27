@@ -99,10 +99,10 @@ class TicketsUseCasesImplTest {
                 "Kim Petras is a German pop singer.", "URL", 40.15, 10000L);
 
 
-            List<Ticket> updatedTickets = Arrays.asList(new Ticket(1L, 1L, 1L,
+            List<TicketEntity> updatedTickets = Arrays.asList(new TicketEntity(1L, 1L, 1L,
                         "QR", "Hristo Ganchev", "Kim Petras", "TivoliRonda",
                         sdf.parse("2024/03/03"), "Utrecht", "Standing", null, null),
-                new Ticket(2L, 1L, 1L,
+                new TicketEntity(2L, 1L, 1L,
                         "QR", "Hristo Ganchev", "Kim Petras", "TivoliRonda",
                         sdf.parse("2024/03/03"), "Utrecht", "Standing", null, null));
 

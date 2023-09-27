@@ -63,23 +63,20 @@ public class TicketsUseCasesImpl implements TicketsUseCases {
         ConcertEntity concertEntity = concertRepository.getConcert(request.getConcertId());
         Concert concert = ConcertConverter.convert(concertEntity);
 
-        List<Ticket> toUpdate = ticketRepository.getTicketsByConcert(request.getConcertId())
-                        .stream()
-                        .map(TicketConverter::convert)
-                        .toList();
+        List<TicketEntity> toUpdate = ticketRepository.getTicketsByConcert(request.getConcertId());
 
         updateFields(toUpdate, concert);
     }
 
 
-    private void updateFields(List<Ticket> toUpdate, Concert concert) {
+    private void updateFields(List<TicketEntity> toUpdate, Concert concert) {
 
         SimpleDateFormat originalSdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
         SimpleDateFormat targetSdf = new SimpleDateFormat("yyyy/MM/dd");
 
         try
         {
-            for (Ticket ticket : toUpdate) {
+            for (TicketEntity ticket : toUpdate) {
                 java.util.Date originalDate = originalSdf.parse(String.valueOf(concert.getDate()));
                 String reformattedDate = targetSdf.format(originalDate);
                 java.util.Date formattedDate = targetSdf.parse(reformattedDate);
