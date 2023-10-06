@@ -1,6 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.controller;
 
-import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersUseCases;
+import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.CreateOrderRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.CreateOrderResponse;
@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class OrderController {
 
-        private final OrdersUseCases ordersUseCases;
+        private final OrdersService ordersService;
 
         @PostMapping()
         public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest request) {
-        CreateOrderResponse response = ordersUseCases.createOrder(request);
+        CreateOrderResponse response = ordersService.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
         @GetMapping
         public ResponseEntity<GetAllOrdersResponse> getAllOrders(@RequestParam(name = "userId") Long userId) {
-            return ResponseEntity.ok(ordersUseCases.getAllOrders(userId));
+            return ResponseEntity.ok(ordersService.getAllOrders(userId));
         }
 
 
 
         @GetMapping("{id}")
         public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
-        final Order order = ordersUseCases.getOrder(id);
+        final Order order = ordersService.getOrder(id);
                 return ResponseEntity.ok().body(order);
         }
 
