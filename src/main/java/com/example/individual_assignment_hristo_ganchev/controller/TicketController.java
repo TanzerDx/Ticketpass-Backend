@@ -1,7 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.controller;
 
 
-import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsUseCases;
+import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
 import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.AddTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.AddTicketsResponse;
@@ -18,24 +18,24 @@ import java.util.List;
 @AllArgsConstructor
 public class TicketController {
 
-    private final TicketsUseCases ticketsUseCases;
+    private final TicketsService ticketsService;
 
     @PostMapping()
     public ResponseEntity<AddTicketsResponse> addTickets(@RequestBody AddTicketsRequest request) {
-        AddTicketsResponse response = ticketsUseCases.addTickets(request);
+        AddTicketsResponse response = ticketsService.addTickets(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<List<Ticket>> getTickets(@PathVariable("id") Long orderId) {
-        List<Ticket> tickets = ticketsUseCases.getTickets(orderId);
+        List<Ticket> tickets = ticketsService.getTickets(orderId);
 
         return ResponseEntity.ok().body(tickets);
     }
 
     @PutMapping()
     public ResponseEntity<Void> updateTickets(@RequestBody @Valid UpdateTicketsRequest request) {
-        ticketsUseCases.updateTickets(request);
+        ticketsService.updateTickets(request);
 
         return ResponseEntity.noContent().build();
     }
