@@ -1,7 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.ConcertConverter;
-import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.GetConcertsResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Concert;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
@@ -58,12 +57,12 @@ public class ConcertsServiceImplTest {
 
 
         // Act
-            GetConcertsResponse sutResponse = sut.getAllConcerts();
+            List<Concert> sutResponse = sut.getAllConcerts();
 
 
 
         // Assert
-            assertThat(sutResponse.getConcerts()).isEmpty();
+            assertThat(sutResponse).isEmpty();
 
     }
 
@@ -86,12 +85,12 @@ public class ConcertsServiceImplTest {
 
 
         // Act
-            GetConcertsResponse sutResponse = sut.getAllConcerts();
+        List<Concert> sutResponse = sut.getAllConcerts();
 
 
 
         // Assert
-            assertThat(sutResponse.getConcerts()).isNotEmpty();
+        assertThat(sutResponse).isNotEmpty();
     }
 
 

@@ -4,7 +4,6 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Conc
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.AddConcertResponse;
-import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.GetConcertsResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Concert;
 import lombok.AllArgsConstructor;
@@ -42,16 +41,15 @@ public class ConcertsServiceImpl implements ConcertsService {
         return concert;
     }
 
+
     @Override
-    public GetConcertsResponse getAllConcerts(){
+    public List<Concert> getAllConcerts(){
         List<Concert> concerts = concertRepository.getAll()
                 .stream()
                 .map(ConcertConverter::convert)
                 .toList();
 
-        return GetConcertsResponse.builder()
-                .concerts(concerts)
-                .build();
+        return concerts;
     }
 
     @Override
