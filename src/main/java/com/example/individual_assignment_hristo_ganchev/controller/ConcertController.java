@@ -3,7 +3,6 @@ package com.example.individual_assignment_hristo_ganchev.controller;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.AddConcertResponse;
-import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.GetConcertsResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Objects.Concert;
 import jakarta.validation.Valid;
@@ -12,10 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/concerts")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = {"http://localhost:5173" , "http://localhost:4173"})
 public class ConcertController {
     private final ConcertsService concertsService;
 
@@ -26,7 +27,7 @@ public class ConcertController {
     }
 
     @GetMapping
-    public ResponseEntity<GetConcertsResponse> getConcerts() {
+    public ResponseEntity<List<Concert>> getConcerts() {
         return ResponseEntity.ok(concertsService.getAllConcerts());
     }
 
