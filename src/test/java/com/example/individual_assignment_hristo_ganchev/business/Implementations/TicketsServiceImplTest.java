@@ -1,7 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.UpdateTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.UpdateTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;

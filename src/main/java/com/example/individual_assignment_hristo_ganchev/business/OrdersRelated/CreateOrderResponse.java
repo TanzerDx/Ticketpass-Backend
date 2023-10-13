@@ -1,4 +1,4 @@
-package com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated;
+package com.example.individual_assignment_hristo_ganchev.business.OrdersRelated;
 
 import lombok.Builder;
 import lombok.Data;

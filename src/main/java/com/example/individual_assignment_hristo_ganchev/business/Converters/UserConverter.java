@@ -1,6 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Converters;
 
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.User;
+import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 
 public final class UserConverter {

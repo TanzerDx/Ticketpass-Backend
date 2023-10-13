@@ -1,8 +1,8 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Order;
-import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.GetAllOrdersResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
+import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.OrderRepository;
 import org.junit.jupiter.api.Test;

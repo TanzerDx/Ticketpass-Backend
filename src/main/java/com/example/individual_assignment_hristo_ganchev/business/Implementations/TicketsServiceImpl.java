@@ -4,10 +4,12 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Conc
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.TicketConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Concert;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Order;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.*;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.UpdateTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
+import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;

@@ -1,6 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Converters;
 
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
+import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
 
 public final class TicketConverter {

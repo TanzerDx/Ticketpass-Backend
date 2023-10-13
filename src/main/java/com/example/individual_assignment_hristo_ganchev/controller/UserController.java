@@ -1,9 +1,9 @@
 package com.example.individual_assignment_hristo_ganchev.controller;
 
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.User;
-import com.example.individual_assignment_hristo_ganchev.domain.UsersRelated.AddUserRequest;
-import com.example.individual_assignment_hristo_ganchev.domain.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

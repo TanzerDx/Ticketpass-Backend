@@ -2,10 +2,10 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Order;
-import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.CreateOrderRequest;
-import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.CreateOrderResponse;
-import com.example.individual_assignment_hristo_ganchev.domain.OrdersRelated.GetAllOrdersResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
+import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderRequest;
+import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
+import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
