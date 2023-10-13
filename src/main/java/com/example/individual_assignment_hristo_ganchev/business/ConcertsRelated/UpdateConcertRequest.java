@@ -1,4 +1,4 @@
-package com.example.individual_assignment_hristo_ganchev.domain.ConcertsRelated;
+package com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddConcertRequest {
+public class UpdateConcertRequest {
+
+    private Long id;
 
     @NotBlank
     private String artist;

@@ -1,4 +1,4 @@
-package com.example.individual_assignment_hristo_ganchev.domain.UsersRelated;
+package com.example.individual_assignment_hristo_ganchev.business.UsersRelated;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

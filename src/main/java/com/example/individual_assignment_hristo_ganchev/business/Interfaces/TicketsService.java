@@ -1,7 +1,9 @@
 package com.example.individual_assignment_hristo_ganchev.business.Interfaces;
 
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.*;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.UpdateTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 
 import java.util.List;
 

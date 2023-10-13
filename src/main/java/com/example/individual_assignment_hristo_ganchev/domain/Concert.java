@@ -1,4 +1,4 @@
-package com.example.individual_assignment_hristo_ganchev.domain.Objects;
+package com.example.individual_assignment_hristo_ganchev.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

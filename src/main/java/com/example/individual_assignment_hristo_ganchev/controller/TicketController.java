@@ -2,10 +2,10 @@ package com.example.individual_assignment_hristo_ganchev.controller;
 
 
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.Ticket;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.AddTicketsRequest;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.AddTicketsResponse;
-import com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated.UpdateTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
+import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.UpdateTicketsRequest;
+import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -2,9 +2,9 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
-import com.example.individual_assignment_hristo_ganchev.domain.Objects.User;
-import com.example.individual_assignment_hristo_ganchev.domain.UsersRelated.AddUserRequest;
-import com.example.individual_assignment_hristo_ganchev.domain.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.User;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;

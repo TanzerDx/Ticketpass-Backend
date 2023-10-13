@@ -1,37 +1,27 @@
-package com.example.individual_assignment_hristo_ganchev.domain.Objects;
+package com.example.individual_assignment_hristo_ganchev.business.TicketsRelated;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.Optional;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Ticket {
-
-    private Long id;
+@AllArgsConstructor
+public class AddTicketsRequest {
 
     private Long orderId;
 
     private Long concertId;
 
+    @NotBlank
     private String QR;
 
-    private String userName;
-
-    private String concertArtist;
-
-    private String concertVenue;
-
-    private Date concertDate;
-
-    private String concertCity;
-
+    @NotBlank
     private String section;
 
     private Optional<Integer> row;

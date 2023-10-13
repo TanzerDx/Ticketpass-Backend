@@ -1,4 +1,4 @@
-package com.example.individual_assignment_hristo_ganchev.domain.TicketsRelated;
+package com.example.individual_assignment_hristo_ganchev.business.TicketsRelated;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
