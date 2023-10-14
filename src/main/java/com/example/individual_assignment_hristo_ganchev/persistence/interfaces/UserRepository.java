@@ -5,7 +5,9 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Use
 public interface UserRepository {
     UserEntity add(UserEntity user);
 
-    UserEntity getUser(Long id);
+    UserEntity getUserById(Long id);
+
+    UserEntity Login(String email, String password);
 
     void deleteUser(Long id);
 

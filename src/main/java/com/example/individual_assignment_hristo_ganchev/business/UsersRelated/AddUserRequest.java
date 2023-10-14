@@ -18,12 +18,5 @@ public class AddUserRequest {
     private String email;
 
     @NotBlank
-    private String salt;
-
-    @NotBlank
-    private String hashedPassword;
-
-    private List<Long> orderList;
-
-    private List<Long> orderListExpired;
+    private String password;
 }

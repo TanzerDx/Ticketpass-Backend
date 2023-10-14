@@ -3,6 +3,8 @@ package com.example.individual_assignment_hristo_ganchev.controller;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping(value = "login")
+    ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest request){
+        return ResponseEntity.ok(usersService.Login(request));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        final User user = usersService.getUser(id);
+        final User user = usersService.getUserById(id);
         return ResponseEntity.ok().body(user);
     }
 

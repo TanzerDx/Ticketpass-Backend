@@ -17,16 +17,16 @@ public class UsersServiceImplTest {
         // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
 
-            UserEntity toTest = new UserEntity(1L, "hristo@gmail.com", "salt",
+            UserEntity toTest = new UserEntity(1L, "hristo@gmail.com", null,
                     "hashedPassword", null, null);
 
-            when(userRepositoryMock.getUser(1L)).thenReturn(toTest);
+            when(userRepositoryMock.getUserById(1L)).thenReturn(toTest);
 
             UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock);
 
 
         // Act
-            User retrievedUser = sut.getUser(1L);
+            User retrievedUser = sut.getUserById(1L);
 
 
         // Assert
