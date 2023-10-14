@@ -27,13 +27,22 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public UserEntity getUser(Long id)
+    public UserEntity getUserById(Long id)
     {
         return savedUsers.stream()
-                .filter(userEntity -> userEntity.getId() == id)
+                .filter(userEntity -> userEntity.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public UserEntity Login(String email, String password){
+        return savedUsers.stream()
+                .filter(userEntity -> userEntity.getEmail().equals(email) && userEntity.getHashedPassword().equals(password))
+                .findFirst()
+                .orElse(null);
+    }
+
 
     @Override
     public void deleteUser(Long id)

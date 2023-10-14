@@ -2,6 +2,8 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
@@ -9,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,13 +30,27 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public User getUser(long id)
+    public User getUserById(long id)
     {
-        UserEntity userEntity = userRepository.getUser(id);
+        UserEntity userEntity = userRepository.getUserById(id);
 
         User user = UserConverter.convert(userEntity);
 
         return user;
+    }
+
+
+    @Override
+    public LoginResponse Login(LoginRequest request)
+    {
+        UserEntity userEntity = userRepository.Login(request.getEmail(), request.getPassword());
+
+        User user = UserConverter.convert(userEntity);
+
+        return LoginResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .build();
     }
 
     @Override
@@ -46,10 +64,7 @@ public class UsersServiceImpl implements UsersService {
     {
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
-                .salt(request.getSalt())
-                .hashedPassword(request.getHashedPassword())
-                .orderList(request.getOrderList())
-                .orderListExpired(request.getOrderListExpired())
+                .hashedPassword(request.getPassword())
                 .build();
 
         return userRepository.add(user);
