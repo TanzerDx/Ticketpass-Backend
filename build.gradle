@@ -2,6 +2,17 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.3'
     id 'io.spring.dependency-management' version '1.1.3'
+    id "org.sonarqube" version "4.3.1.3277"
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "I499630_ticketpass-hristo-ganchev_AYtn6ADb3nwDYqGv6r0E"
+        property "sonar.token", "sqp_045998389becc878e4f8b013fab8ee5dc0a770d5"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectName", "Ticketpass Backend - Hristo Ganchev"
+        property "sonar.qualitygate.wait", true
+    }
 }
 
 group = 'com.example'
