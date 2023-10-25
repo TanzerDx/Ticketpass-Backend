@@ -61,7 +61,7 @@ public class ConcertRepositoryImpl implements ConcertRepository {
     public ConcertEntity getConcert(Long id)
     {
         return this.savedConcerts.stream()
-                .filter(concertEntity -> concertEntity.getId() == id)
+                .filter(concertEntity -> concertEntity.getId().equals(id))
                 .findFirst()
                 .orElse(null);
     }

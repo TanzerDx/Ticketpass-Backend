@@ -1,23 +1,22 @@
 #variables:
 #  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-#
-#stages:
-#  - build
-#  - test
-#
-#build:
-#  stage: build
-#  script:
-#    - ./gradlew assemble
-#
-#test:
-#  stage: test
-#  script:
-#    - ./gradlew test
 
 stages:
+  - build
+  - test
   - sonarqube-check
   - sonarqube-vulnerability-report
+
+build:
+  stage: build
+  script:
+    - ./gradlew assemble
+
+test:
+  stage: test
+  script:
+    - ./gradlew test
+
 
 sonarqube-check:
   stage: sonarqube-check
