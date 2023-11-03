@@ -36,20 +36,16 @@ public class ConcertsServiceImpl implements ConcertsService {
 
         ConcertEntity concertEntity = concertRepository.getConcert(id);
 
-        Concert concert = ConcertConverter.convert(concertEntity);
-
-        return concert;
+        return ConcertConverter.convert(concertEntity);
     }
 
 
     @Override
     public List<Concert> getAllConcerts(){
-        List<Concert> concerts = concertRepository.getAll()
+        return concertRepository.getAll()
                 .stream()
                 .map(ConcertConverter::convert)
                 .toList();
-
-        return concerts;
     }
 
     @Override
@@ -70,7 +66,7 @@ public class ConcertsServiceImpl implements ConcertsService {
             concert.setVenue(request.getVenue());
             concert.setDate(sdf.parse(String.valueOf(request.getDate())));
             concert.setCity(request.getCity());
-            concert.setDesc(request.getDesc());
+            concert.setDescription(request.getDescription());
             concert.setPhotoURL(request.getPhotoURL());
             concert.setPrice(request.getPrice());
             concert.setTicketsRemaining(request.getTicketsRemaining());
@@ -94,7 +90,7 @@ public class ConcertsServiceImpl implements ConcertsService {
                     .venue(request.getVenue())
                     .date(sdf.parse(String.valueOf(request.getDate())))
                     .city(request.getCity())
-                    .desc(request.getDesc())
+                    .description(request.getDescription())
                     .photoURL(request.getPhotoURL())
                     .price(request.getPrice())
                     .ticketsRemaining(request.getTicketsRemaining())

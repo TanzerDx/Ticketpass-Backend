@@ -1,5 +1,9 @@
 package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.valueextraction.UnwrapByDefault;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,22 +11,32 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Entity
+@Table(name = "users")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Email
     private String email;
 
+    @NotEmpty
     private String salt;
 
+    @NotEmpty
     private String hashedPassword;
 
-    private List<Long> orderList;
-
-    private List<Long> orderListExpired;
+//    @Column(name = "orderList")
+//    private List<Long> orderList;
+//
+//    @Column(name = "orderListExpired")
+//    private List<Long> orderListExpired;
 
 }

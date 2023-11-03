@@ -94,7 +94,7 @@ class TicketsServiceImplTest {
 
             ConcertEntity concert = new ConcertEntity(1L, "Kim Petras",
                 "Pop", "TivoliRonda", sdf.parse("2024/03/03"), "Utrecht",
-                "Kim Petras is a German pop singer.", "URL", 40.15, 10000L);
+                "Kim Petras is a German pop singer.", "URL", 40.15, 10000);
 
 
             List<TicketEntity> updatedTickets = Arrays.asList(new TicketEntity(1L, 1L, 1L,

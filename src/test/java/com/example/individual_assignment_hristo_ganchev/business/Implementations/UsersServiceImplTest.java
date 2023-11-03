@@ -18,7 +18,7 @@ public class UsersServiceImplTest {
             UserRepository userRepositoryMock = mock(UserRepository.class);
 
             UserEntity toTest = new UserEntity(1L, "hristo@gmail.com", null,
-                    "hashedPassword", null, null);
+                    "hashedPassword");
 
             when(userRepositoryMock.getUserById(1L)).thenReturn(toTest);
 

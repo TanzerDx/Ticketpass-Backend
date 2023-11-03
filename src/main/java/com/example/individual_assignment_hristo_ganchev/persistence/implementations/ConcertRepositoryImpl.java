@@ -14,9 +14,7 @@ public class ConcertRepositoryImpl implements ConcertRepository {
 
     private final List<ConcertEntity> savedConcerts;
 
-    public ConcertRepositoryImpl(){
-        this.savedConcerts = new ArrayList<>();
-    }
+    public ConcertRepositoryImpl(){ this.savedConcerts = new ArrayList<>();}
 
     @Override
     public ConcertEntity addConcert(ConcertEntity concert)

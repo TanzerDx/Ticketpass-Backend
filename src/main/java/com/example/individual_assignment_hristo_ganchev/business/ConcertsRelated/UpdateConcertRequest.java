@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -33,7 +31,7 @@ public class UpdateConcertRequest {
     private String city;
 
     @NotBlank
-    private String desc;
+    private String description;
 
     @NotBlank
     private String photoURL;
@@ -42,5 +40,5 @@ public class UpdateConcertRequest {
     private Double price;
 
     @NotNull
-    private Long ticketsRemaining;
+    private Integer ticketsRemaining;
 }

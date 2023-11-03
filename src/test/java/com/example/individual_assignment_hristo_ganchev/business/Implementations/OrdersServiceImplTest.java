@@ -18,8 +18,6 @@ import static org.mockito.Mockito.when;
 
 class OrdersServiceImplTest {
 
-
-
     @Test
     void getAllOrders_shouldReturnOrdersIfPresent() throws Exception {
 
