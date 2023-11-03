@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.OrderRepository;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.TicketRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.TicketRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,22 +33,26 @@ public class TicketsServiceImpl implements TicketsService {
     @Override
     public AddTicketsResponse addTickets(AddTicketsRequest request)
     {
-        OrderEntity orderEntity = orderRepository.getOrder(request.getOrderId());
+        OrderEntity orderEntity = orderRepository.getById(request.getOrderId());
         Order order = OrderConverter.convert(orderEntity);
 
-        ConcertEntity concertEntity = concertRepository.getConcert(request.getConcertId());
+        ConcertEntity concertEntity = concertRepository.getById(request.getConcertId());
         Concert concert = ConcertConverter.convert(concertEntity);
 
+
         return AddTicketsResponse.builder()
-                .orderId(order.getId())
-                .artist(concert.getArtist())
+                .tickets(
+                saveTickets(order, concert)
+                    .stream()
+                    .map(TicketConverter::convert)
+                    .toList())
                 .build();
     }
 
     @Override
     public List<Ticket> getTickets(long orderId)
     {
-        return ticketRepository.getTickets(orderId)
+        return ticketRepository.getByOrderId(orderId)
                 .stream()
                 .map(TicketConverter::convert)
                 .toList();
@@ -57,10 +61,10 @@ public class TicketsServiceImpl implements TicketsService {
     @Override
     public void updateTickets(UpdateTicketsRequest request)
     {
-        ConcertEntity concertEntity = concertRepository.getConcert(request.getConcertId());
+        ConcertEntity concertEntity = concertRepository.getById(request.getConcertId());
         Concert concert = ConcertConverter.convert(concertEntity);
 
-        List<TicketEntity> toUpdate = ticketRepository.getTicketsByConcert(request.getConcertId());
+        List<TicketEntity> toUpdate = ticketRepository.getByConcertId(request.getConcertId());
 
         updateFields(toUpdate, concert);
     }
@@ -68,34 +72,22 @@ public class TicketsServiceImpl implements TicketsService {
 
     private void updateFields(List<TicketEntity> toUpdate, Concert concert) {
 
-        SimpleDateFormat originalSdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
-        SimpleDateFormat targetSdf = new SimpleDateFormat("yyyy/MM/dd");
-
-        try
-        {
             for (TicketEntity ticket : toUpdate) {
-                java.util.Date originalDate = originalSdf.parse(String.valueOf(concert.getDate()));
-                String reformattedDate = targetSdf.format(originalDate);
-                java.util.Date formattedDate = targetSdf.parse(reformattedDate);
 
                 ticket.setConcertVenue(concert.getVenue());
-                ticket.setConcertDate(formattedDate);
+                ticket.setConcertDate(concert.getDate());
                 ticket.setConcertCity(concert.getCity());
+
+                ticketRepository.save(ticket);
             }
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
     private List<TicketEntity> saveTickets(Order order, Concert concert)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
         List<TicketEntity> currentTickets = new ArrayList<>();
 
-        try {
             for (int i = 0; i != order.getTicketNumber(); i++) {
                 TicketEntity newTicket = TicketEntity.builder()
                         .orderId(order.getId())
@@ -104,22 +96,16 @@ public class TicketsServiceImpl implements TicketsService {
                         .userName(order.getName() + " " + order.getSurname())
                         .concertArtist(concert.getArtist())
                         .concertVenue(concert.getVenue())
-                        .concertDate(sdf.parse(String.valueOf(concert.getDate())))
+                        .concertDate(concert.getDate())
                         .concertCity(concert.getCity())
                         .venueSection("Standing")
                         .venueRow(null)
                         .venueSeat(null)
                         .build();
 
-                ticketRepository.add(newTicket);
+                ticketRepository.save(newTicket);
                 currentTickets.add(newTicket);
             }
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-
         return currentTickets;
     }
 }

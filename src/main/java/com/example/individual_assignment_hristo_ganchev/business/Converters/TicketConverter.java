@@ -11,6 +11,7 @@ public final class TicketConverter {
     }
 
     public static Ticket convert(TicketEntity ticket) {
+
         return Ticket.builder()
                 .id(ticket.getId())
                 .orderId(ticket.getOrderId())

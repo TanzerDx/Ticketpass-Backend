@@ -2,6 +2,7 @@ package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,13 +23,13 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotNull
     private Long concertId;
 
-    @NotEmpty
+    @NotNull
     private Long userId;
 
-    @NotEmpty
+    @NotNull
     private Date date;
 
     @NotEmpty
@@ -47,10 +48,10 @@ public class OrderEntity {
     @Length(min = 1, max = 15)
     private String phone;
 
-    @NotEmpty
+    @NotNull
     private Integer ticketNumber;
 
-    @NotEmpty
+    @NotNull
     private Double orderPrice;
 
     @NotEmpty

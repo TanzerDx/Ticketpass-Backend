@@ -4,7 +4,7 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Conc
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ public class ConcertsServiceImplTest {
                     "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-            when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
+            when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
 
             ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
 
@@ -50,7 +50,7 @@ public class ConcertsServiceImplTest {
 
         // Arrange
             ConcertRepository concertRepository = mock(ConcertRepository.class);
-            when(concertRepository.getAll()).thenReturn(new ArrayList<ConcertEntity>());
+            when(concertRepository.findAll()).thenReturn(new ArrayList<ConcertEntity>());
 
             ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
 
@@ -78,7 +78,7 @@ public class ConcertsServiceImplTest {
             List<ConcertEntity> testConcerts = Arrays.asList(new ConcertEntity(1L, "Kim Petras",
                     "Pop", "AFAS Live", sdf.parse("2024/02/28"), "Amsterdam",
                     "Kim Petras is a German Pop Star that became popular in 2020.", "URL", 40.05, 1000));
-            when(concertRepository.getAll()).thenReturn(testConcerts);
+            when(concertRepository.findAll()).thenReturn(testConcerts);
 
             ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
 
@@ -114,7 +114,7 @@ public class ConcertsServiceImplTest {
                     "Indie", "TivoliRonda", sdf.parse("2023/09/07"), "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-            when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
+            when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
 
             ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
 

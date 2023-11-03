@@ -33,10 +33,4 @@ public class UserEntity {
     @NotEmpty
     private String hashedPassword;
 
-//    @Column(name = "orderList")
-//    private List<Long> orderList;
-//
-//    @Column(name = "orderListExpired")
-//    private List<Long> orderListExpired;
-
 }

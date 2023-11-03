@@ -3,7 +3,7 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.UserRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +20,7 @@ public class UsersServiceImplTest {
             UserEntity toTest = new UserEntity(1L, "hristo@gmail.com", null,
                     "hashedPassword");
 
-            when(userRepositoryMock.getUserById(1L)).thenReturn(toTest);
+            when(userRepositoryMock.getById(1L)).thenReturn(toTest);
 
             UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock);
 

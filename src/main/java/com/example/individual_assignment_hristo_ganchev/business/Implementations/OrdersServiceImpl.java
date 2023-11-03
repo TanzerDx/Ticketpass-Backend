@@ -9,7 +9,7 @@ import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.G
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.OrderRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -32,7 +32,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public GetAllOrdersResponse getAllOrders(Long userId){
-        List<Order> allOrders = orderRepository.getAll(userId)
+        List<Order> allOrders = orderRepository.getByUserId(userId)
                 .stream()
                 .map(OrderConverter::convert)
                 .toList();
@@ -44,7 +44,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public Order getOrder(Long id){
-        OrderEntity orderEntity = orderRepository.getOrder(id);
+        OrderEntity orderEntity = orderRepository.getById(id);
 
         return OrderConverter.convert(orderEntity);
     }
@@ -75,6 +75,6 @@ public class OrdersServiceImpl implements OrdersService {
             throw new RuntimeException(e);
         }
 
-        return orderRepository.addOrder(order);
+        return orderRepository.save(order);
     }
 }

@@ -4,7 +4,7 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Orde
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.OrderRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ class OrdersServiceImplTest {
             List<OrderEntity> allOrders = Arrays.asList(new OrderEntity(1L, 1L, 1L, sdf.parse("2023/09/20"), "Hristo",
                     "Ganchev", "Woenselse Markt 18", "0612345678", 3, 94.49, "iDeal" ));
 
-            when(orderRepository.getAll(1l)).thenReturn(allOrders);
+            when(orderRepository.getByUserId(1l)).thenReturn(allOrders);
 
             OrdersServiceImpl sut = new OrdersServiceImpl(orderRepository);
 
@@ -52,7 +52,7 @@ class OrdersServiceImplTest {
         //Arrange
             OrderRepository orderRepository = mock(OrderRepository.class);
 
-            when(orderRepository.getAll(1l)).thenReturn(new ArrayList<>());
+            when(orderRepository.getByUserId(1l)).thenReturn(new ArrayList<>());
 
             OrdersServiceImpl sut = new OrdersServiceImpl(orderRepository);
 
@@ -80,7 +80,7 @@ class OrdersServiceImplTest {
             OrderEntity toTest = new OrderEntity(1L, 1L, 1L, sdf.parse("2023/09/20"), "Hristo",
                     "Ganchev", "Woenselse Markt 18", "0612345678", 3, 94.49, "iDeal" );
 
-            when(orderRepository.getOrder(1l)).thenReturn(toTest);
+            when(orderRepository.getById(1l)).thenReturn(toTest);
 
             OrdersServiceImpl sut = new OrdersServiceImpl(orderRepository);
 

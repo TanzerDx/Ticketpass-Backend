@@ -10,7 +10,7 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Ad
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.UserRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public User getUserById(long id)
     {
-        UserEntity userEntity = userRepository.getUserById(id);
+        UserEntity userEntity = userRepository.getById(id);
 
         return UserConverter.convert(userEntity);
     }
@@ -41,9 +41,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public LoginResponse Login(LoginRequest request)
     {
-        UserEntity userEntity = userRepository.Login(request.getEmail(), request.getPassword());
-
-        User user = UserConverter.convert(userEntity);
+        User user = UserConverter.convert(userRepository.login(request.getEmail(), request.getPassword()));
 
         return LoginResponse.builder()
                 .id(user.getId())
@@ -54,7 +52,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void deleteUser(long id)
     {
-        userRepository.deleteUser(id);
+        userRepository.deleteById(id);
     }
 
 
@@ -62,9 +60,10 @@ public class UsersServiceImpl implements UsersService {
     {
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
-                .hashedPassword(request.getPassword())
+                .salt("salt")
+                .hashedPassword(request.getHashedPassword())
                 .build();
 
-        return userRepository.add(user);
+        return userRepository.save(user);
     }
 }
