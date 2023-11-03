@@ -18,10 +18,8 @@ public class AddTicketsRequest {
 
     private Long concertId;
 
-    @NotBlank
     private String QR;
 
-    @NotBlank
     private String venueSection;
 
     private Integer venueRow;

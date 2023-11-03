@@ -21,8 +21,4 @@ public class User {
 
     private String hashedPassword;
 
-    private List<Long> orderList;
-
-    private List<Long> orderListExpired;
-
 }

@@ -11,8 +11,8 @@ public final class OrderConverter {
     }
 
     public static Order convert(OrderEntity order) {
-        return Order.builder()
 
+        return Order.builder()
                 .id(order.getId())
                 .concertId(order.getConcertId())
                 .userId(order.getUserId())

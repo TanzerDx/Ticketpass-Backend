@@ -2,6 +2,7 @@ package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -31,7 +32,7 @@ public class ConcertEntity {
     @Length(min = 1, max = 20)
     private String venue;
 
-    @NotEmpty
+    @NotNull
     private Date date;
 
     @NotEmpty
@@ -44,9 +45,9 @@ public class ConcertEntity {
     @NotEmpty
     private String photoURL;
 
-    @NotEmpty
+    @NotNull
     private Double price;
 
-    @NotEmpty
+    @NotNull
     private Integer ticketsRemaining;
 }

@@ -9,7 +9,7 @@ import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -34,7 +34,7 @@ public class ConcertsServiceImpl implements ConcertsService {
     @Override
     public Concert getConcert(Long id){
 
-        ConcertEntity concertEntity = concertRepository.getConcert(id);
+        ConcertEntity concertEntity = concertRepository.getById(id);
 
         return ConcertConverter.convert(concertEntity);
     }
@@ -42,7 +42,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
     @Override
     public List<Concert> getAllConcerts(){
-        return concertRepository.getAll()
+        return concertRepository.findAll()
                 .stream()
                 .map(ConcertConverter::convert)
                 .toList();
@@ -50,7 +50,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
     @Override
     public void updateConcert(UpdateConcertRequest request){
-        ConcertEntity concertEntity = concertRepository.getConcert(request.getId());
+        ConcertEntity concertEntity = concertRepository.getById(request.getId());
 
         updateFields(request, concertEntity);
     }
@@ -70,6 +70,8 @@ public class ConcertsServiceImpl implements ConcertsService {
             concert.setPhotoURL(request.getPhotoURL());
             concert.setPrice(request.getPrice());
             concert.setTicketsRemaining(request.getTicketsRemaining());
+
+            concertRepository.save(concert);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
@@ -101,6 +103,6 @@ public class ConcertsServiceImpl implements ConcertsService {
             throw new RuntimeException(e);
         }
 
-        return concertRepository.addConcert(newConcert);
+        return concertRepository.save(newConcert);
     }
 }

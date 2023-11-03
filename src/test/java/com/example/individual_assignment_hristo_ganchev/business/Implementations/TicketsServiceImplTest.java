@@ -4,9 +4,9 @@ import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.UpdateTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.ConcertRepository;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.OrderRepository;
-import com.example.individual_assignment_hristo_ganchev.persistence.interfaces.TicketRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.TicketRepository;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +34,7 @@ class TicketsServiceImplTest {
                 "QR", "Hristo Ganchev", "Kim Petras", "TivoliVredenburg",
                 sdf.parse("2024/02/28"), "Utrecht", "Standing", null, null));
 
-        when(ticketRepository.getTickets(1L)).thenReturn(tickets);
+        when(ticketRepository.getByOrderId(1L)).thenReturn(tickets);
 
         TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, concertRepository);
 
@@ -59,7 +59,7 @@ class TicketsServiceImplTest {
         ConcertRepository concertRepository = mock(ConcertRepository.class);
         OrderRepository orderRepository = mock(OrderRepository.class);
 
-        when(ticketRepository.getTickets(1L)).thenReturn(new ArrayList<>());
+        when(ticketRepository.getByOrderId(1L)).thenReturn(new ArrayList<>());
 
         TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, concertRepository);
 
@@ -107,8 +107,8 @@ class TicketsServiceImplTest {
             UpdateTicketsRequest request = new UpdateTicketsRequest(1L);
 
 
-            when(concertRepository.getConcert(1L)).thenReturn(concert);
-            when(ticketRepository.getTicketsByConcert(1L)).thenReturn(ticketsToUpdate);
+            when(concertRepository.getById(1L)).thenReturn(concert);
+            when(ticketRepository.getByConcertId(1L)).thenReturn(ticketsToUpdate);
 
             TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, concertRepository);
 
