@@ -91,25 +91,33 @@ public class TicketsServiceImpl implements TicketsService {
 
     private List<TicketEntity> saveTickets(Order order, Concert concert)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
         List<TicketEntity> currentTickets = new ArrayList<>();
 
-        for(int i = 0; i != order.getTicketNumber() ; i++) {
-            TicketEntity newTicket = TicketEntity.builder()
-                    .orderId(order.getId())
-                    .concertId(concert.getId())
-                    .QR("QR")
-                    .userName(order.getName() + " " + order.getSurname())
-                    .concertArtist(concert.getArtist())
-                    .concertVenue(concert.getVenue())
-                    .concertDate(concert.getDate())
-                    .concertCity(concert.getCity())
-                    .venueSection("Standing")
-                    .venueRow(null)
-                    .venueSeat(null)
-                    .build();
+        try {
+            for (int i = 0; i != order.getTicketNumber(); i++) {
+                TicketEntity newTicket = TicketEntity.builder()
+                        .orderId(order.getId())
+                        .concertId(concert.getId())
+                        .QR("QR")
+                        .userName(order.getName() + " " + order.getSurname())
+                        .concertArtist(concert.getArtist())
+                        .concertVenue(concert.getVenue())
+                        .concertDate(sdf.parse(String.valueOf(concert.getDate())))
+                        .concertCity(concert.getCity())
+                        .venueSection("Standing")
+                        .venueRow(null)
+                        .venueSeat(null)
+                        .build();
 
-            ticketRepository.add(newTicket);
-            currentTickets.add(newTicket);
+                ticketRepository.add(newTicket);
+                currentTickets.add(newTicket);
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
         }
 
         return currentTickets;
