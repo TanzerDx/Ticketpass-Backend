@@ -39,8 +39,6 @@ public class TicketsServiceImpl implements TicketsService {
         ConcertEntity concertEntity = concertRepository.getConcert(request.getConcertId());
         Concert concert = ConcertConverter.convert(concertEntity);
 
-        List<TicketEntity> toShow = saveTickets(request, order, concert);
-
         return AddTicketsResponse.builder()
                 .orderId(order.getId())
                 .artist(concert.getArtist())
@@ -50,12 +48,10 @@ public class TicketsServiceImpl implements TicketsService {
     @Override
     public List<Ticket> getTickets(long orderId)
     {
-        List<Ticket> tickets= ticketRepository.getTickets(orderId)
+        return ticketRepository.getTickets(orderId)
                 .stream()
                 .map(TicketConverter::convert)
                 .toList();
-
-        return tickets;
     }
 
     @Override
@@ -93,9 +89,9 @@ public class TicketsServiceImpl implements TicketsService {
 
     }
 
-    private List<TicketEntity> saveTickets(AddTicketsRequest request, Order order, Concert concert)
+    private List<TicketEntity> saveTickets(Order order, Concert concert)
     {
-        List<TicketEntity> currentTickets = new ArrayList<TicketEntity>();
+        List<TicketEntity> currentTickets = new ArrayList<>();
 
         for(int i = 0; i != order.getTicketNumber() ; i++) {
             TicketEntity newTicket = TicketEntity.builder()
@@ -107,9 +103,9 @@ public class TicketsServiceImpl implements TicketsService {
                     .concertVenue(concert.getVenue())
                     .concertDate(concert.getDate())
                     .concertCity(concert.getCity())
-                    .section("Standing")
-                    .row(null)
-                    .seat(null)
+                    .venueSection("Standing")
+                    .venueRow(null)
+                    .venueSeat(null)
                     .build();
 
             ticketRepository.add(newTicket);

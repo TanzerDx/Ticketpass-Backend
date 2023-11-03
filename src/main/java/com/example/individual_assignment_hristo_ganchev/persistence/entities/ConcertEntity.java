@@ -1,32 +1,52 @@
 package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
+@Entity
+@Table(name = "concerts")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConcertEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Length(min = 1, max = 20)
     private String artist;
 
+    @NotEmpty
+    @Length(min = 1, max = 20)
     private String musicGenre;
 
+    @NotEmpty
+    @Length(min = 1, max = 20)
     private String venue;
 
+    @NotEmpty
     private Date date;
 
+    @NotEmpty
     private String city;
 
-    private String desc;
+    @NotEmpty
+    @Length(min = 50, max = 250)
+    private String description;
 
+    @NotEmpty
     private String photoURL;
 
+    @NotEmpty
     private Double price;
 
-    private Long ticketsRemaining;
+    @NotEmpty
+    private Integer ticketsRemaining;
 }

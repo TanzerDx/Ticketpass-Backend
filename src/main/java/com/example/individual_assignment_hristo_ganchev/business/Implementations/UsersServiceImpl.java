@@ -34,9 +34,7 @@ public class UsersServiceImpl implements UsersService {
     {
         UserEntity userEntity = userRepository.getUserById(id);
 
-        User user = UserConverter.convert(userEntity);
-
-        return user;
+        return UserConverter.convert(userEntity);
     }
 
 

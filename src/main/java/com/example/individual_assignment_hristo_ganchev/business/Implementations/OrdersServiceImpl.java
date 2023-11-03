@@ -46,9 +46,7 @@ public class OrdersServiceImpl implements OrdersService {
     public Order getOrder(Long id){
         OrderEntity orderEntity = orderRepository.getOrder(id);
 
-        Order order = OrderConverter.convert(orderEntity);
-
-        return order;
+        return OrderConverter.convert(orderEntity);
     }
 
     private OrderEntity saveNewOrder(CreateOrderRequest request) {

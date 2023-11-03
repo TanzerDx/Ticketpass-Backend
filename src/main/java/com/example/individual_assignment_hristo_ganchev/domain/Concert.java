@@ -25,11 +25,11 @@ public class Concert {
 
     private String city;
 
-    private String desc;
+    private String description;
 
     private String photoURL;
 
     private Double price;
 
-    private Long ticketsRemaining;
+    private Integer ticketsRemaining;
 }

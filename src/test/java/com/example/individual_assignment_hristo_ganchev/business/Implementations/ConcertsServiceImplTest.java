@@ -27,7 +27,7 @@ public class ConcertsServiceImplTest {
 
             ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
                     "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
-                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
 
@@ -77,7 +77,7 @@ public class ConcertsServiceImplTest {
 
             List<ConcertEntity> testConcerts = Arrays.asList(new ConcertEntity(1L, "Kim Petras",
                     "Pop", "AFAS Live", sdf.parse("2024/02/28"), "Amsterdam",
-                    "Kim Petras is a German Pop Star that became popular in 2020.", "URL", 40.05, 1000L));
+                    "Kim Petras is a German Pop Star that became popular in 2020.", "URL", 40.05, 1000));
             when(concertRepository.getAll()).thenReturn(testConcerts);
 
             ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
@@ -104,15 +104,15 @@ public class ConcertsServiceImplTest {
 
             ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
                     "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
-                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             UpdateConcertRequest request = new UpdateConcertRequest(1L, "Chase Atlantic",
                     "Indie", "TivoliRonda", "2023/09/07", "Utrecht",
-                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             ConcertEntity updatedConcert = new ConcertEntity(1L, "Chase Atlantic",
                     "Indie", "TivoliRonda", sdf.parse("2023/09/07"), "Utrecht",
-                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000L);
+                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             when(concertRepositoryMock.getConcert(1L)).thenReturn(toTest);
 

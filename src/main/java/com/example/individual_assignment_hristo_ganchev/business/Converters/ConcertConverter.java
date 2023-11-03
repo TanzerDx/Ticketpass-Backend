@@ -5,6 +5,11 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Con
 
 public final class ConcertConverter {
 
+    private ConcertConverter()
+    {
+        throw new IllegalStateException("Concert converter");
+    }
+
     public static Concert convert(ConcertEntity concert) {
         if(concert == null) return null;
 
@@ -15,7 +20,7 @@ public final class ConcertConverter {
                 .venue(concert.getVenue())
                 .date(concert.getDate())
                 .city(concert.getCity())
-                .desc(concert.getDesc())
+                .description(concert.getDescription())
                 .photoURL(concert.getPhotoURL())
                 .price(concert.getPrice())
                 .ticketsRemaining(concert.getTicketsRemaining())

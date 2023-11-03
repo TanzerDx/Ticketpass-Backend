@@ -22,9 +22,9 @@ public class AddTicketsRequest {
     private String QR;
 
     @NotBlank
-    private String section;
+    private String venueSection;
 
-    private Optional<Integer> row;
+    private Integer venueRow;
 
-    private Optional<String> seat;
+    private Integer venueSeat;
 }

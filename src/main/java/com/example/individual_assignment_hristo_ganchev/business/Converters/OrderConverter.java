@@ -5,6 +5,11 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Ord
 
 public final class OrderConverter {
 
+    private OrderConverter()
+    {
+        throw new IllegalStateException("Order converter");
+    }
+
     public static Order convert(OrderEntity order) {
         return Order.builder()
 
