@@ -62,6 +62,7 @@ public class UsersServiceImpl implements UsersService {
                 .email(request.getEmail())
                 .salt("salt")
                 .hashedPassword(request.getHashedPassword())
+                .isAdmin(false)
                 .build();
 
         return userRepository.save(user);
