@@ -28,6 +28,9 @@ public class UpdateConcertRequest {
     private String date;
 
     @NotBlank
+    private String time;
+
+    @NotBlank
     private String city;
 
     @NotBlank

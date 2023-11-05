@@ -16,6 +16,7 @@ public final class UserConverter {
                 .email(user.getEmail())
                 .salt(user.getSalt())
                 .hashedPassword(user.getHashedPassword())
+                .isAdmin(user.getIsAdmin())
                 .build();
 
     }

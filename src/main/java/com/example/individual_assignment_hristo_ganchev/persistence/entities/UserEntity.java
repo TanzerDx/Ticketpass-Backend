@@ -3,6 +3,7 @@ package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.valueextraction.UnwrapByDefault;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +33,8 @@ public class UserEntity {
 
     @NotEmpty
     private String hashedPassword;
+
+    @NotNull
+    private Boolean isAdmin;
 
 }
