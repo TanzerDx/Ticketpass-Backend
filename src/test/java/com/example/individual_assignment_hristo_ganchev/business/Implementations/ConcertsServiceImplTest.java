@@ -21,27 +21,31 @@ public class ConcertsServiceImplTest {
     public void getConcert_shouldGetConcertById() throws Exception {
 
         // Arrange
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
-            ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
 
-            ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
-                    "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
-                    "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+        ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-            when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
+        Concert toCompare = new Concert(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-            ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+        when(concertRepositoryMock.getById(1L)).thenReturn(toReturn);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
 
 
 
         // Act
-            Concert retrievedConcert = sut.getConcert(1L);
+        Concert retrievedConcert = sut.getConcert(1L);
 
 
 
         // Assert
-            assertThat(ConcertConverter.convert(toTest)).isEqualTo(retrievedConcert);
+        assertThat(toCompare).isEqualTo(retrievedConcert);
     }
 
 

@@ -14,23 +14,26 @@ public class UsersServiceImplTest {
 
     @Test
     public void getUser_shouldGetUserByID() throws Exception {
-        // Arrange
+    // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
 
-            UserEntity toTest = new UserEntity(1L, "hristo@gmail.com", null,
+            UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com", null,
                     "hashedPassword", false);
 
-            when(userRepositoryMock.getById(1L)).thenReturn(toTest);
+            User toCompare = new User(1L, "hristo@gmail.com", null,
+                    "hashedPassword", false);
+
+            when(userRepositoryMock.getById(1L)).thenReturn(toReturn);
 
             UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock);
 
 
-        // Act
+    // Act
             User retrievedUser = sut.getUserById(1L);
 
 
-        // Assert
-            assertThat(UserConverter.convert(toTest)).isEqualTo(retrievedUser);
+    // Assert
+            assertThat(toCompare).isEqualTo(retrievedUser);
     }
 
 }

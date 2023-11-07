@@ -77,10 +77,13 @@ class OrdersServiceImplTest {
 
             OrderRepository orderRepository = mock(OrderRepository.class);
 
-            OrderEntity toTest = new OrderEntity(1L, 1L, 1L, sdf.parse("2023/09/20"), "Hristo",
+            OrderEntity toReturn = new OrderEntity(1L, 1L, 1L, sdf.parse("2023/09/20"), "Hristo",
                     "Ganchev", "Woenselse Markt 18", "0612345678", 3, 94.49, "iDeal" );
 
-            when(orderRepository.getById(1l)).thenReturn(toTest);
+            Order toCompare= new Order(1L, 1L, 1L, sdf.parse("2023/09/20"), "Hristo",
+                "Ganchev", "Woenselse Markt 18", "0612345678", 3, 94.49, "iDeal" );
+
+            when(orderRepository.getById(1l)).thenReturn(toReturn);
 
             OrdersServiceImpl sut = new OrdersServiceImpl(orderRepository);
 
@@ -92,6 +95,6 @@ class OrdersServiceImplTest {
 
 
         // Assert
-            assertThat(OrderConverter.convert(toTest)).isEqualTo(retrievedOrder);
+            assertThat(toCompare).isEqualTo(retrievedOrder);
     }
 }
