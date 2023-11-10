@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -23,11 +25,13 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long concertId;
+    @ManyToOne
+    @JoinColumn(name = "concert_id")
+    private ConcertEntity concert;
 
-    @NotNull
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @NotNull
     private Date date;
@@ -57,4 +61,6 @@ public class OrderEntity {
     @NotEmpty
     private String paymentMethod;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<TicketEntity> tickets;
 }

@@ -6,6 +6,8 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Use
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,10 +20,10 @@ public class UsersServiceImplTest {
             UserRepository userRepositoryMock = mock(UserRepository.class);
 
             UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com", null,
-                    "hashedPassword", false);
+                    "hashedPassword", false, new ArrayList<>(), new ArrayList<>());
 
             User toCompare = new User(1L, "hristo@gmail.com", null,
-                    "hashedPassword", false);
+                    "hashedPassword", false, new ArrayList<>(), new ArrayList<>());
 
             when(userRepositoryMock.getById(1L)).thenReturn(toReturn);
 

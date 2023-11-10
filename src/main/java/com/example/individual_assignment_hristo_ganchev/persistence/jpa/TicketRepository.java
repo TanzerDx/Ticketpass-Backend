@@ -10,5 +10,4 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<TicketEntity, Long> {
     List<TicketEntity> getByOrderId(Long orderId);
 
-    List<TicketEntity> getByConcertId(Long concertId);
 }

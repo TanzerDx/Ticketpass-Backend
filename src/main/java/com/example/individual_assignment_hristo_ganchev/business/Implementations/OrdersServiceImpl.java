@@ -1,11 +1,15 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.Converters.ConcertConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
+import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderRequest;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
@@ -51,15 +55,15 @@ public class OrdersServiceImpl implements OrdersService {
 
     private OrderEntity saveNewOrder(CreateOrderRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
         OrderEntity order = null;
 
         try {
 
             order = OrderEntity.builder()
-                    .concertId(request.getConcertId())
-                    .userId(request.getUserId())
+                    .concert(ConcertConverter.convertToEntity((request.getConcert())))
+                    .user(UserConverter.convertToEntity((request.getUser())))
                     .date(sdf.parse(String.valueOf(request.getDate())))
                     .name(request.getName())
                     .surname(request.getSurname())
@@ -69,11 +73,18 @@ public class OrdersServiceImpl implements OrdersService {
                     .orderPrice(request.getOrderPrice())
                     .paymentMethod(request.getPaymentMethod())
                     .build();
+
+            ConcertEntity concert = ConcertConverter.convertToEntity((request.getConcert()));
+            UserEntity user = UserConverter.convertToEntity((request.getUser()));
+
+            concert.getOrders().add(order);
+            user.getUpcomingConcerts().add(order);
         }
         catch (Exception e)
         {
             throw new RuntimeException(e);
         }
+
 
         return orderRepository.save(order);
     }

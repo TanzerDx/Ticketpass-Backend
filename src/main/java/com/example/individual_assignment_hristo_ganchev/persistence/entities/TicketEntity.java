@@ -24,11 +24,9 @@ public class TicketEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long orderId;
-
-    @NotNull
-    private Long concertId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
 
     @NotEmpty
     private String QR;
@@ -36,20 +34,6 @@ public class TicketEntity {
     @NotEmpty
     @Length(min = 2, max = 50)
     private String userName;
-
-    @NotEmpty
-    @Length(min = 1, max = 20)
-    private String concertArtist;
-
-    @NotEmpty
-    @Length(min = 1, max = 20)
-    private String concertVenue;
-
-    @NotNull
-    private Date concertDate;
-
-    @NotEmpty
-    private String concertCity;
 
     @NotEmpty
     private String venueSection;

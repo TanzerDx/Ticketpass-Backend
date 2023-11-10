@@ -23,4 +23,8 @@ public class User {
 
     private Boolean isAdmin;
 
+    private List<Order> upcomingConcerts;
+
+    private List<Order> expiredConcerts;
+
 }
