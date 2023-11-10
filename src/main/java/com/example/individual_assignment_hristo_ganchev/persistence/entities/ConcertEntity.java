@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "concerts")
@@ -50,4 +51,7 @@ public class ConcertEntity {
 
     @NotNull
     private Integer ticketsRemaining;
+
+    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
 }

@@ -14,8 +14,8 @@ public final class OrderConverter {
 
         return Order.builder()
                 .id(order.getId())
-                .concertId(order.getConcertId())
-                .userId(order.getUserId())
+                .concert(ConcertConverter.convert(order.getConcert()))
+                .user(UserConverter.convert(order.getUser()))
                 .date(order.getDate())
                 .name(order.getName())
                 .surname(order.getSurname())
@@ -24,6 +24,32 @@ public final class OrderConverter {
                 .ticketNumber(order.getTicketNumber())
                 .orderPrice(order.getOrderPrice())
                 .paymentMethod(order.getPaymentMethod())
+                .tickets(order.getTickets()
+                        .stream()
+                        .map(TicketConverter::convert)
+                        .toList())
+                .build();
+
+    }
+
+    public static OrderEntity convertToEntity(Order order) {
+
+        return OrderEntity.builder()
+                .id(order.getId())
+                .concert(ConcertConverter.convertToEntity(order.getConcert()))
+                .user(UserConverter.convertToEntity(order.getUser()))
+                .date(order.getDate())
+                .name(order.getName())
+                .surname(order.getSurname())
+                .address(order.getAddress())
+                .phone(order.getPhone())
+                .ticketNumber(order.getTicketNumber())
+                .orderPrice(order.getOrderPrice())
+                .paymentMethod(order.getPaymentMethod())
+                .tickets(order.getTickets()
+                        .stream()
+                        .map(TicketConverter::convertToEntity)
+                        .toList())
                 .build();
 
     }

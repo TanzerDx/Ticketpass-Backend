@@ -1,12 +1,11 @@
 package com.example.individual_assignment_hristo_ganchev.business.TicketsRelated;
 
-import jakarta.validation.constraints.NotBlank;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Optional;
 
 @Data
 @Builder
@@ -14,15 +13,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AddTicketsRequest {
 
-    private Long orderId;
+    private Order order;
 
-    private Long concertId;
-
-    private String QR;
-
-    private String venueSection;
-
-    private Integer venueRow;
-
-    private Integer venueSeat;
 }

@@ -16,21 +16,11 @@ public class Ticket {
 
     private Long id;
 
-    private Long orderId;
-
-    private Long concertId;
+    private Order order;
 
     private String QR;
 
     private String userName;
-
-    private String concertArtist;
-
-    private String concertVenue;
-
-    private Date concertDate;
-
-    private String concertCity;
 
     private String venueSection;
 

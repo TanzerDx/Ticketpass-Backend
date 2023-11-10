@@ -13,6 +13,7 @@ public final class ConcertConverter {
     public static Concert convert(ConcertEntity concert) {
         if(concert == null) return null;
 
+
         return Concert.builder()
                 .id(concert.getId())
                 .artist(concert.getArtist())
@@ -24,6 +25,32 @@ public final class ConcertConverter {
                 .photoURL(concert.getPhotoURL())
                 .price(concert.getPrice())
                 .ticketsRemaining(concert.getTicketsRemaining())
+                .orders(concert.getOrders()
+                        .stream()
+                        .map(OrderConverter::convert)
+                        .toList())
+                .build();
+    }
+
+    public static ConcertEntity convertToEntity(Concert concert) {
+        if(concert == null) return null;
+
+
+        return ConcertEntity.builder()
+                .id(concert.getId())
+                .artist(concert.getArtist())
+                .musicGenre(concert.getMusicGenre())
+                .venue(concert.getVenue())
+                .date(concert.getDate())
+                .city(concert.getCity())
+                .description(concert.getDescription())
+                .photoURL(concert.getPhotoURL())
+                .price(concert.getPrice())
+                .ticketsRemaining(concert.getTicketsRemaining())
+                .orders(concert.getOrders()
+                        .stream()
+                        .map(OrderConverter::convertToEntity)
+                        .toList())
                 .build();
     }
 }

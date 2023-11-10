@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,9 +16,9 @@ public class Order {
 
     private Long id;
 
-    private Long concertId;
+    private Concert concert;
 
-    private Long userId;
+    private User user;
 
     private Date date;
 
@@ -34,4 +35,6 @@ public class Order {
     private Double orderPrice;
 
     private String paymentMethod;
+
+    private List<Ticket> tickets;
 }

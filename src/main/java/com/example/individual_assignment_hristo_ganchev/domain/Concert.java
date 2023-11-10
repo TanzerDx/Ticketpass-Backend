@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -32,4 +33,6 @@ public class Concert {
     private Double price;
 
     private Integer ticketsRemaining;
+
+    private List<Order> orders;
 }

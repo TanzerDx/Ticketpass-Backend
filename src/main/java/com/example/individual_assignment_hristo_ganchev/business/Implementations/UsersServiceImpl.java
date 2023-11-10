@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -63,6 +64,8 @@ public class UsersServiceImpl implements UsersService {
                 .salt("salt")
                 .hashedPassword(request.getHashedPassword())
                 .isAdmin(false)
+                .upcomingConcerts(new ArrayList<>())
+                .expiredConcerts(new ArrayList<>())
                 .build();
 
         return userRepository.save(user);

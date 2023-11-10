@@ -51,17 +51,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
-    dependsOn test
     reports {
-        xml {
-            enabled true
-        }
+        xml.required = true
     }
 }
 
-jacoco {
-    toolVersion = "0.8.11"
-}

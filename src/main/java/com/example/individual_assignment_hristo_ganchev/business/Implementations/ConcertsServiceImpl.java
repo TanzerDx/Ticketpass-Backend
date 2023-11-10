@@ -12,6 +12,7 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Con
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -96,6 +97,7 @@ public class ConcertsServiceImpl implements ConcertsService {
                     .photoURL(request.getPhotoURL())
                     .price(request.getPrice())
                     .ticketsRemaining(request.getTicketsRemaining())
+                    .orders(new ArrayList<>())
                     .build();
         }
         catch (Exception e)
