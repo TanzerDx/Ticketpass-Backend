@@ -29,6 +29,12 @@ public class OrdersServiceImpl implements OrdersService {
     public CreateOrderResponse createOrder(CreateOrderRequest request){
         OrderEntity savedOrder = saveNewOrder(request);
 
+//        ConcertEntity concert = ConcertConverter.convertToEntity((request.getConcert()));
+//        UserEntity user = UserConverter.convertToEntity((request.getUser()));
+//
+//        concert.getOrders().add(savedOrder);
+//        user.getUpcomingConcerts().add(savedOrder);
+
         return CreateOrderResponse.builder()
                 .id(savedOrder.getId())
                 .build();
@@ -74,11 +80,6 @@ public class OrdersServiceImpl implements OrdersService {
                     .paymentMethod(request.getPaymentMethod())
                     .build();
 
-            ConcertEntity concert = ConcertConverter.convertToEntity((request.getConcert()));
-            UserEntity user = UserConverter.convertToEntity((request.getUser()));
-
-            concert.getOrders().add(order);
-            user.getUpcomingConcerts().add(order);
         }
         catch (Exception e)
         {

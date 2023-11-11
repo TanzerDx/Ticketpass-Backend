@@ -1,7 +1,12 @@
 package com.example.individual_assignment_hristo_ganchev.business.Converters;
 
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
+
+import java.util.Collections;
+import java.util.List;
 
 public final class ConcertConverter {
 
@@ -13,6 +18,11 @@ public final class ConcertConverter {
     public static Concert convert(ConcertEntity concert) {
         if(concert == null) return null;
 
+        List<OrderEntity> orders = concert.getOrders();
+
+        if (orders == null) {
+            orders = Collections.emptyList();
+        }
 
         return Concert.builder()
                 .id(concert.getId())
@@ -25,7 +35,7 @@ public final class ConcertConverter {
                 .photoURL(concert.getPhotoURL())
                 .price(concert.getPrice())
                 .ticketsRemaining(concert.getTicketsRemaining())
-                .orders(concert.getOrders()
+                .orders(orders
                         .stream()
                         .map(OrderConverter::convert)
                         .toList())
@@ -35,6 +45,11 @@ public final class ConcertConverter {
     public static ConcertEntity convertToEntity(Concert concert) {
         if(concert == null) return null;
 
+        List<Order> orders = concert.getOrders();
+
+        if (orders == null) {
+            orders = Collections.emptyList();
+        }
 
         return ConcertEntity.builder()
                 .id(concert.getId())
@@ -47,7 +62,7 @@ public final class ConcertConverter {
                 .photoURL(concert.getPhotoURL())
                 .price(concert.getPrice())
                 .ticketsRemaining(concert.getTicketsRemaining())
-                .orders(concert.getOrders()
+                .orders(orders
                         .stream()
                         .map(OrderConverter::convertToEntity)
                         .toList())

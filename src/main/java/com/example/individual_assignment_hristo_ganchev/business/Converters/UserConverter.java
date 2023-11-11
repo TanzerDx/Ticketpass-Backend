@@ -1,9 +1,13 @@
 package com.example.individual_assignment_hristo_ganchev.business.Converters;
 
+import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -16,17 +20,30 @@ public final class UserConverter {
     }
 
     public static User convert(UserEntity user) {
+
+        List<OrderEntity> upcomingConcerts = user.getUpcomingConcerts();
+        List<OrderEntity> expiredConcerts = user.getExpiredConcerts();
+
+        if (upcomingConcerts == null) {
+            upcomingConcerts = Collections.emptyList();
+        }
+
+        if (expiredConcerts == null) {
+            expiredConcerts = Collections.emptyList();
+        }
+
+
         return User.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .salt(user.getSalt())
                 .hashedPassword(user.getHashedPassword())
                 .isAdmin(user.getIsAdmin())
-                .upcomingConcerts(user.getUpcomingConcerts()
+                .upcomingConcerts(upcomingConcerts
                         .stream()
                         .map(OrderConverter::convert)
                         .toList())
-                .expiredConcerts(user.getExpiredConcerts()
+                .expiredConcerts(expiredConcerts
                         .stream()
                         .map(OrderConverter::convert)
                         .toList())
@@ -39,13 +56,11 @@ public final class UserConverter {
         List<Order> upcomingConcerts = user.getUpcomingConcerts();
         List<Order> expiredConcerts = user.getExpiredConcerts();
 
-        if (upcomingConcerts == null)
-        {
+        if (upcomingConcerts == null) {
             upcomingConcerts = Collections.emptyList();
         }
 
-        if (expiredConcerts == null)
-        {
+        if (expiredConcerts == null) {
             expiredConcerts = Collections.emptyList();
         }
 
