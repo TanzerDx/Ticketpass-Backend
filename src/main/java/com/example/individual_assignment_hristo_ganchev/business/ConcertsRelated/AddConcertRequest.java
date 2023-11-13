@@ -28,7 +28,6 @@ public class AddConcertRequest {
     @NotBlank
     private String date;
 
-
     @NotBlank
     private String city;
 

@@ -37,10 +37,4 @@ public class UserEntity {
     @NotNull
     private Boolean isAdmin;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OrderEntity> upcomingConcerts;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OrderEntity> expiredConcerts;
-
 }

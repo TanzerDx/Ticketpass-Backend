@@ -51,7 +51,4 @@ public class ConcertEntity {
 
     @NotNull
     private Integer ticketsRemaining;
-
-    @OneToMany(mappedBy = "concert", cascade = CascadeType.ALL)
-    private List<OrderEntity> orders;
 }
