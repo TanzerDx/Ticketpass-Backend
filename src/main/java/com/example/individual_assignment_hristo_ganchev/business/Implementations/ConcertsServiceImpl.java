@@ -97,7 +97,6 @@ public class ConcertsServiceImpl implements ConcertsService {
                     .photoURL(request.getPhotoURL())
                     .price(request.getPrice())
                     .ticketsRemaining(request.getTicketsRemaining())
-                    .orders(new ArrayList<>())
                     .build();
         }
         catch (Exception e)

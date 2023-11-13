@@ -61,6 +61,4 @@ public class OrderEntity {
     @NotEmpty
     private String paymentMethod;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<TicketEntity> tickets;
 }

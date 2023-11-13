@@ -33,6 +33,4 @@ public class Concert {
     private Double price;
 
     private Integer ticketsRemaining;
-
-    private List<Order> orders;
 }

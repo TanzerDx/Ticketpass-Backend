@@ -64,8 +64,6 @@ public class UsersServiceImpl implements UsersService {
                 .salt("salt")
                 .hashedPassword(request.getHashedPassword())
                 .isAdmin(false)
-                .upcomingConcerts(new ArrayList<>())
-                .expiredConcerts(new ArrayList<>())
                 .build();
 
         return userRepository.save(user);

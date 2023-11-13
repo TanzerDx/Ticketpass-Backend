@@ -21,48 +21,17 @@ public final class UserConverter {
 
     public static User convert(UserEntity user) {
 
-        List<OrderEntity> upcomingConcerts = user.getUpcomingConcerts();
-        List<OrderEntity> expiredConcerts = user.getExpiredConcerts();
-
-        if (upcomingConcerts == null) {
-            upcomingConcerts = Collections.emptyList();
-        }
-
-        if (expiredConcerts == null) {
-            expiredConcerts = Collections.emptyList();
-        }
-
-
         return User.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .salt(user.getSalt())
                 .hashedPassword(user.getHashedPassword())
                 .isAdmin(user.getIsAdmin())
-                .upcomingConcerts(upcomingConcerts
-                        .stream()
-                        .map(OrderConverter::convert)
-                        .toList())
-                .expiredConcerts(expiredConcerts
-                        .stream()
-                        .map(OrderConverter::convert)
-                        .toList())
                 .build();
 
     }
 
     public static UserEntity convertToEntity(User user) {
-
-        List<Order> upcomingConcerts = user.getUpcomingConcerts();
-        List<Order> expiredConcerts = user.getExpiredConcerts();
-
-        if (upcomingConcerts == null) {
-            upcomingConcerts = Collections.emptyList();
-        }
-
-        if (expiredConcerts == null) {
-            expiredConcerts = Collections.emptyList();
-        }
 
         return UserEntity.builder()
                 .id(user.getId())
@@ -70,14 +39,6 @@ public final class UserConverter {
                 .salt(user.getSalt())
                 .hashedPassword(user.getHashedPassword())
                 .isAdmin(user.getIsAdmin())
-                .upcomingConcerts(upcomingConcerts
-                        .stream()
-                        .map(OrderConverter::convertToEntity)
-                        .toList())
-                .expiredConcerts(expiredConcerts
-                        .stream()
-                        .map(OrderConverter::convertToEntity)
-                        .toList())
                 .build();
 
     }

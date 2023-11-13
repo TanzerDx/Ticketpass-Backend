@@ -35,6 +35,4 @@ public class Order {
     private Double orderPrice;
 
     private String paymentMethod;
-
-    private List<Ticket> tickets;
 }

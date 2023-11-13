@@ -33,14 +33,14 @@ class TicketsServiceImplTest {
 
         ConcertEntity concert = new ConcertEntity(1L, "Chase Atlantic",
                 "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000, new ArrayList<>());
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
         UserEntity user = new UserEntity(1L, "hristo@gmail.com", null,
-                "hashedPassword", false, new ArrayList<>(), new ArrayList<>());
+                "hashedPassword", false);
 
 
         OrderEntity order = new OrderEntity(1L,  concert, user, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",
-                "+31613532345", 3, 14.15, "Ideal", new ArrayList<>());
+                "+31613532345", 3, 14.15, "Ideal");
 
         List<TicketEntity> tickets = Arrays.asList(new TicketEntity(1L, order ,
                 "QR", "Hristo Ganchev", "Standing", null, null));

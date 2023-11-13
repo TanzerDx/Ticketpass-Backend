@@ -64,8 +64,6 @@ public class TicketsServiceImpl implements TicketsService {
 
                 ticketRepository.save(newTicket);
                 currentTickets.add(newTicket);
-
-                order.getTickets().add(newTicket);
             }
         return currentTickets;
     }
