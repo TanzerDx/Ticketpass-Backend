@@ -34,7 +34,7 @@ class OrdersServiceImplTest {
                 "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-            UserEntity user = new UserEntity(1L, "hristo@gmail.com", null,
+            UserEntity user = new UserEntity(1L, "hristo@gmail.com",
                 "hashedPassword", false);
 
 

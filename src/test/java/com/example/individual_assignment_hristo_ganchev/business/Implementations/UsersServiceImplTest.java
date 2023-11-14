@@ -19,10 +19,10 @@ public class UsersServiceImplTest {
     // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
 
-            UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com", null,
+            UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com",
                     "hashedPassword", false);
 
-            User toCompare = new User(1L, "hristo@gmail.com", null,
+            User toCompare = new User(1L, "hristo@gmail.com",
                     "hashedPassword", false);
 
             when(userRepositoryMock.getById(1L)).thenReturn(toReturn);

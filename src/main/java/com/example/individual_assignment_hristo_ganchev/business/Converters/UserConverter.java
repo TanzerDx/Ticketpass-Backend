@@ -24,8 +24,7 @@ public final class UserConverter {
         return User.builder()
                 .id(user.getId())
                 .email(user.getEmail())
-                .salt(user.getSalt())
-                .hashedPassword(user.getHashedPassword())
+                .encodedPassword(user.getEncodedPassword())
                 .isAdmin(user.getIsAdmin())
                 .build();
 
@@ -36,8 +35,7 @@ public final class UserConverter {
         return UserEntity.builder()
                 .id(user.getId())
                 .email(user.getEmail())
-                .salt(user.getSalt())
-                .hashedPassword(user.getHashedPassword())
+                .encodedPassword(user.getEncodedPassword())
                 .isAdmin(user.getIsAdmin())
                 .build();
 
