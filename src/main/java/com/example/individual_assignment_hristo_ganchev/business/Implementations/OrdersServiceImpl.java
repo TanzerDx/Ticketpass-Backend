@@ -61,7 +61,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     private OrderEntity saveNewOrder(CreateOrderRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         OrderEntity order = null;
 

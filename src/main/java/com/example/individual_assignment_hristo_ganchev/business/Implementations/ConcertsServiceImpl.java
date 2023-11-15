@@ -58,7 +58,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
 
     private void updateFields(UpdateConcertRequest request, ConcertEntity concert) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try
         {
@@ -78,11 +78,12 @@ public class ConcertsServiceImpl implements ConcertsService {
             throw new RuntimeException(e);
         }
 
+        
     }
 
     private ConcertEntity saveNewConcert(AddConcertRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         ConcertEntity newConcert = null;
         try
