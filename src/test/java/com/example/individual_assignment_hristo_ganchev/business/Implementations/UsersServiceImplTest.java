@@ -1,6 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;

@@ -28,7 +28,6 @@ class TicketsServiceImplTest {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 
         TicketRepository ticketRepository = mock(TicketRepository.class);
-        ConcertRepository concertRepository = mock(ConcertRepository.class);
         OrderRepository orderRepository = mock(OrderRepository.class);
 
         ConcertEntity concert = new ConcertEntity(1L, "Chase Atlantic",
@@ -84,53 +83,6 @@ class TicketsServiceImplTest {
         assertThat(receivedTickets).isEmpty();
 
     }
-//
-//    @Test
-//    void updateTickets_shouldUpdateTicketInfo() throws Exception {
-//
-//        // Arrange
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-//
-//            TicketRepository ticketRepository = mock(TicketRepository.class);
-//            ConcertRepository concertRepository = mock(ConcertRepository.class);
-//            OrderRepository orderRepository = mock(OrderRepository.class);
-//
-//            List<TicketEntity> ticketsToUpdate = Arrays.asList(new TicketEntity(1L, 1L, 1L,
-//                    "QR", "Hristo Ganchev", "Kim Petras", "TivoliVredenburg",
-//                    sdf.parse("2024/02/28"), "Utrecht", "Standing", null, null),
-//                    new TicketEntity(2L, 1L, 1L,
-//                    "QR", "Hristo Ganchev", "Kim Petras", "TivoliVredenburg",
-//                    sdf.parse("2024/02/28"), "Utrecht", "Standing", null, null));
-//
-//            ConcertEntity concert = new ConcertEntity(1L, "Kim Petras",
-//                "Pop", "TivoliRonda", sdf.parse("2024/03/03"), "Utrecht",
-//                "Kim Petras is a German pop singer.", "URL", 40.15, 10000);
-//
-//
-//            List<TicketEntity> updatedTickets = Arrays.asList(new TicketEntity(1L, 1L, 1L,
-//                        "QR", "Hristo Ganchev", "Kim Petras", "TivoliRonda",
-//                        sdf.parse("2024/03/03"), "Utrecht", "Standing", null, null),
-//                new TicketEntity(2L, 1L, 1L,
-//                        "QR", "Hristo Ganchev", "Kim Petras", "TivoliRonda",
-//                        sdf.parse("2024/03/03"), "Utrecht", "Standing", null, null));
-//
-//            UpdateTicketsRequest request = new UpdateTicketsRequest(1L);
-//
-//
-//            when(concertRepository.getById(1L)).thenReturn(concert);
-//            when(ticketRepository.getByConcertId(1L)).thenReturn(ticketsToUpdate);
-//
-//            TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, concertRepository);
-//
-//
-//
-//        // Act
-//            sut.updateTickets(request);
-//
-//
-//
-//        // Assert
-//            assertThat(ticketsToUpdate).isEqualTo(updatedTickets);
-//    }
+
 
 }

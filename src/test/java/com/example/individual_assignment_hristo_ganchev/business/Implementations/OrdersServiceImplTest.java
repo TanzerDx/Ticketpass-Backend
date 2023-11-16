@@ -89,6 +89,8 @@ class OrdersServiceImplTest {
 
             OrderRepository orderRepository = mock(OrderRepository.class);
 
+
+
         ConcertEntity concertEntity = new ConcertEntity(1L, "Chase Atlantic",
                 "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
@@ -97,17 +99,23 @@ class OrdersServiceImplTest {
                 "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
+
+
         UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com", null,
                 "hashedPassword", false);
 
         User user = new User(1L, "hristo@gmail.com", null,
                 "hashedPassword", false);
 
+
+
         OrderEntity toReturn = new OrderEntity(1L,  concertEntity, userEntity, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",
                     "+31613532345", 3, 14.15, "Ideal");
 
-            Order toCompare= new Order(1L,  concert, user, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",
+        Order toCompare= new Order(1L,  concert, user, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",
                     "+31613532345", 3, 14.15, "Ideal");
+
+
 
             when(orderRepository.getById(1l)).thenReturn(toReturn);
 
