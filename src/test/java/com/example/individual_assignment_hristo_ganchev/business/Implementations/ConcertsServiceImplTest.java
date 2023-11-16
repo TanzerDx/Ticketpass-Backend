@@ -102,20 +102,20 @@ public class ConcertsServiceImplTest {
     public void updateConcert_shouldUpdateConcert() throws Exception {
 
         // Arrange
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
 
             ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
-                    "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                    "Indie", "TivoliVredenburg", sdf.parse("2023-09-04"), "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             UpdateConcertRequest request = new UpdateConcertRequest(1L, "Chase Atlantic",
-                    "Indie", "TivoliRonda", "2023/09/07", "Utrecht",
+                    "Indie", "TivoliRonda", "2023-09-07", "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             ConcertEntity updatedConcert = new ConcertEntity(1L, "Chase Atlantic",
-                    "Indie", "TivoliRonda", sdf.parse("2023/09/07"), "Utrecht",
+                    "Indie", "TivoliRonda", sdf.parse("2023-09-07"), "Utrecht",
                     "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
             when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
