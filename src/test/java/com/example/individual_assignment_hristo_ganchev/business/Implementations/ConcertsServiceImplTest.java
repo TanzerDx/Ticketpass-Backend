@@ -7,12 +7,14 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Con
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ConcertsServiceImplTest {
@@ -132,4 +134,33 @@ public class ConcertsServiceImplTest {
         // Assert
             assertThat(toTest).isEqualTo(updatedConcert);
     }
+
+    @Test
+    public void updateConcert_shouldThrowNullPointerException() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+        ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        UpdateConcertRequest request = null;
+
+        ConcertEntity updatedConcert = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliRonda", sdf.parse("2023-09-07"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> sut.updateConcert(request));
+    }
+
+
 }

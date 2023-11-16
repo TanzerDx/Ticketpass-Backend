@@ -127,8 +127,6 @@ public class ConcertControllerTests {
     @Test
     void getConcerts_shouldReturn200ResponseWithEmptyArray() throws Exception {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-
         List<Concert> response = new ArrayList<>();
 
 
@@ -145,7 +143,6 @@ public class ConcertControllerTests {
         verify(concertService).getAllConcerts();
 
     }
-
 
 }
 
