@@ -7,10 +7,6 @@ import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.TimeZone;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(TicketController.class)
@@ -51,14 +48,14 @@ public class TicketControllerTests {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
         Concert concert = new Concert(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
+                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T12:00:00.000+00:00"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
         User user = new User(1L, "hristo@gmail.com", null,
                 "hashedPassword", false);
 
 
-        Order order = new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
+        Order order = new Order(1L,  concert, user, sdf.parse("2024-02-27T12:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
                 "+31613532345", 3, 14.15, "Ideal");
 
         List<Ticket> tickets = Arrays.asList(new Ticket(1L, order ,
