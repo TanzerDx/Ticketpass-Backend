@@ -31,7 +31,8 @@ public class UserEntity {
     @NotEmpty
     private String encodedPassword;
 
-    @NotNull
-    private Boolean isAdmin;
+    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "role"))
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoleEntity> roles;
 
 }
