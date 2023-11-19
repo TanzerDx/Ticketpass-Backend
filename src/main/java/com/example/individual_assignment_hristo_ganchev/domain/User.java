@@ -20,6 +20,4 @@ public class User {
 
     private String encodedPassword;
 
-    private List<Role> roles;
-
 }

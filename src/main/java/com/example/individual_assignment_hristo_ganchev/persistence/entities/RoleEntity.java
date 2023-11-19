@@ -23,5 +23,8 @@ public class RoleEntity {
     @NotEmpty
     private String role;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

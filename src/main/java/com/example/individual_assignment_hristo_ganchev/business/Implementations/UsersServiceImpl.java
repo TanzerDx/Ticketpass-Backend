@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.Converters.RoleConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
@@ -59,8 +60,7 @@ public class UsersServiceImpl implements UsersService {
         if (passwordEncoder.matches(request.getPassword(), user.getEncodedPassword())) {
 
             return LoginResponse.builder()
-                    .id(user.getId())
-                    .email(user.getEmail())
+                    .accessToken(generateAccessToken(user))
                     .build();
         }
         else {
@@ -78,24 +78,24 @@ public class UsersServiceImpl implements UsersService {
     private UserEntity saveNewUser(AddUserRequest request)
     {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-        RoleEntity role = roleRepository.selectByRole("user");
 
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
                 .encodedPassword(encodedPassword)
-                .roles(Arrays.asList(role))
                 .build();
 
         return userRepository.save(user);
     }
 
-    private String generateAccessToken(UserEntity user) {
-        Long userId = user.getId() != null ? user.getId() : null;
-        List<String> roles = user.getRoles().stream()
+    private String generateAccessToken(User user) {
+
+        List<String> roles = roleRepository.getByUserId(user.getId())
+                .stream()
+                .map(RoleConverter::convert)
                 .map(userRole -> userRole.getRole().toString())
                 .toList();
 
         return accessTokenEncoder.encode(
-                new AccessTokenImpl(user.getEmail(), userId, roles));
+                new AccessTokenImpl(user.getEmail(), user.getId(), roles));
     }
 }

@@ -31,8 +31,5 @@ public class UserEntity {
     @NotEmpty
     private String encodedPassword;
 
-    @CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "role"))
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RoleEntity> roles;
 
 }
