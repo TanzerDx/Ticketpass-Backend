@@ -1,6 +1,5 @@
 package com.example.individual_assignment_hristo_ganchev.security.auth;
 
-
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
 import jakarta.servlet.FilterChain;

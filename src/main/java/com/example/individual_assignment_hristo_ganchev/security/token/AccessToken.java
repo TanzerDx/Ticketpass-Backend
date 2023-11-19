@@ -8,7 +8,7 @@ public interface AccessToken {
 
     Long getUserId();
 
-    String getRoles();
+    List<String> getRoles();
 
     boolean hasRole(String roleName);
 }

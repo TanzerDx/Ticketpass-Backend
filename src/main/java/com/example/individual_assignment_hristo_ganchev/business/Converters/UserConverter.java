@@ -25,10 +25,6 @@ public final class UserConverter {
                 .id(user.getId())
                 .email(user.getEmail())
                 .encodedPassword(user.getEncodedPassword())
-                .roles(user.getRoles()
-                            .stream()
-                            .map(RoleConverter::convert)
-                            .toList())
                 .build();
 
     }
@@ -39,10 +35,6 @@ public final class UserConverter {
                 .id(user.getId())
                 .email(user.getEmail())
                 .encodedPassword(user.getEncodedPassword())
-                .roles(user.getRoles()
-                        .stream()
-                        .map(RoleConverter::convertToEntity)
-                        .toList())
                 .build();
 
     }

@@ -15,6 +15,7 @@ public class RoleConverter {
         return  Role.builder()
                 .id(role.getId())
                 .role(role.getRole())
+                .user(UserConverter.convert(role.getUser()))
                 .build();
 
     }
@@ -24,6 +25,7 @@ public class RoleConverter {
         return RoleEntity.builder()
                 .id(role.getId())
                 .role(role.getRole())
+                .user(UserConverter.convertToEntity(role.getUser()))
                 .build();
 
     }
