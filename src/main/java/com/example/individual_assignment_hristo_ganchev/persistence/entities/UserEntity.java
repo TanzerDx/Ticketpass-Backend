@@ -31,5 +31,8 @@ public class UserEntity {
     @NotEmpty
     private String encodedPassword;
 
+    @NotEmpty
+    private String role;
+
 
 }
