@@ -1,6 +1,5 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
-import com.example.individual_assignment_hristo_ganchev.business.Converters.RoleConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
@@ -8,8 +7,6 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Lo
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.RoleEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.jpa.RoleRepository;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenImpl;
 import lombok.AllArgsConstructor;
@@ -18,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,8 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UsersServiceImpl implements UsersService {
     private final UserRepository userRepository;
-
-    private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -82,6 +77,7 @@ public class UsersServiceImpl implements UsersService {
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
                 .encodedPassword(encodedPassword)
+                .role("user")
                 .build();
 
         return userRepository.save(user);
@@ -89,11 +85,8 @@ public class UsersServiceImpl implements UsersService {
 
     private String generateAccessToken(User user) {
 
-        List<String> roles = roleRepository.getByUserId(user.getId())
-                .stream()
-                .map(RoleConverter::convert)
-                .map(userRole -> userRole.getRole().toString())
-                .toList();
+        List<String> roles = new ArrayList<>();
+        roles.add(user.getRole());
 
         return accessTokenEncoder.encode(
                 new AccessTokenImpl(user.getEmail(), user.getId(), roles));

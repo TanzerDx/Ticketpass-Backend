@@ -25,6 +25,7 @@ public final class UserConverter {
                 .id(user.getId())
                 .email(user.getEmail())
                 .encodedPassword(user.getEncodedPassword())
+                .role(user.getRole())
                 .build();
 
     }
@@ -35,6 +36,7 @@ public final class UserConverter {
                 .id(user.getId())
                 .email(user.getEmail())
                 .encodedPassword(user.getEncodedPassword())
+                .role(user.getRole())
                 .build();
 
     }

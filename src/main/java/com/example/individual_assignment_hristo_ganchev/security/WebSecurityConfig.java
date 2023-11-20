@@ -3,7 +3,10 @@ package com.example.individual_assignment_hristo_ganchev.security;
 import com.example.individual_assignment_hristo_ganchev.security.auth.AuthenticationRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,11 +36,15 @@ public class WebSecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .sessionManagement(configurer ->
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -56,3 +63,5 @@ public class WebSecurityConfig {
         };
     }
 }
+
+// http://localhost:5173/signin
