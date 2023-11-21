@@ -63,5 +63,3 @@ public class WebSecurityConfig {
         };
     }
 }
-
-// http://localhost:5173/signin

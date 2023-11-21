@@ -41,6 +41,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         }
 
         Instant now = Instant.now();
+
         return Jwts.builder()
                 .setSubject(accessToken.getSubject())
                 .setIssuedAt(Date.from(now))

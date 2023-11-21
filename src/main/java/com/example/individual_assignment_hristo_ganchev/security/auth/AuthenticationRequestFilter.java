@@ -60,7 +60,10 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
                         .toList());
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+                userDetails,
+                null,
+                userDetails.getAuthorities());
+
         usernamePasswordAuthenticationToken.setDetails(accessToken);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
     }
