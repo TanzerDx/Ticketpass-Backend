@@ -4,6 +4,7 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Conc
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
+import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderRequest;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
@@ -28,12 +29,6 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public CreateOrderResponse createOrder(CreateOrderRequest request){
         OrderEntity savedOrder = saveNewOrder(request);
-
-//        ConcertEntity concert = ConcertConverter.convertToEntity((request.getConcert()));
-//        UserEntity user = UserConverter.convertToEntity((request.getUser()));
-//
-//        concert.getOrders().add(savedOrder);
-//        user.getUpcomingConcerts().add(savedOrder);
 
         return CreateOrderResponse.builder()
                 .id(savedOrder.getId())
