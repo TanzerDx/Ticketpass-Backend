@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,12 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableMethodSecurity(jsr250Enabled = true)
 @Configuration
 public class WebSecurityConfig {
-
-    private static final String[] SWAGGER_UI_RESOURCES = {
-            "/v3/api-docs/**",
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/swagger-ui/**"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
@@ -41,11 +36,13 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/tickets", "/concerts", "/users", "/users/login", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/orders", "/tokens").permitAll()
+                                .requestMatchers(
+                                        new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
+                                        new RegexRequestMatcher("\\/concerts/[0-9]+", "GET")).permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
-                                .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "./users", "/orders", "/tokens").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
