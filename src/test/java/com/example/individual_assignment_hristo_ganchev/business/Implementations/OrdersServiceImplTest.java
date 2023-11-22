@@ -9,6 +9,7 @@ import com.example.individual_assignment_hristo_ganchev.persistence.entities.Con
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
+import jakarta.validation.constraints.Null;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -130,5 +132,25 @@ class OrdersServiceImplTest {
 
         // Assert
             assertThat(toCompare).isEqualTo(retrievedOrder);
+    }
+
+    @Test
+    void getOrder_shouldThrowNullPointerException() throws Exception {
+
+        //Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        OrderRepository orderRepository = mock(OrderRepository.class);
+
+
+        NullPointerException nullPointerException = new NullPointerException();
+
+        when(orderRepository.getById(1l)).thenThrow(nullPointerException);
+
+        OrdersServiceImpl sut = new OrdersServiceImpl(orderRepository);
+
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> sut.getOrder(1L));
     }
 }
