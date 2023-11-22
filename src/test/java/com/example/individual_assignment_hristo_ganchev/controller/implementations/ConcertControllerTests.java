@@ -3,11 +3,15 @@ package com.example.individual_assignment_hristo_ganchev.controller.implementati
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.controller.ConcertController;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,8 +28,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(ConcertController.class)
+
+@SpringBootTest
+@AutoConfigureMockMvc
 public class ConcertControllerTests {
 
     @Autowired
@@ -35,7 +40,9 @@ public class ConcertControllerTests {
     private ConcertsService concertService;
 
 
+
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getConcerts_shouldReturn200ResponseWithConcertsArray() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -93,6 +100,7 @@ public class ConcertControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getConcerts_shouldReturn200ResponseWithAConcertOfID1() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -125,6 +133,7 @@ public class ConcertControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getConcerts_shouldReturn200ResponseWithEmptyArray() throws Exception {
 
         List<Concert> response = new ArrayList<>();

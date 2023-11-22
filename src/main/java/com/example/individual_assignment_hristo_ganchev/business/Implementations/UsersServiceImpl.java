@@ -7,9 +7,11 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Lo
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
@@ -28,6 +30,8 @@ public class UsersServiceImpl implements UsersService {
 
     private final AccessTokenEncoder accessTokenEncoder;
 
+    private AccessToken requestAccessToken;
+
     @Override
     public AddUserResponse addUser(AddUserRequest request)
     {
@@ -41,6 +45,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public User getUserById(long id)
     {
+        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(id))
+        {
+            throw new AccessDeniedException("Unauthorized access");
+        }
+
         UserEntity userEntity = userRepository.getById(id);
 
         return UserConverter.convert(userEntity);
@@ -66,6 +75,12 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void deleteUser(long id)
     {
+        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(id))
+        {
+            throw new AccessDeniedException("Unauthorized access");
+        }
+
+
         userRepository.deleteById(id);
     }
 

@@ -1,13 +1,12 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
-import com.example.individual_assignment_hristo_ganchev.business.Converters.ConcertConverter;
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 import org.junit.jupiter.api.Test;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,10 +148,6 @@ public class ConcertsServiceImplTest {
 
         UpdateConcertRequest request = null;
 
-        ConcertEntity updatedConcert = new ConcertEntity(1L, "Chase Atlantic",
-                "Indie", "TivoliRonda", sdf.parse("2023-09-07"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-
         when(concertRepositoryMock.getById(1L)).thenReturn(toTest);
 
         ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
@@ -160,6 +155,33 @@ public class ConcertsServiceImplTest {
 
         // Act and Assert
         assertThrows(NullPointerException.class, () -> sut.updateConcert(request));
+    }
+
+    @Test
+    public void updateConcert_shouldThrowRuntimeException() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+        ConcertEntity toTest = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+
+        UpdateConcertRequest request = new UpdateConcertRequest(1L, "Chase Atlantic",
+                "Indie", "TivoliRonda", "2023-09-07", "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+
+        when(concertRepositoryMock.save(toTest)).thenThrow(new RuntimeException());
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+
+
+        // Act and Assert
+        assertThrows(RuntimeException.class, () -> sut.updateConcert(request));
     }
 
     @Test

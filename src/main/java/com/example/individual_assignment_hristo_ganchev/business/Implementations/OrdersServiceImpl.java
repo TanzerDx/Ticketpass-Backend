@@ -11,10 +11,14 @@ import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.C
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
+import com.example.individual_assignment_hristo_ganchev.security.auth.Http401UnauthorizedEntryPoint;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,6 +29,7 @@ import java.util.List;
 public class OrdersServiceImpl implements OrdersService {
 
     private final OrderRepository orderRepository;
+    private AccessToken requestAccessToken;
 
     @Override
     public CreateOrderResponse createOrder(CreateOrderRequest request){
@@ -37,6 +42,12 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public GetAllOrdersResponse getAllOrders(Long userId){
+
+        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(userId))
+        {
+            throw new AccessDeniedException("Unauthorized access");
+        }
+
         List<Order> allOrders = orderRepository.getByUserId(userId)
                 .stream()
                 .map(OrderConverter::convert)
@@ -45,11 +56,18 @@ public class OrdersServiceImpl implements OrdersService {
         return GetAllOrdersResponse.builder()
                 .orders(allOrders)
                 .build();
+
     }
 
     @Override
     public Order getOrder(Long id){
+
         OrderEntity orderEntity = orderRepository.getById(id);
+
+        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(orderEntity.getUser().getId()))
+        {
+            throw new AccessDeniedException("Unauthorized access");
+        }
 
         return OrderConverter.convert(orderEntity);
     }

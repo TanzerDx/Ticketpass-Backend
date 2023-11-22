@@ -6,6 +6,7 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Ad
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,14 @@ public class UserController {
         return ResponseEntity.ok(usersService.Login(request));
     }
 
+    @RolesAllowed({"user", "admin"})
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         final User user = usersService.getUserById(id);
         return ResponseEntity.ok().body(user);
     }
 
+    @RolesAllowed({"user", "admin"})
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id)
     {

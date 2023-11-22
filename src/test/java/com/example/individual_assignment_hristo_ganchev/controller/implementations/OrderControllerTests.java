@@ -1,23 +1,18 @@
 package com.example.individual_assignment_hristo_ganchev.controller.implementations;
 
-import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
-import com.example.individual_assignment_hristo_ganchev.controller.ConcertController;
-import com.example.individual_assignment_hristo_ganchev.controller.OrderController;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,8 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(OrderController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class OrderControllerTests {
 
 
@@ -44,8 +40,12 @@ public class OrderControllerTests {
     @MockBean
     private OrdersService ordersService;
 
+    @MockBean
+    private AccessToken accessToken;
+
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getAllOrders_shouldReturn200ResponseWithAListOfOrders() throws Exception{
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -54,8 +54,8 @@ public class OrderControllerTests {
                 "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-        User user = new User(1L, "hristo@gmail.com", null,
-                "hashedPassword", false);
+        User user = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
 
 
         List<Order> allOrders = Arrays.asList(new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
@@ -65,6 +65,7 @@ public class OrderControllerTests {
                 .orders(allOrders)
                 .build();
 
+        when(accessToken.getUserId()).thenReturn(1L);
         when(ordersService.getAllOrders(1L)).thenReturn(response);
 
 
@@ -97,12 +98,14 @@ public class OrderControllerTests {
 
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getAllOrders_shouldReturn200ResponseWithAnEmptyList() throws Exception{
 
         GetAllOrdersResponse response = GetAllOrdersResponse.builder()
                 .orders(new ArrayList<>())
                 .build();
 
+        when(accessToken.getUserId()).thenReturn(1L);
         when(ordersService.getAllOrders(1L)).thenReturn(response);
 
         mockMvc.perform(get("/orders")
@@ -120,6 +123,7 @@ public class OrderControllerTests {
 
 
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getOrder_shouldReturn200ResponseWithAnOrderOfID1() throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -127,13 +131,14 @@ public class OrderControllerTests {
                 "Indie", "TivoliVredenburg", sdf.parse("2024-02-28T00:00:00.000+00:00"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-        User user = new User(1L, "hristo@gmail.com", null,
-                "hashedPassword", false);
+        User user = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
 
 
         Order response =new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
                 "+31613532345", 3, 14.15, "Ideal");
 
+        when(accessToken.getUserId()).thenReturn(1L);
         when(ordersService.getOrder(1L)).thenReturn(response);
 
 
@@ -160,6 +165,5 @@ public class OrderControllerTests {
         verify(ordersService).getOrder(1L);
 
     }
-
 
 }

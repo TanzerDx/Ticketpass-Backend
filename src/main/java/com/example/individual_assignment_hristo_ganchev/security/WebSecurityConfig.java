@@ -40,7 +40,10 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/orders", "/tokens").permitAll()
                                 .requestMatchers(
                                         new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
-                                        new RegexRequestMatcher("\\/concerts/[0-9]+", "GET")).permitAll()
+                                        new RegexRequestMatcher("\\/concerts/[0-9]+", "GET"),
+                                        new RegexRequestMatcher("\\/orders/[0-9]+", "GET"),
+                                        new RegexRequestMatcher("\\/orders", "POST"),
+                                        new RegexRequestMatcher("\\/tickets/[0-9]+", "GET")).permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "./users", "/orders", "/tokens").permitAll()
                                 .anyRequest().authenticated()
