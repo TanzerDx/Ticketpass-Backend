@@ -6,6 +6,7 @@ import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;

@@ -2,14 +2,14 @@ package com.example.individual_assignment_hristo_ganchev.controller.implementati
 
 
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.UsersService;
-import com.example.individual_assignment_hristo_ganchev.controller.UserController;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.verify;
@@ -20,8 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(UserController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class UserControllerTests {
 
     @Autowired
@@ -30,12 +30,17 @@ public class UserControllerTests {
     @MockBean
     private UsersService usersService;
 
+    @MockBean
+    private AccessToken accessToken;
+
     @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
     void getUser_shouldReturn200ResponseWithAUserOfID1() throws Exception  {
 
-        User toReturn = new User(1L, "hristo@gmail.com", "",
-                "hashedPassword", false);
+        User toReturn = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
 
+        when(accessToken.getUserId()).thenReturn(1L);
         when(usersService.getUserById(1L)).thenReturn(toReturn);
 
 

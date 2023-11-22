@@ -5,8 +5,11 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Tick
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
+import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
@@ -20,8 +23,11 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TicketsServiceImpl implements TicketsService {
+
     private final TicketRepository ticketRepository;
     private final OrderRepository orderRepository;
+    private AccessToken requestAccessToken;
+
 
     @Override
     public AddTicketsResponse addTickets(AddTicketsRequest request)
@@ -41,6 +47,13 @@ public class TicketsServiceImpl implements TicketsService {
     @Override
     public List<Ticket> getTickets(long orderId)
     {
+        OrderEntity order = orderRepository.getById(orderId);
+
+        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(order.getUser().getId()))
+        {
+            throw new AccessDeniedException("Unauthorized access");
+        }
+
         return ticketRepository.getByOrderId(orderId)
                 .stream()
                 .map(TicketConverter::convert)

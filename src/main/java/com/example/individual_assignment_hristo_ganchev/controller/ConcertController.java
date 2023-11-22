@@ -5,6 +5,7 @@ import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,24 +21,28 @@ import java.util.List;
 public class ConcertController {
     private final ConcertsService concertsService;
 
+    @RolesAllowed({"admin"})
     @PostMapping()
     public ResponseEntity<AddConcertResponse> addConcert(@Valid @RequestBody AddConcertRequest request) {
         AddConcertResponse response = concertsService.addConcert(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @RolesAllowed({"user", "admin"})
     @GetMapping
     public ResponseEntity<List<Concert>> getConcerts() {
         return ResponseEntity.ok(concertsService.getAllConcerts());
     }
 
 
+    @RolesAllowed({"user", "admin"})
     @GetMapping("{id}")
     public ResponseEntity<Concert> getConcert(@PathVariable("id") long id) {
         final Concert concert = concertsService.getConcert(id);
         return ResponseEntity.ok().body(concert);
     }
 
+    @RolesAllowed({"admin"})
     @PutMapping("{id}")
     public ResponseEntity<Concert> updateConcert(@PathVariable("id") long id,
      @RequestBody @Valid UpdateConcertRequest request) {
