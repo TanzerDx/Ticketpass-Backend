@@ -1,10 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
 import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.TicketEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
+import com.example.individual_assignment_hristo_ganchev.persistence.entities.*;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.TicketRepository;
@@ -31,12 +28,14 @@ class TicketsServiceImplTest {
         TicketRepository ticketRepository = mock(TicketRepository.class);
         OrderRepository orderRepository = mock(OrderRepository.class);
 
+        RoleEntity roleEntity = new RoleEntity(1L, "user");
+
         ConcertEntity concert = new ConcertEntity(1L, "Chase Atlantic",
                 "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
-        UserEntity user = new UserEntity(1L, "hristo@gmail.com", null,
-                "hashedPassword", false);
+        UserEntity user = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", Arrays.asList(roleEntity));
 
 
         OrderEntity order = new OrderEntity(1L,  concert, user, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",

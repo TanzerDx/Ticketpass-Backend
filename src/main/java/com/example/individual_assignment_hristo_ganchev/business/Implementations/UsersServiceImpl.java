@@ -7,18 +7,26 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Lo
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
+import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
+
 
 @Service
 @AllArgsConstructor
 public class UsersServiceImpl implements UsersService {
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final AccessTokenEncoder accessTokenEncoder;
 
     @Override
     public AddUserResponse addUser(AddUserRequest request)
@@ -42,12 +50,17 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public LoginResponse Login(LoginRequest request)
     {
-        User user = UserConverter.convert(userRepository.login(request.getEmail(), request.getPassword()));
+        User user = UserConverter.convert(userRepository.login(request.getEmail()));
 
-        return LoginResponse.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .build();
+        if (passwordEncoder.matches(request.getPassword(), user.getEncodedPassword())) {
+
+            return LoginResponse.builder()
+                    .accessToken(generateAccessToken(user))
+                    .build();
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -59,13 +72,23 @@ public class UsersServiceImpl implements UsersService {
 
     private UserEntity saveNewUser(AddUserRequest request)
     {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
-                .salt("salt")
-                .hashedPassword(request.getHashedPassword())
-                .isAdmin(false)
+                .encodedPassword(encodedPassword)
+                .role("user")
                 .build();
 
         return userRepository.save(user);
+    }
+
+    private String generateAccessToken(User user) {
+
+        List<String> roles = new ArrayList<>();
+        roles.add(user.getRole());
+
+        return accessTokenEncoder.encode(
+                new AccessTokenImpl(user.getEmail(), user.getId(), roles));
     }
 }

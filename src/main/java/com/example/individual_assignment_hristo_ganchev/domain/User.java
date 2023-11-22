@@ -17,10 +17,8 @@ public class User {
 
     private String email;
 
-    private String salt;
+    private String encodedPassword;
 
-    private String hashedPassword;
-
-    private Boolean isAdmin;
+    private String role;
 
 }

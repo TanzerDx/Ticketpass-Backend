@@ -16,6 +16,6 @@ public class AddUserRequest {
     private String email;
 
     @NotBlank
-    private String hashedPassword;
+    private String password;
 
 }
