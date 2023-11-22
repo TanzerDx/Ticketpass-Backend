@@ -162,5 +162,24 @@ public class ConcertsServiceImplTest {
         assertThrows(NullPointerException.class, () -> sut.updateConcert(request));
     }
 
+    @Test
+    public void getConcert_shouldThrowANullPointerException() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+
+        NullPointerException nullPointerException = new NullPointerException();
+
+        when(concertRepositoryMock.getById(1L)).thenThrow(nullPointerException);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> sut.getConcert(1L));
+    }
 
 }

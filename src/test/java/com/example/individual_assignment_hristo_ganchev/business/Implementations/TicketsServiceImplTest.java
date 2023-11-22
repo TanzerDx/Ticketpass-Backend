@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -82,6 +83,27 @@ class TicketsServiceImplTest {
     // Assert
         assertThat(receivedTickets).isEmpty();
 
+    }
+
+    @Test
+    void getTickets_shouldThrowNullPointerException() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        TicketRepository ticketRepository = mock(TicketRepository.class);
+        OrderRepository orderRepository = mock(OrderRepository.class);
+
+
+        NullPointerException nullPointerException = new NullPointerException();
+
+        when(ticketRepository.getByOrderId(1L)).thenThrow(nullPointerException);
+
+        TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository);
+
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> sut.getTickets(1L));
     }
 
 
