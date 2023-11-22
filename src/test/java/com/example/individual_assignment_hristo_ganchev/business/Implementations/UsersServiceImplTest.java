@@ -1,13 +1,13 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
-import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
-import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
+import com.example.individual_assignment_hristo_ganchev.security.PasswordEncoderConfig;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,16 +20,19 @@ public class UsersServiceImplTest {
     public void getUser_shouldGetUserByID() throws Exception {
     // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
+            PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+            AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
 
-            UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com", null,
-                    "hashedPassword", false);
 
-            User toCompare = new User(1L, "hristo@gmail.com", null,
-                    "hashedPassword", false);
+            UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com",
+                    "hashedPassword", "user");
+
+            User toCompare = new User(1L, "hristo@gmail.com",
+                    "hashedPassword", "user");
 
             when(userRepositoryMock.getById(1L)).thenReturn(toReturn);
 
-            UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock);
+            UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder);
 
 
     // Act
@@ -44,13 +47,14 @@ public class UsersServiceImplTest {
     public void getUser_shouldThrowNullPointerException() throws Exception {
         // Arrange
         UserRepository userRepositoryMock = mock(UserRepository.class);
-
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
 
         NullPointerException nullPointerException = new NullPointerException();
 
         when(userRepositoryMock.getById(1L)).thenThrow(nullPointerException);
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder);
 
 
         // Act and Assert

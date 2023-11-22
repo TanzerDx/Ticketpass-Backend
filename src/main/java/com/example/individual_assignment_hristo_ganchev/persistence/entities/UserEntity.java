@@ -29,12 +29,10 @@ public class UserEntity {
     private String email;
 
     @NotEmpty
-    private String salt;
+    private String encodedPassword;
 
     @NotEmpty
-    private String hashedPassword;
+    private String role;
 
-    @NotNull
-    private Boolean isAdmin;
 
 }

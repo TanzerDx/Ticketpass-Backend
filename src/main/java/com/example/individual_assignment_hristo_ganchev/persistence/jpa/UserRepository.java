@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query("select u from UserEntity u where email = ?1 and hashedPassword = ?2")
-    UserEntity login(String submittedEmail, String submittedPassword);
+    @Query("select u from UserEntity u where email = ?1")
+    UserEntity login(String submittedEmail);
 }

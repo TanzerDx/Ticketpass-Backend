@@ -20,8 +20,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class TicketsServiceImpl implements TicketsService {
-    public final TicketRepository ticketRepository;
-    public final OrderRepository orderRepository;
+    private final TicketRepository ticketRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public AddTicketsResponse addTickets(AddTicketsRequest request)
