@@ -16,9 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,6 +45,8 @@ public class OrderControllerTests {
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
     void getAllOrders_shouldReturn200ResponseWithAListOfOrders() throws Exception{
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -101,6 +101,8 @@ public class OrderControllerTests {
     @WithMockUser(username = "testuser", roles = {"user"})
     void getAllOrders_shouldReturn200ResponseWithAnEmptyList() throws Exception{
 
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
         GetAllOrdersResponse response = GetAllOrdersResponse.builder()
                 .orders(new ArrayList<>())
                 .build();
@@ -125,6 +127,9 @@ public class OrderControllerTests {
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
     void getOrder_shouldReturn200ResponseWithAnOrderOfID1() throws Exception{
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
         Concert concert = new Concert(1L, "Chase Atlantic",
@@ -135,7 +140,7 @@ public class OrderControllerTests {
                 "hashedPassword", "user");
 
 
-        Order response =new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
+        Order response =new Order(1L,  concert, user, sdf.parse("2024-02-28T00:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
                 "+31613532345", 3, 14.15, "Ideal");
 
         when(accessToken.getUserId()).thenReturn(1L);

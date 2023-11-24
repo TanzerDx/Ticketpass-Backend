@@ -28,14 +28,12 @@ public class ConcertController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @RolesAllowed({"user", "admin"})
     @GetMapping
     public ResponseEntity<List<Concert>> getConcerts() {
         return ResponseEntity.ok(concertsService.getAllConcerts());
     }
 
 
-    @RolesAllowed({"user", "admin"})
     @GetMapping("{id}")
     public ResponseEntity<Concert> getConcert(@PathVariable("id") long id) {
         final Concert concert = concertsService.getConcert(id);

@@ -53,6 +53,8 @@ public class TicketControllerTests {
     @WithMockUser(username = "testuser", roles = {"user"})
     void getTickets_shouldReturn200ResponseWithAListOfTickets() throws Exception {
 
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
         Concert concert = new Concert(1L, "Chase Atlantic",
@@ -67,7 +69,7 @@ public class TicketControllerTests {
                 "+31613532345", 3, 14.15, "Ideal");
 
         List<Ticket> tickets = Arrays.asList(new Ticket(1L, order ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing", 1 , 1));
 
 
         when(accessToken.getUserId()).thenReturn(1l);
@@ -87,8 +89,8 @@ public class TicketControllerTests {
                 .andExpect(jsonPath("$[0].QR").value("QR"))
                 .andExpect(jsonPath("$[0].userName").value("Hristo Ganchev"))
                 .andExpect(jsonPath("$[0].venueSection").value("Standing"))
-                .andExpect(jsonPath("$[0].venueRow").value(""))
-                .andExpect(jsonPath("$[0].venueSeat").value(""));
+                .andExpect(jsonPath("$[0].venueRow").value(1))
+                .andExpect(jsonPath("$[0].venueSeat").value(1));
 
         verify(ticketsService).getTickets(1L);
     }
