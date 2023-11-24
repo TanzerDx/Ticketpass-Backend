@@ -52,9 +52,8 @@ public class UserControllerTests {
 
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.email").value("hristo@gmail.com"))
-                .andExpect(jsonPath("$.salt").value(""))
-                .andExpect(jsonPath("$.hashedPassword").value("hashedPassword"))
-                .andExpect(jsonPath("$.isAdmin").value(false));
+                .andExpect(jsonPath("$.encodedPassword").value("hashedPassword"))
+                .andExpect(jsonPath("$.role").value("user"));
 
 
         verify(usersService).getUserById(1L);
