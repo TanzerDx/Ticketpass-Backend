@@ -6,14 +6,12 @@ import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
-import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,10 +33,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
     @Override
     public Concert getConcert(Long id){
-
-        ConcertEntity concertEntity = concertRepository.getById(id);
-
-        return ConcertConverter.convert(concertEntity);
+        return ConcertConverter.convert(concertRepository.getById(id));
     }
 
 
@@ -51,14 +46,9 @@ public class ConcertsServiceImpl implements ConcertsService {
     }
 
     @Override
-    public void updateConcert(UpdateConcertRequest request){
-        ConcertEntity concertEntity = concertRepository.getById(request.getId());
+    public void updateConcert(UpdateConcertRequest request) {
+        ConcertEntity concert = concertRepository.getById(request.getId());
 
-        updateFields(request, concertEntity);
-    }
-
-
-    private void updateFields(UpdateConcertRequest request, ConcertEntity concert) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try
@@ -79,10 +69,9 @@ public class ConcertsServiceImpl implements ConcertsService {
             throw new RuntimeException(e);
         }
 
-        
     }
 
-    private ConcertEntity saveNewConcert(AddConcertRequest request) {
+    protected ConcertEntity saveNewConcert(AddConcertRequest request) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

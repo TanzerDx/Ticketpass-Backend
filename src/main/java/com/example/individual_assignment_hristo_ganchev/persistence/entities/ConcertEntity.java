@@ -7,7 +7,6 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "concerts")

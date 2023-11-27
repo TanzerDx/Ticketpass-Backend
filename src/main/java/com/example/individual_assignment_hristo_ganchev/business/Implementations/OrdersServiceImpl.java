@@ -4,21 +4,16 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Conc
 import com.example.individual_assignment_hristo_ganchev.business.Converters.OrderConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.UserConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
-import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderRequest;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
-import com.example.individual_assignment_hristo_ganchev.security.auth.Http401UnauthorizedEntryPoint;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -43,7 +38,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public GetAllOrdersResponse getAllOrders(Long userId){
 
-        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(userId))
+        if (!requestAccessToken.getUserId().equals(userId))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
@@ -64,7 +59,7 @@ public class OrdersServiceImpl implements OrdersService {
 
         OrderEntity orderEntity = orderRepository.getById(id);
 
-        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(orderEntity.getUser().getId()))
+        if (!requestAccessToken.getUserId().equals(orderEntity.getUser().getId()))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
@@ -72,7 +67,7 @@ public class OrdersServiceImpl implements OrdersService {
         return OrderConverter.convert(orderEntity);
     }
 
-    private OrderEntity saveNewOrder(CreateOrderRequest request) {
+    protected OrderEntity saveNewOrder(CreateOrderRequest request) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 

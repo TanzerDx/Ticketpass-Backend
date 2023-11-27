@@ -46,14 +46,12 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public User getUserById(long id)
     {
-        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(id))
+        if (!requestAccessToken.getUserId().equals(id))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
 
-        UserEntity userEntity = userRepository.getById(id);
-
-        return UserConverter.convert(userEntity);
+        return UserConverter.convert(userRepository.getById(id));
     }
 
 
@@ -76,7 +74,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void deleteUser(long id)
     {
-        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(id))
+        if (!requestAccessToken.hasRole("admin") || !requestAccessToken.getUserId().equals(id))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
@@ -86,7 +84,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
 
-    private UserEntity saveNewUser(AddUserRequest request)
+    protected UserEntity saveNewUser(AddUserRequest request)
     {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
@@ -99,7 +97,7 @@ public class UsersServiceImpl implements UsersService {
         return userRepository.save(user);
     }
 
-    private String generateAccessToken(User user) {
+    protected String generateAccessToken(User user) {
 
         List<String> roles = new ArrayList<>();
         roles.add(user.getRole());
