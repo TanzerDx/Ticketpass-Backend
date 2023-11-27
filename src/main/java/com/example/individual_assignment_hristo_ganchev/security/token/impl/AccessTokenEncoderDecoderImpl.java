@@ -3,6 +3,7 @@ package com.example.individual_assignment_hristo_ganchev.security.token.impl;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
@@ -25,8 +26,15 @@ import java.util.Map;
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, AccessTokenDecoder {
     private final Key key;
 
-    public AccessTokenEncoderDecoderImpl(@Value("${jwt.secret}") String secretKey) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+    Dotenv dotenv = Dotenv.configure()
+            .directory("D:\\Uni\\Semester 3\\Individual Project")
+            .filename("jwt-secret-key.env")
+            .load();
+
+    String obtainedSecretKey = dotenv.get("jwt.secret");
+
+    public AccessTokenEncoderDecoderImpl() {
+        byte[] keyBytes = Decoders.BASE64.decode(obtainedSecretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 

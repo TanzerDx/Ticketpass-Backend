@@ -12,6 +12,7 @@ import com.example.individual_assignment_hristo_ganchev.security.token.AccessTok
 import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
@@ -68,7 +69,7 @@ public class UsersServiceImpl implements UsersService {
                     .build();
         }
         else {
-            return null;
+            throw new BadCredentialsException("Incorrect password");
         }
     }
 
