@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
@@ -17,6 +18,36 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ConcertsServiceImplTest {
+
+    @Test
+    public void addConcert_shouldReturnResponseWithID1_whenConcertIsAddedToTheDatabase() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+        ConcertEntity toSave= new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        AddConcertRequest request = new AddConcertRequest( "Chase Atlantic",
+                "Indie", "TivoliVredenburg", "2024-02-27T23:00:00.000+00:00", "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+
+
+        when(sut.saveNewConcert(request)).thenReturn(toSave);
+
+
+        // Act
+        AddConcertResponse response = sut.addConcert(request);
+
+
+        // Assert
+        assertThat(response.getId()).isEqualTo(1L);
+    }
 
     @Test
     public void getConcert_shouldGetConcertById() throws Exception {

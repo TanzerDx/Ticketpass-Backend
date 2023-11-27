@@ -1,11 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.business.Converters;
 
-import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
-import com.example.individual_assignment_hristo_ganchev.domain.User;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
-import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 
 public final class OrderConverter {
 

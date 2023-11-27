@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * Overrides default Spring Boot behaviour of returning 403
- * on authentication check errors, instead of 401.
- */
+
 @Component
 @Primary
 @Slf4j

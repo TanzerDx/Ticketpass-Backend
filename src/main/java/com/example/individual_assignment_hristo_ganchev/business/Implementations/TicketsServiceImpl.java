@@ -5,7 +5,6 @@ import com.example.individual_assignment_hristo_ganchev.business.Converters.Tick
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.TicketsService;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
-import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import lombok.AllArgsConstructor;
@@ -49,7 +48,7 @@ public class TicketsServiceImpl implements TicketsService {
     {
         OrderEntity order = orderRepository.getById(orderId);
 
-        if (!requestAccessToken.hasRole("admin") && !requestAccessToken.getUserId().equals(order.getUser().getId()))
+        if (!requestAccessToken.getUserId().equals(order.getUser().getId()))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
@@ -60,7 +59,7 @@ public class TicketsServiceImpl implements TicketsService {
                 .toList();
     }
 
-    private List<TicketEntity> saveTickets(OrderEntity order)
+    protected List<TicketEntity> saveTickets(OrderEntity order)
     {
 
         List<TicketEntity> currentTickets = new ArrayList<>();

@@ -2,15 +2,12 @@ package com.example.individual_assignment_hristo_ganchev.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Date;
-import java.util.Optional;
 
 @Entity
 @Table(name = "tickets")

@@ -1,21 +1,13 @@
 package com.example.individual_assignment_hristo_ganchev.controller.implementations;
 
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
-import com.example.individual_assignment_hristo_ganchev.business.Interfaces.OrdersService;
-import com.example.individual_assignment_hristo_ganchev.controller.ConcertController;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
-import com.example.individual_assignment_hristo_ganchev.domain.Order;
-import com.example.individual_assignment_hristo_ganchev.domain.User;
-import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.text.SimpleDateFormat;
