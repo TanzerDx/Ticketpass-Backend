@@ -14,4 +14,6 @@ public interface UsersService {
     LoginResponse Login(LoginRequest request);
 
     void deleteUser(long id);
+
+    User getUserByAccessToken(String passedAccessToken);
 }

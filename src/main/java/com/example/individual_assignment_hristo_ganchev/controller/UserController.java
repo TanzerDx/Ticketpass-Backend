@@ -38,6 +38,25 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping(value = "viaToken")
+    public ResponseEntity<User> getUserByAccessToken(@RequestHeader("Authorization") String authorizationHeader) {
+
+        String accessToken = extractAccessToken(authorizationHeader);
+
+        final User user = usersService.getUserByAccessToken(accessToken);
+        return ResponseEntity.ok().body(user);
+    }
+
+    private String extractAccessToken(String authorizationHeader) {
+        String[] parts = authorizationHeader.split("\\s");
+        if (parts.length == 2 && "Bearer".equals(parts[0])) {
+            return parts[1];
+        } else {
+            throw new IllegalArgumentException("Invalid Authorization header format");
+        }
+    }
+
+
     @RolesAllowed({"user", "admin"})
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id)

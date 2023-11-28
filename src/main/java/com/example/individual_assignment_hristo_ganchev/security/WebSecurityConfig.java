@@ -35,7 +35,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/tickets", "/concerts", "/users", "/users/login", "/orders", "/tokens").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/orders", "/tokens" , "/users", "/users/viaToken").permitAll()
                                 .requestMatchers(
                                         new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/concerts/[0-9]+", "GET"),

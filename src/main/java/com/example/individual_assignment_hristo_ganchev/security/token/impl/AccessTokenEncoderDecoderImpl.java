@@ -1,5 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.security.token.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
@@ -13,6 +15,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+
+
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -24,6 +28,7 @@ import java.util.Map;
 @Service
 public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, AccessTokenDecoder {
     private final Key key;
+    private static final Logger logger = LoggerFactory.getLogger(AccessTokenEncoderDecoderImpl.class);
 
     Dotenv dotenv = Dotenv.configure()
             .directory("D:\\Uni\\Semester 3\\Individual Project")
@@ -70,6 +75,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
 
             return new AccessTokenImpl(claims.getSubject(), userId, roles);
         } catch (JwtException e) {
+            logger.error("Error decoding access token: {}", e.getMessage(), e);
             return null;
         }
     }
