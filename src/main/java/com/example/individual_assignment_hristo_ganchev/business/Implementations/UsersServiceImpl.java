@@ -8,6 +8,7 @@ import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenImpl;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class UsersServiceImpl implements UsersService {
     private final PasswordEncoder passwordEncoder;
 
     private final AccessTokenEncoder accessTokenEncoder;
+
+    private final AccessTokenDecoder accessTokenDecoder;
 
     private AccessToken requestAccessToken;
 
@@ -74,7 +77,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void deleteUser(long id)
     {
-        if (!requestAccessToken.hasRole("admin") || !requestAccessToken.getUserId().equals(id))
+        if (!requestAccessToken.getUserId().equals(id))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
@@ -83,6 +86,13 @@ public class UsersServiceImpl implements UsersService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public User getUserByAccessToken(String passedAccessToken)
+    {
+        AccessToken accessToken  = accessTokenDecoder.decode(passedAccessToken);
+
+        return UserConverter.convert(userRepository.getById(accessToken.getUserId()));
+    }
 
     protected UserEntity saveNewUser(AddUserRequest request)
     {

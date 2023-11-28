@@ -8,6 +8,7 @@ import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenEncoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,6 +29,7 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
 
@@ -40,7 +42,7 @@ public class UsersServiceImplTest {
 
         LoginRequest request = new LoginRequest("hristo@gmail.com", "12345");
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         when(userRepositoryMock.login("hristo@gmail.com")).thenReturn(userEntity);
@@ -64,6 +66,7 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
 
@@ -73,7 +76,7 @@ public class UsersServiceImplTest {
 
         AddUserRequest request = new AddUserRequest("hristo@gmail.com", "password");
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         when(sut.saveNewUser(request)).thenReturn(userEntity);
@@ -94,6 +97,7 @@ public class UsersServiceImplTest {
             UserRepository userRepositoryMock = mock(UserRepository.class);
             PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
             AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
 
@@ -106,7 +110,7 @@ public class UsersServiceImplTest {
         when(accessToken.getUserId()).thenReturn(1l);
             when(userRepositoryMock.getById(1L)).thenReturn(toReturn);
 
-            UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
     // Act
@@ -123,6 +127,7 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
         NullPointerException nullPointerException = new NullPointerException();
@@ -130,7 +135,7 @@ public class UsersServiceImplTest {
         when(accessToken.getUserId()).thenReturn(1l);
         when(userRepositoryMock.getById(1L)).thenThrow(nullPointerException);
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         // Act and Assert
@@ -143,6 +148,7 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
 
@@ -153,7 +159,7 @@ public class UsersServiceImplTest {
         when(accessToken.getUserId()).thenReturn(2L);
         when(userRepositoryMock.getById(1L)).thenReturn(toReturn);
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         // Act and Assert
@@ -166,11 +172,12 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
         when(accessToken.getUserId()).thenReturn(2L);
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         // Act and Assert
@@ -184,6 +191,7 @@ public class UsersServiceImplTest {
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
         AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
         AccessToken accessToken = mock(AccessToken.class);
 
 
@@ -196,7 +204,7 @@ public class UsersServiceImplTest {
 
         LoginRequest request = new LoginRequest("hristo@gmail.com", "12345");
 
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessToken);
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
 
 
         when(userRepositoryMock.login("hristo@gmail.com")).thenReturn(userEntity);
