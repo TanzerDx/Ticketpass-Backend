@@ -65,9 +65,10 @@ public class UsersServiceImpl implements UsersService {
 
         if (passwordEncoder.matches(request.getPassword(), user.getEncodedPassword())) {
 
-            return LoginResponse.builder()
+           return LoginResponse.builder()
                     .accessToken(generateAccessToken(user))
                     .build();
+
         }
         else {
             throw new BadCredentialsException("Incorrect password");
@@ -81,7 +82,6 @@ public class UsersServiceImpl implements UsersService {
         {
             throw new AccessDeniedException("Unauthorized access");
         }
-
 
         userRepository.deleteById(id);
     }
@@ -107,7 +107,7 @@ public class UsersServiceImpl implements UsersService {
         return userRepository.save(user);
     }
 
-    public String generateAccessToken(User user) {
+    protected String generateAccessToken(User user) {
 
         List<String> roles = new ArrayList<>();
         roles.add(user.getRole());

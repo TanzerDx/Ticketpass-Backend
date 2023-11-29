@@ -57,7 +57,6 @@ public class UserController {
     }
 
 
-    @RolesAllowed({"user", "admin"})
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id)
     {
