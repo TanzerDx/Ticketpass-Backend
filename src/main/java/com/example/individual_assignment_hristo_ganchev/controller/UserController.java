@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(usersService.Login(request));
     }
 
-    @RolesAllowed({"user", "admin"})
+
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         final User user = usersService.getUserById(id);

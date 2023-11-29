@@ -107,7 +107,7 @@ public class UsersServiceImpl implements UsersService {
         return userRepository.save(user);
     }
 
-    protected String generateAccessToken(User user) {
+    public String generateAccessToken(User user) {
 
         List<String> roles = new ArrayList<>();
         roles.add(user.getRole());

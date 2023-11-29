@@ -114,8 +114,7 @@ public class OrderControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type",
                         APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(0)));
+                .andExpect(jsonPath("$").isEmpty());
 
 
         verify(ordersService).getAllOrders(1L);
