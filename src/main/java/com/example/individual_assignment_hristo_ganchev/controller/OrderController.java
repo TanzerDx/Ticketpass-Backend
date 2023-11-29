@@ -25,13 +25,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
-        @RolesAllowed({"user", "admin"})
-        @GetMapping
+
+        @GetMapping()
         public ResponseEntity<GetAllOrdersResponse> getAllOrders(@RequestParam(name = "userId") Long userId) {
             return ResponseEntity.ok(ordersService.getAllOrders(userId));
         }
 
-        @RolesAllowed({"user", "admin"})
+
         @GetMapping("{id}")
         public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
         final Order order = ordersService.getOrder(id);
