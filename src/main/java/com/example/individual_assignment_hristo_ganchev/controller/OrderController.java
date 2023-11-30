@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
@@ -36,6 +38,13 @@ public class OrderController {
         public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
         final Order order = ordersService.getOrder(id);
                 return ResponseEntity.ok().body(order);
+        }
+
+        @RolesAllowed({"admin" , "manager"})
+        @GetMapping(value = "all")
+        public ResponseEntity<List<Order>> getOrdersForAllUsers() {
+                final List<Order> allOrders = ordersService.getOrdersForAllUsers();
+                return ResponseEntity.ok().body(allOrders);
         }
 
 }

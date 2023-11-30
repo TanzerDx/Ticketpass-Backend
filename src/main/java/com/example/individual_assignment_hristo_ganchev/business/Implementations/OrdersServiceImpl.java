@@ -59,6 +59,16 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public List<Order> getOrdersForAllUsers(){
+
+        return orderRepository.findAll()
+                .stream()
+                .map(OrderConverter::convert)
+                .toList();
+
+    }
+
+    @Override
     public Order getOrder(Long id){
 
         OrderEntity orderEntity = orderRepository.getById(id);
