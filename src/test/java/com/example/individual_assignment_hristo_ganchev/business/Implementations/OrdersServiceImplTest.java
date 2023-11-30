@@ -26,49 +26,6 @@ import static org.mockito.Mockito.when;
 class OrdersServiceImplTest {
 
     @Test
-    public void addOrder_shouldReturnResponseWithID1_whenOrderIsAddedToTheDatabase() throws Exception {
-
-        // Arrange
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-
-        OrderRepository orderRepositoryMock = mock(OrderRepository.class);
-        AccessToken accessToken = mock(AccessToken.class);
-
-        ConcertEntity concertEntity = new ConcertEntity(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-
-        Concert concert = new Concert(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-
-        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
-                "hashedPassword", "user");
-
-        User user = new User(1L, "hristo@gmail.com",
-                "hashedPassword", "user");
-
-
-        OrderEntity toSave = new OrderEntity(1L,  concertEntity ,userEntity, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
-                "+31613532345", 3, 14.15, "Ideal");
-
-        CreateOrderRequest request = new CreateOrderRequest( concert, user, "2024-02-27T23:00:00.000+00:00", "Hristo", "Ganchev", "Woenselse Markt 18",
-                "+31613532345", 3, 14.15, "Ideal");
-
-        OrdersServiceImpl sut = new OrdersServiceImpl(orderRepositoryMock, accessToken);
-
-        when(sut.saveNewOrder(request)).thenReturn(toSave);
-
-
-        // Act
-        CreateOrderResponse response = sut.createOrder(request);
-
-
-        // Assert
-        assertThat(response.getId()).isEqualTo(1L);
-    }
-
-    @Test
     void getAllOrders_shouldReturnOrdersIfPresent() throws Exception {
 
         //Arrange

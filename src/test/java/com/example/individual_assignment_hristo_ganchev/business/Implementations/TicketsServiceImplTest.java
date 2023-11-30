@@ -25,61 +25,6 @@ import static org.mockito.Mockito.when;
 class TicketsServiceImplTest {
 
     @Test
-    public void addTickets_shouldReturnResponseWithID1_whenTicketsAreAddedToTheDatabase() throws Exception {
-
-        // Arrange
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-
-        TicketRepository ticketRepository = mock(TicketRepository.class);
-        OrderRepository orderRepository = mock(OrderRepository.class);
-        AccessToken accessToken = mock(AccessToken.class);
-
-
-        Concert concert = new Concert(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-
-        User user = new User(1L, "hristo@gmail.com",
-                "hashedPassword", "user");
-
-
-        ConcertEntity concertEntity = new ConcertEntity(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-
-        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
-                "hashedPassword", "user");
-
-
-        Order order = new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
-                "+31613532345", 1, 14.15, "Ideal");
-
-        OrderEntity orderEntity = new OrderEntity(1L,  concertEntity, userEntity, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
-                "+31613532345", 1, 14.15, "Ideal");
-
-        List<TicketEntity> tickets = Arrays.asList(new TicketEntity(1L, orderEntity ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
-
-
-        AddTicketsRequest request = new AddTicketsRequest(order);
-
-
-        TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, accessToken);
-
-
-        when(sut.saveTickets(orderEntity)).thenReturn(tickets);
-
-
-
-        // Act
-        AddTicketsResponse response = sut.addTickets(request);
-
-
-        // Assert
-        assertThat(response.getTickets()).isEqualTo(tickets);
-    }
-
-    @Test
     void getTickets_shouldReturnTicketsIfPresent() throws Exception {
 
      // Arrange

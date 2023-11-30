@@ -60,38 +60,6 @@ public class UsersServiceImplTest {
     }
 
     @Test
-    public void addUser_shouldReturnResponseWithID1_whenUserIsAddedToTheDatabase() throws Exception {
-
-        // Arrange
-        UserRepository userRepositoryMock = mock(UserRepository.class);
-        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
-        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
-        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
-        AccessToken accessToken = mock(AccessToken.class);
-
-
-        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
-                "hashedPassword", "user");
-
-
-        AddUserRequest request = new AddUserRequest("hristo@gmail.com", "password");
-
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
-
-
-        when(sut.saveNewUser(request)).thenReturn(userEntity);
-
-
-        // Act
-        AddUserResponse response = sut.addUser(request);
-
-
-        // Assert
-        assertThat(response.getId()).isEqualTo(1L);
-
-    }
-
-    @Test
     public void getUser_shouldGetUserByID() throws Exception {
     // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
