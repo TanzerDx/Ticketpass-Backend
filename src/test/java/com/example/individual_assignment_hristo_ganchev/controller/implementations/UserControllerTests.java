@@ -46,7 +46,7 @@ public class UserControllerTests {
 
 
     @Test
-    @WithMockUser(username = "testuser", roles = {"user"})
+    @WithMockUser(username = "test", roles = {"user"})
     void getUser_shouldReturn200ResponseWithAUserOfID1() throws Exception  {
 
         User toReturn = new User(1L, "hristo@gmail.com",
