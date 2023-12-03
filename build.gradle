@@ -23,7 +23,6 @@ sonar {
                 'src/**/com/example/individual_assignment_hristo_ganchev/domain/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/persistence/**/*',
                 'src/**/com/example/individual_assignment_hristo_ganchev/security/**/*',
-                'src/**/com/example/individual_assignment_hristo_ganchev/business/Converters/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/IndividualAssignmentHristoGanchevApplication.java'
         ]
         property "sonar.cpd.exclusions", [
@@ -91,11 +90,9 @@ jacocoTestReport {
                     'com/example/individual_assignment_hristo_ganchev/business/TicketsRelated/**',
                     'com/example/individual_assignment_hristo_ganchev/business/OrdersRelated/**',
                     'com/example/individual_assignment_hristo_ganchev/business/UsersRelated/**',
-//                    'com/example/individual_assignment_hristo_ganchev/controller/**',
                     'com/example/individual_assignment_hristo_ganchev/domain/**',
                     'com/example/individual_assignment_hristo_ganchev/persistence/**',
                     'com/example/individual_assignment_hristo_ganchev/security/**',
-                    'com/example/individual_assignment_hristo_ganchev/business/Converters/**',
                     'com/example/individual_assignment_hristo_ganchev/IndividualAssignmentHristoGanchevApplication.java'
             ])
         }))

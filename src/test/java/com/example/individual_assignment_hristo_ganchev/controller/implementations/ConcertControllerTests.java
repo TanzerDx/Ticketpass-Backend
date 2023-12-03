@@ -151,12 +151,3 @@ public class ConcertControllerTests {
 
 }
 
-
-// after implementing security in your project, you will probably need to switch from annotation
-//
-//@WebMvcTest(<Controller Name>.class)
-//
-//to
-//
-//@SpringBootTest
-// @AutoConfigureMockMvc
