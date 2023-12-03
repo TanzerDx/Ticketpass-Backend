@@ -40,85 +40,85 @@ public class OrderControllerTests {
     private AccessToken accessToken;
 
 
-//    @Test
-//    @WithMockUser(username = "testuser", roles = {"user"})
-//    void getAllOrders_shouldReturn200ResponseWithAListOfOrders() throws Exception{
-//
-//        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-//
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-//
-//        Concert concert = new Concert(1L, "Chase Atlantic",
-//                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
-//                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
-//
-//        User user = new User(1L, "hristo@gmail.com",
-//                "hashedPassword", "user");
-//
-//
-//        List<Order> allOrders = Arrays.asList(new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
-//                "+31613532345", 3, 14.15, "Ideal"));
-//
-//        GetAllOrdersResponse response = GetAllOrdersResponse.builder()
-//                .orders(allOrders)
-//                .build();
-//
-//        when(accessToken.getUserId()).thenReturn(1L);
-//        when(ordersService.getAllOrders(1L)).thenReturn(response);
-//
-//
-//        mockMvc.perform(get("/orders")
-//                .param("userId", "1"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(header().string("Content-Type",
-//                        APPLICATION_JSON_VALUE))
-//                .andExpect(jsonPath("$").isArray())
-//                .andExpect(jsonPath("$", hasSize(1)))
-//
-//
-//                .andExpect(jsonPath("$[0].id").value(1))
-//                .andExpect(jsonPath("$[0].concert").value(concert))
-//                .andExpect(jsonPath("$[0].user").value(user))
-//                .andExpect(jsonPath("$[0].date").value("2024-02-27T23:00:00.000+00:00"))
-//                .andExpect(jsonPath("$[0].name").value("Hristo"))
-//                .andExpect(jsonPath("$[0].surname").value("Ganchev"))
-//                .andExpect(jsonPath("$[0].address").value("Woenselse Markt 18"))
-//                .andExpect(jsonPath("$[0].phone").value("+31613532345"))
-//                .andExpect(jsonPath("$[0].ticketNumber").value(3))
-//                .andExpect(jsonPath("$[0].orderPrice").value(14.15))
-//                .andExpect(jsonPath("$[0].paymentMethod").value("Ideal"));
-//
-//
-//        verify(ordersService).getAllOrders(1L);
-//
-//    }
+    @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
+    void getAllOrders_shouldReturn200ResponseWithAListOfOrders() throws Exception{
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        Concert concert = new Concert(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2024-02-27T23:00:00.000+00:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        User user = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
 
 
-//    @Test
-//    @WithMockUser(username = "testuser", roles = {"user"})
-//    void getAllOrders_shouldReturn200ResponseWithAnEmptyList() throws Exception{
-//
-//        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-//
-//        GetAllOrdersResponse response = GetAllOrdersResponse.builder()
-//                .orders(new ArrayList<>())
-//                .build();
-//
-//        when(accessToken.getUserId()).thenReturn(1L);
-//        when(ordersService.getAllOrders(1L)).thenReturn(response);
-//
-//        mockMvc.perform(get("/orders")
-//                .param("userId", "1"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(header().string("Content-Type",
-//                        APPLICATION_JSON_VALUE))
-//                .andExpect(jsonPath("$").isEmpty());
-//
-//
-//        verify(ordersService).getAllOrders(1L);
-//    }
+        List<Order> allOrders = Arrays.asList(new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
+                "+31613532345", 3, 14.15, "Ideal"));
+
+        GetAllOrdersResponse response = GetAllOrdersResponse.builder()
+                .orders(allOrders)
+                .build();
+
+        when(accessToken.getUserId()).thenReturn(1L);
+        when(ordersService.getAllOrders(1L)).thenReturn(response);
+
+
+        mockMvc.perform(get("/orders")
+                .param("userId", "1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type",
+                        APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$", hasSize(1)))
+
+
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].concert").value(concert))
+                .andExpect(jsonPath("$[0].user").value(user))
+                .andExpect(jsonPath("$[0].date").value("2024-02-27T23:00:00.000+00:00"))
+                .andExpect(jsonPath("$[0].name").value("Hristo"))
+                .andExpect(jsonPath("$[0].surname").value("Ganchev"))
+                .andExpect(jsonPath("$[0].address").value("Woenselse Markt 18"))
+                .andExpect(jsonPath("$[0].phone").value("+31613532345"))
+                .andExpect(jsonPath("$[0].ticketNumber").value(3))
+                .andExpect(jsonPath("$[0].orderPrice").value(14.15))
+                .andExpect(jsonPath("$[0].paymentMethod").value("Ideal"));
+
+
+        verify(ordersService).getAllOrders(1L);
+
+    }
+
+
+    @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
+    void getAllOrders_shouldReturn200ResponseWithAnEmptyList() throws Exception{
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        GetAllOrdersResponse response = GetAllOrdersResponse.builder()
+                .orders(new ArrayList<>())
+                .build();
+
+        when(accessToken.getUserId()).thenReturn(1L);
+        when(ordersService.getAllOrders(1L)).thenReturn(response);
+
+        mockMvc.perform(get("/orders")
+                .param("userId", "1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type",
+                        APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$").isEmpty());
+
+
+        verify(ordersService).getAllOrders(1L);
+    }
 
 
     @Test

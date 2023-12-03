@@ -72,31 +72,31 @@ public class UserControllerTests {
     }
 
 
-//    @Test
-//    void Login_shouldReturn200ResponseWithLoggedInUser() throws Exception  {
-//
-//
-//        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
-//                "hashedPassword", "user");
-//
-//        LoginRequest request = new LoginRequest("hristo@gmail.com",
-//                "hashedPassword");
-//
-//
-//        when(userRepository.login("hristo@gmail.com")).thenReturn(userEntity);
-//        when(passwordEncoder.matches(request.getPassword() , userEntity.getEncodedPassword())).thenReturn(true);
-//
-//        mockMvc.perform(post("/users/login"))
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(header().string("Content-Type",
-//                        APPLICATION_JSON_VALUE))
-//
-//                .andExpect(jsonPath("$.accessToken").value("accessToken"));
-//
-//
-//        verify(usersService).Login(request);
-//    }
+    @Test
+    void Login_shouldReturn200ResponseWithLoggedInUser() throws Exception  {
+
+
+        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+        LoginRequest request = new LoginRequest("hristo@gmail.com",
+                "hashedPassword");
+
+
+        when(userRepository.login("hristo@gmail.com")).thenReturn(userEntity);
+        when(passwordEncoder.matches(request.getPassword() , userEntity.getEncodedPassword())).thenReturn(true);
+
+        mockMvc.perform(post("/users/login"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type",
+                        APPLICATION_JSON_VALUE))
+
+                .andExpect(jsonPath("$.accessToken").value("accessToken"));
+
+
+        verify(usersService).Login(request);
+    }
 
 
 }
