@@ -9,10 +9,7 @@ import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.C
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.GetAllOrdersResponse;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
-import com.example.individual_assignment_hristo_ganchev.security.token.impl.AccessTokenEncoderDecoderImpl;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
@@ -28,7 +25,6 @@ public class OrdersServiceImpl implements OrdersService {
 
     private final OrderRepository orderRepository;
     private AccessToken requestAccessToken;
-    private static final Logger logger = LoggerFactory.getLogger(AccessTokenEncoderDecoderImpl.class);
 
     @Override
     public CreateOrderResponse createOrder(CreateOrderRequest request){
@@ -65,7 +61,6 @@ public class OrdersServiceImpl implements OrdersService {
                 .stream()
                 .map(OrderConverter::convert)
                 .toList();
-
     }
 
     @Override

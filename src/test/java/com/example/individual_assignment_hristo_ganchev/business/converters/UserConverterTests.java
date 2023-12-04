@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
 public class UserConverterTests {
 
     @Test
@@ -58,25 +59,6 @@ public class UserConverterTests {
         assertThat(toCompare).isEqualTo(returnedUser);
     }
 
-//    @Test
-//    public void convert_shouldThrowIllegalStateException() throws Exception
-//    {
-//        //Arrange
-//        UserConverter userConverterMock = mock(UserConverter.class);
-//
-//        UserEntity toConvert = new UserEntity(1L, "hristo@gmail.com",
-//                "hashedPassword", "user");
-//
-//        User toCompare = new User(1L, "hristo@gmail.com",
-//                "hashedPassword", "user");
-//
-//        IllegalStateException illegalStateException = new IllegalStateException();
-//
-//        when(userConverterMock.convert(toConvert)).thenThrow(illegalStateException);
-//
-//
-//        //Act and Assert
-//        assertThrows(IllegalStateException.class, () -> userConverterMock.convert(toConvert));
-//    }
+
 
 }
