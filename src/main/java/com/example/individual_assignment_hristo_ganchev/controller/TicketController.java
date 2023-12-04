@@ -5,7 +5,6 @@ import com.example.individual_assignment_hristo_ganchev.business.Interfaces.Tick
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.Ticket;
-import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
