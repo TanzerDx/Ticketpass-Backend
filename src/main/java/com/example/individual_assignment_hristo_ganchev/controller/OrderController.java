@@ -43,8 +43,7 @@ public class OrderController {
         @RolesAllowed({"admin" , "manager"})
         @GetMapping(value = "all")
         public ResponseEntity<List<Order>> getOrdersForAllUsers() {
-                final List<Order> allOrders = ordersService.getOrdersForAllUsers();
-                return ResponseEntity.ok().body(allOrders);
+                return ResponseEntity.ok().body(ordersService.getOrdersForAllUsers());
         }
 
 }

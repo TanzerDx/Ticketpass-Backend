@@ -7,11 +7,15 @@ import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.UserRepository;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
+import com.example.individual_assignment_hristo_ganchev.security.token.AccessTokenDecoder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,8 +46,15 @@ public class UserControllerTests {
     private AccessToken accessToken;
 
     @MockBean
+    private AccessTokenDecoder accessTokenDecoder;
+
+
+    @MockBean
     private PasswordEncoder passwordEncoder;
 
+    private String asJsonString(Object object) throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(object);
+    }
 
     @Test
     @WithMockUser(username = "test", roles = {"user"})
@@ -86,7 +97,9 @@ public class UserControllerTests {
         when(userRepository.login("hristo@gmail.com")).thenReturn(userEntity);
         when(passwordEncoder.matches(request.getPassword() , userEntity.getEncodedPassword())).thenReturn(true);
 
-        mockMvc.perform(post("/users/login"))
+        mockMvc.perform(post("/users/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type",
@@ -98,5 +111,30 @@ public class UserControllerTests {
         verify(usersService).Login(request);
     }
 
+    @Test
+    void getUserByAccessToken_shouldReturn200ResponseWithAUserOfID1() throws Exception  {
+
+        UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+
+        when(userRepository.getById(1L)).thenReturn(toReturn);
+
+
+        mockMvc.perform(get("/users/viaToken")
+                .param("authorizationHeader", "Bearer accessToken"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type",
+                        APPLICATION_JSON_VALUE))
+
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.email").value("hristo@gmail.com"))
+                .andExpect(jsonPath("$.encodedPassword").value("hashedPassword"))
+                .andExpect(jsonPath("$.role").value("user"));
+
+
+        verify(usersService).getUserByAccessToken("accessToken");
+    }
 
 }

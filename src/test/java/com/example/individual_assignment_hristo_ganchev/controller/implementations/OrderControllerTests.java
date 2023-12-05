@@ -80,21 +80,19 @@ public class OrderControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type",
                         APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(1)))
-
-
-                .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].concert").value(concert))
-                .andExpect(jsonPath("$[0].user").value(user))
-                .andExpect(jsonPath("$[0].date").value("2024-02-27T23:00:00.000+00:00"))
-                .andExpect(jsonPath("$[0].name").value("Hristo"))
-                .andExpect(jsonPath("$[0].surname").value("Ganchev"))
-                .andExpect(jsonPath("$[0].address").value("Woenselse Markt 18"))
-                .andExpect(jsonPath("$[0].phone").value("+31613532345"))
-                .andExpect(jsonPath("$[0].ticketNumber").value(3))
-                .andExpect(jsonPath("$[0].orderPrice").value(14.15))
-                .andExpect(jsonPath("$[0].paymentMethod").value("Ideal"));
+                .andExpect(jsonPath("$.orders").isArray())
+                .andExpect(jsonPath("$.orders", hasSize(1)))
+                .andExpect(jsonPath("$.orders[0].id").value(1))
+                .andExpect(jsonPath("$.orders[0].concert").value(concert))
+                .andExpect(jsonPath("$.orders[0].user").value(user))
+                .andExpect(jsonPath("$.orders[0].date").value("2024-02-27T23:00:00.000+00:00"))
+                .andExpect(jsonPath("$.orders[0].name").value("Hristo"))
+                .andExpect(jsonPath("$.orders[0].surname").value("Ganchev"))
+                .andExpect(jsonPath("$.orders[0].address").value("Woenselse Markt 18"))
+                .andExpect(jsonPath("$.orders[0].phone").value("+31613532345"))
+                .andExpect(jsonPath("$.orders[0].ticketNumber").value(3))
+                .andExpect(jsonPath("$.orders[0].orderPrice").value(14.15))
+                .andExpect(jsonPath("$.orders[0].paymentMethod").value("Ideal"));
 
 
         verify(ordersService).getAllOrders(1L);
@@ -140,9 +138,16 @@ public class OrderControllerTests {
                 new OrderEntity(2L,  concertEntity, userEntity2, sdf.parse("2024-02-27T21:00:00.000+00:00"), "Nikol", "Genova", "Woenselse Markt 11",
                         "+31613532341", 2, 8.10, "PayPal"));
 
+        List<Order> toReturn = Arrays.asList(
+                new Order(1L,  concert, user, sdf.parse("2024-02-27T23:00:00.000+00:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
+                        "+31613532345", 3, 14.15, "Ideal"),
+
+                new Order(2L,  concert, user2, sdf.parse("2024-02-27T21:00:00.000+00:00"), "Nikol", "Genova", "Woenselse Markt 11",
+                        "+31613532341", 2, 8.10, "PayPal"));
+
 
         when(orderRepository.findAll()).thenReturn(allOrders);
-
+        when(ordersService.getOrdersForAllUsers()).thenReturn(toReturn);
 
         mockMvc.perform(get("/orders/all"))
                 .andDo(print())
