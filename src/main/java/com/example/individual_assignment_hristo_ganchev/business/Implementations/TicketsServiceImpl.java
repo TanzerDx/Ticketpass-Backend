@@ -18,6 +18,7 @@ import com.example.individual_assignment_hristo_ganchev.persistence.jpa.TicketRe
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -65,9 +66,12 @@ public class TicketsServiceImpl implements TicketsService {
         List<TicketEntity> currentTickets = new ArrayList<>();
 
             for (int i = 0; i != order.getTicketNumber(); i++) {
+
+                String randomString = UUID.randomUUID().toString();
+
                 TicketEntity newTicket = TicketEntity.builder()
                         .order(order)
-                        .QR("QR")
+                        .QR(order.getConcert().getArtist() + randomString)
                         .userName(order.getName() + " " + order.getSurname())
                         .venueSection("Standing")
                         .venueRow(null)
