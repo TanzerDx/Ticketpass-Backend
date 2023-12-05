@@ -60,6 +60,38 @@ public class UsersServiceImplTest {
     }
 
     @Test
+    public void getUserByAccessToken_shouldGetUserByAccessToken() throws Exception {
+        // Arrange
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        String passedAccessToken = "accessToken";
+
+        UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+        User toCompare = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+
+        when(accessTokenDecoder.decode(passedAccessToken)).thenReturn(accessToken);
+        when(userRepositoryMock.getById(accessToken.getUserId())).thenReturn(toReturn);
+
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
+
+
+        // Act
+        User retrievedUser = sut.getUserByAccessToken(passedAccessToken);
+
+
+        // Assert
+        assertThat(toCompare).isEqualTo(retrievedUser);
+    }
+
+    @Test
     public void getUser_shouldGetUserByID() throws Exception {
     // Arrange
             UserRepository userRepositoryMock = mock(UserRepository.class);
