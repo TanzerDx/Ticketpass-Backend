@@ -73,7 +73,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
     protected ConcertEntity saveNewConcert(AddConcertRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 
         ConcertEntity newConcert = null;
         try

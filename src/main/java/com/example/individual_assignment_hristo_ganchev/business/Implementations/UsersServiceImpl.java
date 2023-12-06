@@ -47,6 +47,16 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public AddUserResponse addAdmin(AddUserRequest request)
+    {
+        UserEntity savedUser = saveNewAdmin(request);
+
+        return AddUserResponse.builder()
+                .id(savedUser.getId())
+                .build();
+    }
+
+    @Override
     public User getUserById(long id)
     {
         if (!requestAccessToken.getUserId().equals(id))
@@ -102,6 +112,19 @@ public class UsersServiceImpl implements UsersService {
                 .email(request.getEmail())
                 .encodedPassword(encodedPassword)
                 .role("user")
+                .build();
+
+        return userRepository.save(user);
+    }
+
+    protected UserEntity saveNewAdmin(AddUserRequest request)
+    {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        UserEntity user = UserEntity.builder()
+                .email(request.getEmail())
+                .encodedPassword(encodedPassword)
+                .role("admin")
                 .build();
 
         return userRepository.save(user);

@@ -21,7 +21,7 @@ import java.util.List;
 public class ConcertController {
     private final ConcertsService concertsService;
 
-    @RolesAllowed({"admin"})
+    @RolesAllowed({"admin, manager"})
     @PostMapping()
     public ResponseEntity<AddConcertResponse> addConcert(@Valid @RequestBody AddConcertRequest request) {
         AddConcertResponse response = concertsService.addConcert(request);
@@ -40,7 +40,7 @@ public class ConcertController {
         return ResponseEntity.ok().body(concert);
     }
 
-    @RolesAllowed({"admin"})
+    @RolesAllowed({"admin, manager"})
     @PutMapping("{id}")
     public ResponseEntity<Concert> updateConcert(@PathVariable("id") long id,
      @RequestBody @Valid UpdateConcertRequest request) {

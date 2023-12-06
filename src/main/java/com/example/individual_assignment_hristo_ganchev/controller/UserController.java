@@ -26,6 +26,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+
+    @RolesAllowed({"manager"})
+    @PostMapping(value = "admin")
+    public ResponseEntity<AddUserResponse> addAdmin(@RequestBody AddUserRequest request) {
+        AddUserResponse response = usersService.addAdmin(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @PostMapping(value = "login")
     ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest request){
         return ResponseEntity.ok(usersService.Login(request));
