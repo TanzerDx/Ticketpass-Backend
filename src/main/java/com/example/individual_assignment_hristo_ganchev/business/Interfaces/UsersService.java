@@ -9,6 +9,8 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Ad
 public interface UsersService {
     AddUserResponse addUser(AddUserRequest request);
 
+    AddUserResponse addAdmin(AddUserRequest request);
+
     User getUserById(long id);
 
     LoginResponse Login(LoginRequest request);
