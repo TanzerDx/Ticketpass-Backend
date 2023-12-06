@@ -39,6 +39,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(
                                         new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/concerts/[0-9]+", "GET"),
+                                        new RegexRequestMatcher("\\/concerts/[0-9]+", "PUT"),
                                         new RegexRequestMatcher("\\/orders/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/orders", "POST"),
                                         new RegexRequestMatcher("\\/tickets/[0-9]+", "GET")).permitAll()

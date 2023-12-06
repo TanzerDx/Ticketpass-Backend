@@ -49,7 +49,7 @@ public class ConcertsServiceImpl implements ConcertsService {
     public void updateConcert(UpdateConcertRequest request) {
         ConcertEntity concert = concertRepository.getById(request.getId());
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
         try
         {
@@ -73,7 +73,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 
     protected ConcertEntity saveNewConcert(AddConcertRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
         ConcertEntity newConcert = null;
         try
