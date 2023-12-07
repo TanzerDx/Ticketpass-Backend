@@ -37,19 +37,9 @@ public class UsersServiceImpl implements UsersService {
     private AccessToken requestAccessToken;
 
     @Override
-    public AddUserResponse addUser(AddUserRequest request)
+    public AddUserResponse addUser(AddUserRequest request, String passedRole)
     {
-        UserEntity savedUser = saveNewUser(request);
-
-        return AddUserResponse.builder()
-                .id(savedUser.getId())
-                .build();
-    }
-
-    @Override
-    public AddUserResponse addAdmin(AddUserRequest request)
-    {
-        UserEntity savedUser = saveNewAdmin(request);
+        UserEntity savedUser = saveNewUser(request, passedRole);
 
         return AddUserResponse.builder()
                 .id(savedUser.getId())
@@ -86,13 +76,18 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void deleteUser(long id)
+    public void banUser(long id)
     {
-        if (!requestAccessToken.getUserId().equals(id))
-        {
-            throw new AccessDeniedException("Unauthorized access");
-        }
+        UserEntity u = userRepository.getById(id);
 
+        u.setRole("banned");
+
+        userRepository.save(u);
+    }
+
+    @Override
+    public void deleteAdmin(long id)
+    {
         userRepository.deleteById(id);
     }
 
@@ -104,31 +99,19 @@ public class UsersServiceImpl implements UsersService {
         return UserConverter.convert(userRepository.getById(accessToken.getUserId()));
     }
 
-    protected UserEntity saveNewUser(AddUserRequest request)
+    protected UserEntity saveNewUser(AddUserRequest request, String passedRole)
     {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
         UserEntity user = UserEntity.builder()
                 .email(request.getEmail())
                 .encodedPassword(encodedPassword)
-                .role("user")
+                .role(passedRole)
                 .build();
 
         return userRepository.save(user);
     }
 
-    protected UserEntity saveNewAdmin(AddUserRequest request)
-    {
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-
-        UserEntity user = UserEntity.builder()
-                .email(request.getEmail())
-                .encodedPassword(encodedPassword)
-                .role("admin")
-                .build();
-
-        return userRepository.save(user);
-    }
 
     protected String generateAccessToken(User user) {
 

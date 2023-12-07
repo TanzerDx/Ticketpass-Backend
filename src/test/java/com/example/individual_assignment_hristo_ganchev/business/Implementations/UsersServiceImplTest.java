@@ -166,23 +166,23 @@ public class UsersServiceImplTest {
         assertThrows(org.springframework.security.access.AccessDeniedException.class, () -> sut.getUserById(1L));
     }
 
-    @Test
-    public void deleteUser_shouldThrowAccessDeniedException_whenAccessTokenUserIDisNotEqualToPassedUserID() throws Exception {
-        // Arrange
-        UserRepository userRepositoryMock = mock(UserRepository.class);
-        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
-        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
-        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
-        AccessToken accessToken = mock(AccessToken.class);
-
-        when(accessToken.getUserId()).thenReturn(2L);
-
-        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
-
-
-        // Act and Assert
-        assertThrows(org.springframework.security.access.AccessDeniedException.class, () -> sut.deleteUser(1L));
-    }
+//    @Test
+//    public void deleteUser_shouldThrowAccessDeniedException_whenAccessTokenUserIDisNotEqualToPassedUserID() throws Exception {
+//        // Arrange
+//        UserRepository userRepositoryMock = mock(UserRepository.class);
+//        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+//        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+//        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
+//        AccessToken accessToken = mock(AccessToken.class);
+//
+//        when(accessToken.getUserId()).thenReturn(2L);
+//
+//        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
+//
+//
+//        // Act and Assert
+//        assertThrows(org.springframework.security.access.AccessDeniedException.class, () -> sut.deleteUser(1L));
+//    }
 
     @Test
     public void Login_shouldThrowBadCredentialsException_whenPasswordsDoNotMatch() throws Exception {

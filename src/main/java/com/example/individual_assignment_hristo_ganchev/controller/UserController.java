@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<AddUserResponse> addUser(@RequestBody AddUserRequest request) {
-        AddUserResponse response = usersService.addUser(request);
+        AddUserResponse response = usersService.addUser(request, "user");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -30,7 +30,7 @@ public class UserController {
     @RolesAllowed({"manager"})
     @PostMapping(value = "admin")
     public ResponseEntity<AddUserResponse> addAdmin(@RequestBody AddUserRequest request) {
-        AddUserResponse response = usersService.addAdmin(request);
+        AddUserResponse response = usersService.addUser(request, "admin");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -64,12 +64,22 @@ public class UserController {
         }
     }
 
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id)
+    @RolesAllowed({"admin", "manager"})
+    @PutMapping("{id}")
+    public ResponseEntity<Void> banUser(@PathVariable("id") Long id)
     {
-        usersService.deleteUser(id);
+        usersService.banUser(id);
         return ResponseEntity.noContent().build();
     }
+
+
+    @RolesAllowed({"manager"})
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity<Void> deleteAdmin(@PathVariable("id") Long id)
+    {
+        usersService.deleteAdmin(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
