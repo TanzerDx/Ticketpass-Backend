@@ -7,15 +7,15 @@ import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.Ad
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserResponse;
 
 public interface UsersService {
-    AddUserResponse addUser(AddUserRequest request);
-
-    AddUserResponse addAdmin(AddUserRequest request);
+    AddUserResponse addUser(AddUserRequest request, String passedRole);
 
     User getUserById(long id);
 
     LoginResponse Login(LoginRequest request);
 
-    void deleteUser(long id);
+    void deleteAdmin(long id);
+
+    void banUser(long id);
 
     User getUserByAccessToken(String passedAccessToken);
 }
