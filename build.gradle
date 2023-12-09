@@ -17,8 +17,9 @@ sonar {
         property "sonar.coverage.exclusions", [
                 'src/**/com/example/individual_assignment_hristo_ganchev/business/ConcertsRelated/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/business/TicketsRelated/**',
+                'src/**/com/example/individual_assignment_hristo_ganchev/business/TicketsRelated/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/business/OrdersRelated/**',
-                'src/**/com/example/individual_assignment_hristo_ganchev/business/UsersRelated/**',
+                'src/**/com/example/individual_assignment_hristo_ganchev/business/Notifications/NotificationMessage.java',
 //                    'com/example/individual_assignment_hristo_ganchev/controller/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/domain/**',
                 'src/**/com/example/individual_assignment_hristo_ganchev/persistence/**/*',
@@ -91,6 +92,7 @@ jacocoTestReport {
                     'com/example/individual_assignment_hristo_ganchev/business/TicketsRelated/**',
                     'com/example/individual_assignment_hristo_ganchev/business/OrdersRelated/**',
                     'com/example/individual_assignment_hristo_ganchev/business/UsersRelated/**',
+                    'com/example/individual_assignment_hristo_ganchev/business/Notifications/NotificationMessage.java',
                     'com/example/individual_assignment_hristo_ganchev/domain/**',
                     'com/example/individual_assignment_hristo_ganchev/persistence/**',
                     'com/example/individual_assignment_hristo_ganchev/security/**',
