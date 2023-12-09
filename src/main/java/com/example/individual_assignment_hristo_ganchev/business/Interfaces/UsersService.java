@@ -15,7 +15,7 @@ public interface UsersService {
 
     void deleteAdmin(long id);
 
-    void banUser(long id);
+    User banUser(long id);
 
     User getUserByAccessToken(String passedAccessToken);
 }

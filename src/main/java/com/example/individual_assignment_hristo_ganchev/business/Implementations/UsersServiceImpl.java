@@ -76,13 +76,15 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void banUser(long id)
+    public User banUser(long id)
     {
         UserEntity u = userRepository.getById(id);
 
         u.setRole("banned");
 
         userRepository.save(u);
+
+        return UserConverter.convert(u);
     }
 
     @Override
