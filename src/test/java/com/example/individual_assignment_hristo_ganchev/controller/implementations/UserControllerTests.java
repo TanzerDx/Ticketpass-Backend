@@ -159,7 +159,7 @@ public class UserControllerTests {
     @Test
     void getUserByAccessToken_shouldReturn200ResponseWithAUserOfID1() throws Exception  {
 
-        UserEntity toReturn = new UserEntity(1L, "hristo@gmail.com",
+        UserEntity toReturn = new UserEntity(1L, "nikol@gmail.com",
                 "hashedPassword", "user");
 
 
