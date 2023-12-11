@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.controller.implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,8 +24,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -46,7 +45,26 @@ public class ConcertControllerTests {
     @MockBean
     private ConcertRepository concertRepository;
 
+    @Test
+    @WithMockUser(username = "testuser", roles = {"admin"})
+    void addConcerts_shouldReturn201ResponseWithMethodBeingCalledCorrectly() throws Exception {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        AddConcertRequest request = new AddConcertRequest("Kim Petras",
+                "Pop", "AFAS Live", "2024-03-03 19:00:00", "Amsterdam",
+                "Kim Petras is a German Pop Star that became popular in 2022.", "URL", 40.05, 5000);
+
+
+        mockMvc.perform(post("/concerts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isCreated());
+
+
+        verify(concertService, atLeastOnce()).addConcert(request);
+
+    }
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
@@ -186,6 +204,27 @@ public class ConcertControllerTests {
 
 
         verify(concertService, atLeastOnce()).updateConcert(request);
+
+    }
+
+    @Test
+    @WithMockUser(username = "testuser", roles = {"user"})
+    void addConcerts_shouldThrow403Forbidden() throws Exception {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
+        AddConcertRequest request = new AddConcertRequest("Kim Petras",
+                "Pop", "AFAS Live", "2024-03-03 19:00:00", "Amsterdam",
+                "Kim Petras is a German Pop Star that became popular in 2022.", "URL", 40.05, 5000);
+
+
+        mockMvc.perform(post("/concerts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isForbidden());
+
+
+        verify(concertService, times(0)).addConcert(request);
 
     }
 
