@@ -78,7 +78,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     protected OrderEntity saveNewOrder(CreateOrderRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         OrderEntity order = null;
 
@@ -97,6 +97,8 @@ public class OrdersServiceImpl implements OrdersService {
                     .paymentMethod(request.getPaymentMethod())
                     .build();
 
+            orderRepository.save(order);
+
         }
         catch (Exception e)
         {
@@ -104,6 +106,6 @@ public class OrdersServiceImpl implements OrdersService {
         }
 
 
-        return orderRepository.save(order);
+        return order;
     }
 }

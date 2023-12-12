@@ -23,6 +23,34 @@ import static org.mockito.Mockito.when;
 public class UsersServiceImplTest {
 
     @Test
+    public void saveNewUser_shouldSuccessfullyBuildAUserEntity() throws Exception {
+        // Arrange
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+
+        UserEntity toCompare = new UserEntity(null, "hristo@gmail.com",
+                "encodedPassword", "user");
+
+        AddUserRequest request= new AddUserRequest( "hristo@gmail.com",
+                "hashedPassword");
+
+        when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword");
+
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
+
+
+        // Act
+        UserEntity createdUser = sut.saveNewUser(request, "user");
+
+        // Assert
+        assertThat(toCompare).isEqualTo(createdUser);
+    }
+
+    @Test
     public void Login_shouldReturnUserWithAccessToken() throws Exception {
 
         // Arrange
@@ -115,7 +143,6 @@ public class UsersServiceImplTest {
 
     // Act
             User retrievedUser = sut.getUserById(1L);
-
 
     // Assert
             assertThat(toCompare).isEqualTo(retrievedUser);

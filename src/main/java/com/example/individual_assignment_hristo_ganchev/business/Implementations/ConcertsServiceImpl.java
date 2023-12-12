@@ -89,12 +89,14 @@ public class ConcertsServiceImpl implements ConcertsService {
                     .price(request.getPrice())
                     .ticketsRemaining(request.getTicketsRemaining())
                     .build();
+
+            concertRepository.save(newConcert);
         }
         catch (Exception e)
         {
             throw new RuntimeException(e);
         }
 
-        return concertRepository.save(newConcert);
+        return newConcert;
     }
 }
