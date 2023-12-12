@@ -19,10 +19,43 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class TicketsServiceImplTest {
+
+    @Test
+    void saveTickets_shouldSuccessfullyBuildTicketEntities() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        TicketRepository ticketRepository = mock(TicketRepository.class);
+        OrderRepository orderRepository = mock(OrderRepository.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        ConcertEntity concert = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        UserEntity user = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+
+        OrderEntity order = new OrderEntity(1L,  concert, user, sdf.parse("2023/09/02"), "Hristo", "Ganchev", "Woenselse Markt 18",
+                "+31613532345", 2, 14.15, "Ideal");
+
+
+        TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, accessToken);
+
+
+        // Act
+        List<TicketEntity> retrievedTickets = sut.saveTickets(order);
+
+
+
+        // Assert
+        assertThat(retrievedTickets).isNotEmpty();
+    }
 
     @Test
     void getTickets_shouldReturnTicketsIfPresent() throws Exception {

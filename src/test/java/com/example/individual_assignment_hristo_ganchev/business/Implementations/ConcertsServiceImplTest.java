@@ -20,19 +20,46 @@ import static org.mockito.Mockito.*;
 public class ConcertsServiceImplTest {
 
     @Test
+    public void saveNewConcert_shouldSuccessfullyBuildAConcertEntity() throws Exception{
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
+
+        ConcertEntity toCompare = new ConcertEntity(null, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        AddConcertRequest request = new AddConcertRequest( "Chase Atlantic",
+                "Indie", "TivoliVredenburg", "2023-09-04T21:00", "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepositoryMock);
+
+
+        // Act
+        ConcertEntity retrievedConcert = sut.saveNewConcert(request);
+
+
+
+        // Assert
+        assertThat(toCompare).isEqualTo(retrievedConcert);
+    }
+
+    @Test
     public void getConcert_shouldGetConcertById() throws Exception {
 
         // Arrange
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         ConcertRepository concertRepositoryMock = mock(ConcertRepository.class);
 
         ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
         Concert toCompare = new Concert(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2023/09/04"), "Utrecht",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
                 "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
 
         when(concertRepositoryMock.getById(1L)).thenReturn(toReturn);
@@ -64,7 +91,6 @@ public class ConcertsServiceImplTest {
 
         // Act
             List<Concert> sutResponse = sut.getAllConcerts();
-
 
 
         // Assert

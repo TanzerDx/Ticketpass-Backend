@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderRequest;
 import com.example.individual_assignment_hristo_ganchev.business.OrdersRelated.CreateOrderResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
@@ -9,6 +10,7 @@ import com.example.individual_assignment_hristo_ganchev.domain.User;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.OrderEntity;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.UserEntity;
+import com.example.individual_assignment_hristo_ganchev.persistence.jpa.ConcertRepository;
 import com.example.individual_assignment_hristo_ganchev.persistence.jpa.OrderRepository;
 import com.example.individual_assignment_hristo_ganchev.security.token.AccessToken;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,53 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class OrdersServiceImplTest {
+
+    @Test
+    public void saveNewOrder_shouldSuccessfullyBuildAnOrderEntity() throws Exception{
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        OrderRepository orderRepositoryMock = mock(OrderRepository.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        ConcertEntity concertEntity = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+
+
+        Concert concert = new Concert(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        User user = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+
+
+        OrderEntity toCompare = new OrderEntity(null,  concertEntity, userEntity, sdf.parse("2023-09-04T21:00"), "Hristo", "Ganchev", "Woenselse Markt 18",
+                "+31613532345", 3, 14.15, "Ideal");
+
+
+        CreateOrderRequest request = new CreateOrderRequest( concert, user, "2023-09-04T21:00", "Hristo", "Ganchev", "Woenselse Markt 18",
+                "+31613532345", 3, 14.15, "Ideal");
+
+
+        OrdersServiceImpl sut = new OrdersServiceImpl(orderRepositoryMock, accessToken);
+
+
+        // Act
+        OrderEntity retrievedOrder = sut.saveNewOrder(request);
+
+
+
+        // Assert
+        assertThat(toCompare).isEqualTo(retrievedOrder);
+    }
+
 
     @Test
     void getAllOrders_shouldReturnOrdersIfPresent() throws Exception {
@@ -117,7 +166,6 @@ class OrdersServiceImplTest {
 
         // Act
         List<Order> sutResponse = sut.getOrdersForAllUsers();
-
 
 
         // Assert

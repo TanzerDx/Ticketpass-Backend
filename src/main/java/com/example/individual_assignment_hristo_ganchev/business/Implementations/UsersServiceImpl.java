@@ -111,7 +111,9 @@ public class UsersServiceImpl implements UsersService {
                 .role(passedRole)
                 .build();
 
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        return user;
     }
 
 
