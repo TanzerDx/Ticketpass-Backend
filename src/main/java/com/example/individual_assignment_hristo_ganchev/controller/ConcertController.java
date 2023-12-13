@@ -5,6 +5,7 @@ import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
+import com.example.individual_assignment_hristo_ganchev.domain.User;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,12 @@ public class ConcertController {
     @GetMapping
     public ResponseEntity<List<Concert>> getConcerts() {
         return ResponseEntity.ok(concertsService.getAllConcerts());
+    }
+
+
+    @GetMapping(value = "filter")
+    public ResponseEntity<List<Concert>> filterConcerts(@RequestParam(name = "keyword") String keyword) {
+        return ResponseEntity.ok(concertsService.filterConcerts(keyword));
     }
 
 

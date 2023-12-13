@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class NotificationMessage {
-    private String id;
+    private Long id;
     private String from;
     private String topic;
     private String text;
