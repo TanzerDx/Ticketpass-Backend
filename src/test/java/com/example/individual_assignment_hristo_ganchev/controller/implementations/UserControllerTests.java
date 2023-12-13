@@ -5,6 +5,7 @@ import com.example.individual_assignment_hristo_ganchev.business.Interfaces.User
 import com.example.individual_assignment_hristo_ganchev.business.TicketsRelated.AddTicketsRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.AddUserRequest;
 import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginRequest;
+import com.example.individual_assignment_hristo_ganchev.business.UsersRelated.LoginResponse;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.domain.Order;
 import com.example.individual_assignment_hristo_ganchev.domain.User;
@@ -138,17 +139,17 @@ public class UserControllerTests {
         LoginRequest request = new LoginRequest("hristo@gmail.com",
                 "hashedPassword");
 
+        LoginResponse response = new LoginResponse("accessToken");
+
 
         when(userRepository.login("hristo@gmail.com")).thenReturn(userEntity);
         when(passwordEncoder.matches(request.getPassword() , userEntity.getEncodedPassword())).thenReturn(true);
+        when(usersService.Login(request)).thenReturn(response);
 
         mockMvc.perform(post("/users/login")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(request)))
-                .andDo(print())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(header().string("Content-Type",
-                        APPLICATION_JSON_VALUE))
 
                 .andExpect(jsonPath("$.accessToken").value("accessToken"));
 
@@ -210,7 +211,7 @@ public class UserControllerTests {
         when(userRepository.getById(1L)).thenReturn(userEntity);
         when(usersService.banUser(1L)).thenReturn(user);
 
-        mockMvc.perform(put("/users/1"))
+        mockMvc.perform(put("/users/ban/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Type",
@@ -222,6 +223,35 @@ public class UserControllerTests {
 
 
         verify(usersService).banUser(1L);
+    }
+
+    @Test
+    @WithMockUser(username = "test", roles = {"manager"})
+    void unbanUser_shouldReturn200ResponseWithUserStatusUser() throws Exception{
+
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+
+        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
+                "hashedPassword", "banned");
+
+        User user = new User(1L, "hristo@gmail.com",
+                "hashedPassword", "user");
+
+        when(userRepository.getById(1L)).thenReturn(userEntity);
+        when(usersService.unbanUser(1L)).thenReturn(user);
+
+        mockMvc.perform(put("/users/unban/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type",
+                        APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.email").value("hristo@gmail.com"))
+                .andExpect(jsonPath("$.encodedPassword").value("hashedPassword"))
+                .andExpect(jsonPath("$.role").value("user"));
+
+
+        verify(usersService).unbanUser(1L);
     }
 
     @Test
@@ -239,7 +269,7 @@ public class UserControllerTests {
 
     @Test
     @WithMockUser(username = "test", roles = {"user"})
-    void banUser_shouldThrow403Forbidden() throws Exception{
+    void banUser_shouldThrow405NotAllowed() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
@@ -254,7 +284,7 @@ public class UserControllerTests {
 
         mockMvc.perform(put("/users/1"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isMethodNotAllowed());
 
 
         verify(usersService, times(0)).banUser(1L);

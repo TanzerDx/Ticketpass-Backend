@@ -125,6 +125,36 @@ public class ConcertsServiceImplTest {
         assertThat(sutResponse).isNotEmpty();
     }
 
+    @Test
+    public void filter_shouldReturnConcertsIfPresent() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+
+        ConcertRepository concertRepository = mock(ConcertRepository.class);
+
+        List<ConcertEntity> toReturn= Arrays.asList(new ConcertEntity(1L, "Kim Petras",
+                "Pop", "AFAS Live", sdf.parse("2024/02/28"), "Amsterdam",
+                "Kim Petras is a German Pop Star that became popular in 2020.", "URL", 40.05, 1000));
+
+        List<Concert> toCompare= Arrays.asList(new Concert(1L, "Kim Petras",
+                "Pop", "AFAS Live", sdf.parse("2024/02/28"), "Amsterdam",
+                "Kim Petras is a German Pop Star that became popular in 2020.", "URL", 40.05, 1000));
+
+
+        when(concertRepository.getByKeyword("Kim Petras")).thenReturn(toReturn);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
+
+
+
+        // Act
+        List<Concert> sutResponse = sut.filterConcerts("Kim Petras");
+
+        // Assert
+        assertThat(sutResponse).isEqualTo(toCompare);
+    }
+
 
     @Test
     public void updateConcert_shouldUpdateConcert() throws Exception {

@@ -65,10 +65,18 @@ public class UserController {
     }
 
     @RolesAllowed({"admin", "manager"})
-    @PutMapping("{id}")
+    @PutMapping("ban/{id}")
     public ResponseEntity<User> banUser(@PathVariable("id") Long id)
     {
         User user = usersService.banUser(id);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @RolesAllowed({"admin", "manager"})
+    @PutMapping("unban/{id}")
+    public ResponseEntity<User> unbanUser(@PathVariable("id") Long id)
+    {
+        User user = usersService.unbanUser(id);
         return ResponseEntity.ok().body(user);
     }
 

@@ -88,6 +88,18 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public User unbanUser(long id)
+    {
+        UserEntity u = userRepository.getById(id);
+
+        u.setRole("user");
+
+        userRepository.save(u);
+
+        return UserConverter.convert(u);
+    }
+
+    @Override
     public void deleteAdmin(long id)
     {
         userRepository.deleteById(id);
