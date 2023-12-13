@@ -36,6 +36,14 @@ public class ConcertsServiceImpl implements ConcertsService {
         return ConcertConverter.convert(concertRepository.getById(id));
     }
 
+    @Override
+    public List<Concert> filterConcerts(String keyword) {
+
+        return concertRepository.getByKeyword(keyword)
+                .stream()
+                .map(ConcertConverter::convert)
+                .toList();
+    }
 
     @Override
     public List<Concert> getAllConcerts(){

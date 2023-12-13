@@ -34,8 +34,9 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers( "/ws/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/tickets", "/concerts", "/users", "/users/login", "/orders", "/tokens").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/orders", "/tokens" , "/users", "/users/viaToken" , "/orders/all").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/concerts/filter","/orders", "/tokens" , "/users", "/users/viaToken" , "/orders/all").permitAll()
                                 .requestMatchers(
                                         new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/users/[0-9]+", "PUT"),
@@ -46,6 +47,7 @@ public class WebSecurityConfig {
                                         new RegexRequestMatcher("\\/tickets/[0-9]+", "GET")).permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "./users", "/orders", "/tokens").permitAll()
+                                .requestMatchers("/ws").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))

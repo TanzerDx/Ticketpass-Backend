@@ -14,5 +14,7 @@ public interface ConcertsService {
 
     List<Concert> getAllConcerts();
 
+    List<Concert> filterConcerts(String keyword);
+
     void updateConcert(UpdateConcertRequest request);
 }

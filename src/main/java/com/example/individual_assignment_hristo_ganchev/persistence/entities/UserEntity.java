@@ -23,6 +23,7 @@ public class UserEntity {
 
     @NotEmpty
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotEmpty
