@@ -17,5 +17,7 @@ public interface UsersService {
 
     User banUser(long id);
 
+    User unbanUser(long id);
+
     User getUserByAccessToken(String passedAccessToken);
 }

@@ -223,6 +223,35 @@ public class UsersServiceImplTest {
     }
 
     @Test
+    public void unbanUser_shouldChangeUserStateToUser() throws Exception {
+        // Arrange
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);
+        AccessTokenEncoder accessTokenEncoder = mock(AccessTokenEncoder.class);
+        AccessTokenDecoder accessTokenDecoder = mock(AccessTokenDecoder.class);
+        AccessToken accessToken = mock(AccessToken.class);
+
+        UserEntity userEntity = new UserEntity(1L, "hristo@gmail.com",
+                "12345", "banned");
+
+        User user = new User(1L, "hristo@gmail.com",
+                "12345", "user");
+
+        when(userRepositoryMock.getById(1L)).thenReturn(userEntity);
+
+        UsersServiceImpl sut = new UsersServiceImpl(userRepositoryMock, passwordEncoder, accessTokenEncoder, accessTokenDecoder, accessToken);
+
+
+        // Act
+        User u = sut.unbanUser(1L);
+
+        // Assert
+        assertThat(u).isEqualTo(user);
+
+
+    }
+
+    @Test
     public void Login_shouldThrowBadCredentialsException_whenPasswordsDoNotMatch() throws Exception {
 
         // Arrange
