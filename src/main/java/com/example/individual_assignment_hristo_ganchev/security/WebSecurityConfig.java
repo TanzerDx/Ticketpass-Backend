@@ -39,14 +39,16 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/tickets", "/concerts", "/concerts/filter","/orders", "/tokens" , "/users", "/users/viaToken" , "/orders/all").permitAll()
                                 .requestMatchers(
                                         new RegexRequestMatcher("\\/users/[0-9]+", "GET"),
-                                        new RegexRequestMatcher("\\/users/[0-9]+", "PUT"),
+                                        new RegexRequestMatcher("\\/users/ban/[0-9]+", "PUT"),
+                                        new RegexRequestMatcher("\\/users/unban/[0-9]+", "PUT"),
                                         new RegexRequestMatcher("\\/concerts/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/concerts/[0-9]+", "PUT"),
                                         new RegexRequestMatcher("\\/orders/[0-9]+", "GET"),
                                         new RegexRequestMatcher("\\/orders", "POST"),
+                                        new RegexRequestMatcher("\\/users/admin/[0-9]+", "DELETE"),
                                         new RegexRequestMatcher("\\/tickets/[0-9]+", "GET")).permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/orders", "/tokens").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "./users", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/tickets", "/concerts", "/users", "/users/ban", "/users/unban", "/orders", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/tickets", "/concerts", "/users", "/users/admin", "/orders", "/tokens").permitAll()
                                 .requestMatchers("/ws").permitAll()
                                 .anyRequest().authenticated()
                 )
