@@ -27,10 +27,10 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
-
         @GetMapping()
         public ResponseEntity<GetAllOrdersResponse> getAllOrders(@RequestParam(name = "userId") Long userId) {
-            return ResponseEntity.ok(ordersService.getAllOrders(userId));
+                return ResponseEntity.ok(ordersService.getAllOrders(userId));
+
         }
 
 
