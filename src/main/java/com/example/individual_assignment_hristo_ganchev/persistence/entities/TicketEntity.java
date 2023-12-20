@@ -34,8 +34,4 @@ public class TicketEntity {
 
     @NotEmpty
     private String venueSection;
-
-    private Integer venueRow;
-
-    private Integer venueSeat;
 }

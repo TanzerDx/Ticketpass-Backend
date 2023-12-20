@@ -21,8 +21,4 @@ public class Ticket {
     private String userName;
 
     private String venueSection;
-
-    private Integer venueRow;
-
-    private Integer venueSeat;
 }

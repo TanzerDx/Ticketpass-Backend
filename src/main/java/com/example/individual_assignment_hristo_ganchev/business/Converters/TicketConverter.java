@@ -18,8 +18,6 @@ public final class TicketConverter {
                 .QR(ticket.getQR())
                 .userName(ticket.getUserName())
                 .venueSection(ticket.getVenueSection())
-                .venueRow(ticket.getVenueRow())
-                .venueSeat(ticket.getVenueSeat())
                 .build();
 
     }
@@ -32,8 +30,6 @@ public final class TicketConverter {
                 .QR(ticket.getQR())
                 .userName(ticket.getUserName())
                 .venueSection(ticket.getVenueSection())
-                .venueRow(ticket.getVenueRow())
-                .venueSeat(ticket.getVenueSeat())
                 .build();
 
     }
