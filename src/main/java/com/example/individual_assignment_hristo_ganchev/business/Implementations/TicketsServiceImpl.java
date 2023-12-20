@@ -74,8 +74,6 @@ public class TicketsServiceImpl implements TicketsService {
                         .QR(order.getConcert().getArtist() + randomString)
                         .userName(order.getName() + " " + order.getSurname())
                         .venueSection("Standing")
-                        .venueRow(null)
-                        .venueSeat(null)
                         .build();
 
                 ticketRepository.save(newTicket);

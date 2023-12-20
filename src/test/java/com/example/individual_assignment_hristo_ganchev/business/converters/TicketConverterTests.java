@@ -52,10 +52,10 @@ public class TicketConverterTests {
 
 
         List<TicketEntity> toConvert = Arrays.asList(new TicketEntity(1L, orderEntity ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
         List<Ticket> toCompare = Arrays.asList(new Ticket(1L, order ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
 
 
@@ -103,10 +103,10 @@ public class TicketConverterTests {
 
 
         List<Ticket> toConvert = Arrays.asList(new Ticket(1L, order ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
         List<TicketEntity> toCompare = Arrays.asList(new TicketEntity(1L, orderEntity ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
 
 

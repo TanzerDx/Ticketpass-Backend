@@ -103,7 +103,7 @@ public class TicketControllerTests {
 //                "+31613532345", 3, 14.15, "Ideal");
 //
 //        List<Ticket> tickets = Arrays.asList(new Ticket(1L, order ,
-//                "QR", "Hristo Ganchev", "Standing", 1 , 1));
+//                "QR", "Hristo Ganchev", "Standing"));
 //
 //
 //        when(accessToken.getUserId()).thenReturn(1l);
@@ -122,9 +122,7 @@ public class TicketControllerTests {
 //                .andExpect(jsonPath("$[0].order").value(order))
 //                .andExpect(jsonPath("$[0].QR").value("QR"))
 //                .andExpect(jsonPath("$[0].userName").value("Hristo Ganchev"))
-//                .andExpect(jsonPath("$[0].venueSection").value("Standing"))
-//                .andExpect(jsonPath("$[0].venueRow").value(1))
-//                .andExpect(jsonPath("$[0].venueSeat").value(1));
+//                .andExpect(jsonPath("$[0].venueSection").value("Standing"));
 //
 //        verify(ticketsService).getTickets(1L);
 //    }

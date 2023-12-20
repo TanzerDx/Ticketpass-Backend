@@ -79,7 +79,7 @@ class TicketsServiceImplTest {
                 "+31613532345", 3, 14.15, "Ideal");
 
         List<TicketEntity> tickets = Arrays.asList(new TicketEntity(1L, order ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
         when(accessToken.getUserId()).thenReturn(1l);
         when(ticketRepository.getByOrderId(1L)).thenReturn(tickets);
@@ -184,7 +184,7 @@ class TicketsServiceImplTest {
                 "+31613532345", 3, 14.15, "Ideal");
 
         List<TicketEntity> tickets = Arrays.asList(new TicketEntity(1L, order ,
-                "QR", "Hristo Ganchev", "Standing", null, null));
+                "QR", "Hristo Ganchev", "Standing"));
 
         when(accessToken.getUserId()).thenReturn(2L);
         when(ticketRepository.getByOrderId(1L)).thenReturn(tickets);
