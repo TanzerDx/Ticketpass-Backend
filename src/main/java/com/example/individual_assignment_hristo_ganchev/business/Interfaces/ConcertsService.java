@@ -2,6 +2,7 @@ package com.example.individual_assignment_hristo_ganchev.business.Interfaces;
 
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.LowerTicketNumberRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 
@@ -17,4 +18,6 @@ public interface ConcertsService {
     List<Concert> filterConcerts(String keyword);
 
     void updateConcert(UpdateConcertRequest request);
+
+    void lowerTicketNumber(LowerTicketNumberRequest request);
 }

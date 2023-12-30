@@ -25,7 +25,6 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
     @GetMapping("{id}")
     public ResponseEntity<List<Ticket>> getTickets(@PathVariable("id") Long orderId) {
         List<Ticket> tickets = ticketsService.getTickets(orderId);
