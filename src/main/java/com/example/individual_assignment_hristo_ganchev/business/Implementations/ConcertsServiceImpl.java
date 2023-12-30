@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.business.Implementations;
 
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.LowerTicketNumberRequest;
 import com.example.individual_assignment_hristo_ganchev.business.Converters.ConcertConverter;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
@@ -51,6 +52,29 @@ public class ConcertsServiceImpl implements ConcertsService {
                 .stream()
                 .map(ConcertConverter::convert)
                 .toList();
+    }
+
+    @Override
+    public void lowerTicketNumber(LowerTicketNumberRequest request) {
+        ConcertEntity concert = concertRepository.getById(request.getConcertId());
+
+        Integer newTicketNum = concert.getTicketsRemaining() - request.getTicketNumber();
+
+        if (newTicketNum < 0)
+        {
+            throw new IllegalStateException();
+        }
+
+        try
+        {
+            concert.setTicketsRemaining(newTicketNum);
+
+            concertRepository.save(concert);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

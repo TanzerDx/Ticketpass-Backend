@@ -1,5 +1,6 @@
 package com.example.individual_assignment_hristo_ganchev.controller;
 
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.LowerTicketNumberRequest;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
@@ -57,4 +58,11 @@ public class ConcertController {
 
         return ResponseEntity.ok().body(concert);
     }
+
+    @PutMapping(value = "lowerTicketNumber")
+    public ResponseEntity<Void> lowerTicketNumber(@RequestBody LowerTicketNumberRequest request) {
+        concertsService.lowerTicketNumber(request);
+        return ResponseEntity.noContent().build();
+    }
+
 }
