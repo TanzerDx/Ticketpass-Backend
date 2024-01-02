@@ -38,6 +38,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/concerts/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/concerts/lowerTicketNumber").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))

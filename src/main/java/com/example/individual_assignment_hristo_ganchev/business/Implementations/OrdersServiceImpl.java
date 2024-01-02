@@ -64,11 +64,12 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public Order getOrder(Long id){
-
+    public Order getOrder(Long id) {
         OrderEntity orderEntity = orderRepository.getById(id);
 
-        if (!requestAccessToken.getUserId().equals(orderEntity.getUser().getId()))
+        if (!requestAccessToken.getUserId().equals(orderEntity.getUser().getId())
+                && !requestAccessToken.getRoles().contains("admin")
+                && !requestAccessToken.getRoles().contains("manager"))
         {
             throw new AccessDeniedException("Unauthorized access");
         }
