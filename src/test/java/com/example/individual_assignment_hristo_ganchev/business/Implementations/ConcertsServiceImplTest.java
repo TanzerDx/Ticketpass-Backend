@@ -2,6 +2,7 @@ package com.example.individual_assignment_hristo_ganchev.business.Implementation
 
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertResponse;
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.LowerTicketNumberRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
 import com.example.individual_assignment_hristo_ganchev.persistence.entities.ConcertEntity;
@@ -124,6 +125,38 @@ public class ConcertsServiceImplTest {
         // Assert
         assertThat(sutResponse).isNotEmpty();
     }
+
+    @Test
+    public void lowerTicketNumber_shouldLowerTheTicketNumberOfAConcert() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        ConcertRepository concertRepository = mock(ConcertRepository.class);
+
+        LowerTicketNumberRequest request = new LowerTicketNumberRequest(1L, 3);
+
+        ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 1000);
+
+        ConcertEntity toSave = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 997);
+
+        when(concertRepository.getById(1L)).thenReturn(toReturn);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
+
+
+        // Act
+        sut.lowerTicketNumber(request);
+
+
+        // Assert
+        verify(concertRepository, times(1)).save(toSave);;
+    }
+
 
     @Test
     public void filter_shouldReturnConcertsIfPresent() throws Exception {
@@ -259,6 +292,30 @@ public class ConcertsServiceImplTest {
 
         // Act and Assert
         assertThrows(NullPointerException.class, () -> sut.getConcert(1L));
+    }
+
+    @Test
+    public void lowerTicketNumber_shouldThrowIllegalStateException() throws Exception {
+
+        // Arrange
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        ConcertRepository concertRepository = mock(ConcertRepository.class);
+
+        LowerTicketNumberRequest request = new LowerTicketNumberRequest(1L, 3);
+
+        ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 2);
+
+
+        when(concertRepository.getById(1L)).thenReturn(toReturn);
+
+        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
+
+
+        // Act & Assert
+        assertThrows(IllegalStateException.class, () -> sut.lowerTicketNumber(request));
     }
 
 }

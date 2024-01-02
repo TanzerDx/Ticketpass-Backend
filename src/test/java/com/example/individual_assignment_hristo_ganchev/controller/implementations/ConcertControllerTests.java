@@ -1,6 +1,7 @@
 package com.example.individual_assignment_hristo_ganchev.controller.implementations;
 
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.AddConcertRequest;
+import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.LowerTicketNumberRequest;
 import com.example.individual_assignment_hristo_ganchev.business.ConcertsRelated.UpdateConcertRequest;
 import com.example.individual_assignment_hristo_ganchev.business.Interfaces.ConcertsService;
 import com.example.individual_assignment_hristo_ganchev.domain.Concert;
@@ -191,6 +192,31 @@ public class ConcertControllerTests {
                 .andExpect(jsonPath("$[1].ticketsRemaining").value(5000));
 
         verify(concertService).filterConcerts("Amsterdam");
+
+    }
+
+    @Test
+    void lowerTicketNumber_shouldReturn204ResponseWithMethodBeingCalledCorrectly() throws Exception {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+        LowerTicketNumberRequest request = new LowerTicketNumberRequest(1L, 3);
+
+        ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
+                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
+                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 2);
+
+
+        when(concertRepository.getById(1L)).thenReturn(toReturn);
+
+
+        mockMvc.perform(put("/concerts/lowerTicketNumber")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNoContent());
+
+
+        verify(concertService, atLeastOnce()).lowerTicketNumber(request);
 
     }
 
