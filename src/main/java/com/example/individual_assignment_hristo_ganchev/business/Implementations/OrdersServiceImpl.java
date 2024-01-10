@@ -83,6 +83,11 @@ public class OrdersServiceImpl implements OrdersService {
 
         OrderEntity order = null;
 
+        if (request.getTicketNumber() > request.getConcert().getTicketsRemaining())
+        {
+            throw new IllegalStateException("Tickets desired are more than the available amount!");
+        }
+
         try {
 
             order = OrderEntity.builder()

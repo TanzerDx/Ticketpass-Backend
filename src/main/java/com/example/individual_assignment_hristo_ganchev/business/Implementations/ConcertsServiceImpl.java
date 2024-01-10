@@ -60,11 +60,6 @@ public class ConcertsServiceImpl implements ConcertsService {
 
         Integer newTicketNum = concert.getTicketsRemaining() - request.getTicketNumber();
 
-        if (newTicketNum < 0)
-        {
-            throw new IllegalStateException();
-        }
-
         try
         {
             concert.setTicketsRemaining(newTicketNum);
