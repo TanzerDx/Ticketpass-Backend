@@ -149,7 +149,7 @@ public class UsersServiceImplTest {
     }
 
     @Test
-    public void getUser_shouldThrowNullPointerException() throws Exception {
+    public void getUser_shouldThrowNullPointerException_whenUserIsCalledFromDatabase() throws Exception {
         // Arrange
         UserRepository userRepositoryMock = mock(UserRepository.class);
         PasswordEncoder passwordEncoder = mock(PasswordEncoder.class);

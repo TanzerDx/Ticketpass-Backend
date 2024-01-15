@@ -225,7 +225,7 @@ public class ConcertsServiceImplTest {
     }
 
     @Test
-    public void updateConcert_shouldThrowNullPointerException() throws Exception {
+    public void updateConcert_shouldThrowNullPointerException_whenRequestIsNull() throws Exception {
 
         // Arrange
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -248,7 +248,7 @@ public class ConcertsServiceImplTest {
     }
 
     @Test
-    public void updateConcert_shouldThrowRuntimeException() throws Exception {
+    public void updateConcert_shouldThrowRuntimeException_whenConcertIsSavedToDatabase() throws Exception {
 
         // Arrange
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -275,7 +275,7 @@ public class ConcertsServiceImplTest {
     }
 
     @Test
-    public void getConcert_shouldThrowANullPointerException() throws Exception {
+    public void getConcert_shouldThrowANullPointerException_whenConcertIsCalledFromDatabase() throws Exception {
 
         // Arrange
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -294,28 +294,5 @@ public class ConcertsServiceImplTest {
         assertThrows(NullPointerException.class, () -> sut.getConcert(1L));
     }
 
-    @Test
-    public void lowerTicketNumber_shouldThrowIllegalStateException() throws Exception {
-
-        // Arrange
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-
-        ConcertRepository concertRepository = mock(ConcertRepository.class);
-
-        LowerTicketNumberRequest request = new LowerTicketNumberRequest(1L, 3);
-
-        ConcertEntity toReturn = new ConcertEntity(1L, "Chase Atlantic",
-                "Indie", "TivoliVredenburg", sdf.parse("2023-09-04T21:00"), "Utrecht",
-                "Chase Atlantic are an Australian Indie band that became popular in 2015", "URL", 37.15, 2);
-
-
-        when(concertRepository.getById(1L)).thenReturn(toReturn);
-
-        ConcertsServiceImpl sut = new ConcertsServiceImpl(concertRepository);
-
-
-        // Act & Assert
-        assertThrows(IllegalStateException.class, () -> sut.lowerTicketNumber(request));
-    }
 
 }

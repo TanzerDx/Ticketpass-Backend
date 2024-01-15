@@ -45,6 +45,8 @@ class TicketsServiceImplTest {
                 "+31613532345", 2, 14.15, "Ideal");
 
 
+        when(accessToken.getUserId()).thenReturn(1L);
+
         TicketsServiceImpl sut = new TicketsServiceImpl(ticketRepository, orderRepository, accessToken);
 
 
@@ -140,7 +142,7 @@ class TicketsServiceImplTest {
     }
 
     @Test
-    void getTickets_shouldThrowNullPointerException() throws Exception {
+    void getTickets_shouldThrowNullPointerException_whenTicketsAreCalledFromDatabase() throws Exception {
 
         // Arrange
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

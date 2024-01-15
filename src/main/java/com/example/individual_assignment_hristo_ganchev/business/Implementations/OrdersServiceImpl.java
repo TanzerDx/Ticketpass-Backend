@@ -90,20 +90,23 @@ public class OrdersServiceImpl implements OrdersService {
 
         try {
 
-            order = OrderEntity.builder()
-                    .concert(ConcertConverter.convertToEntity((request.getConcert())))
-                    .user(UserConverter.convertToEntity((request.getUser())))
-                    .date(sdf.parse(String.valueOf(request.getDate())))
-                    .name(request.getName())
-                    .surname(request.getSurname())
-                    .address(request.getAddress())
-                    .phone(request.getPhone())
-                    .ticketNumber(request.getTicketNumber())
-                    .orderPrice(request.getOrderPrice())
-                    .paymentMethod(request.getPaymentMethod())
-                    .build();
+            if (requestAccessToken.getUserId().equals(request.getUser().getId()))
+            {
+                order = OrderEntity.builder()
+                        .concert(ConcertConverter.convertToEntity((request.getConcert())))
+                        .user(UserConverter.convertToEntity((request.getUser())))
+                        .date(sdf.parse(String.valueOf(request.getDate())))
+                        .name(request.getName())
+                        .surname(request.getSurname())
+                        .address(request.getAddress())
+                        .phone(request.getPhone())
+                        .ticketNumber(request.getTicketNumber())
+                        .orderPrice(request.getOrderPrice())
+                        .paymentMethod(request.getPaymentMethod())
+                        .build();
 
-            orderRepository.save(order);
+                orderRepository.save(order);
+            }
 
         }
         catch (Exception e)

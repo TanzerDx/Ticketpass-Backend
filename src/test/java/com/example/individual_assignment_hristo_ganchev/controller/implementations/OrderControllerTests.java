@@ -56,7 +56,7 @@ public class OrderControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void createOrder_shouldReturn201ResponseWithMethodBeingCalledCorrectly() throws Exception{
+    void createOrder_shouldReturn201Response_withMethodBeingCalledCorrectly() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
@@ -86,7 +86,7 @@ public class OrderControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getAllOrders_shouldReturn200ResponseWithAListOfOrders() throws Exception{
+    void getAllOrders_shouldReturn200Response_withAListOfOrders() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
@@ -139,7 +139,7 @@ public class OrderControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"admin"})
-    void getOrdersForAllUsers_shouldReturn200ResponseWithAListOfOrders() throws Exception{
+    void getOrdersForAllUsers_shouldReturn200Response_withAListOfOrders() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
@@ -230,7 +230,7 @@ public class OrderControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getOrder_shouldReturn200ResponseWithAnOrderOfID1() throws Exception{
+    void getOrder_shouldReturn200Response_withAnOrderOfID1() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 
@@ -277,7 +277,7 @@ public class OrderControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getOrdersForAllUsers_shouldThrow403Forbidden() throws Exception{
+    void getOrdersForAllUsers_shouldThrow403Forbidden_whenUserIsUnauthorized() throws Exception{
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 

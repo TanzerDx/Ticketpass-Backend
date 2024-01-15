@@ -21,12 +21,14 @@ public class OrderController {
 
         private final OrdersService ordersService;
 
+        @RolesAllowed({"user"})
         @PostMapping()
         public ResponseEntity<CreateOrderResponse> addOrder(@RequestBody CreateOrderRequest request) {
         CreateOrderResponse response = ordersService.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }
 
+        @RolesAllowed({"user" , "admin" , "manager"})
         @GetMapping()
         public ResponseEntity<GetAllOrdersResponse> getAllOrders(@RequestParam(name = "userId") Long userId) {
                 return ResponseEntity.ok(ordersService.getAllOrders(userId));
@@ -34,6 +36,7 @@ public class OrderController {
         }
 
 
+        @RolesAllowed({"user" , "admin" , "manager"})
         @GetMapping("{id}")
         public ResponseEntity<Order> getOrder(@PathVariable("id") Long id) {
         final Order order = ordersService.getOrder(id);

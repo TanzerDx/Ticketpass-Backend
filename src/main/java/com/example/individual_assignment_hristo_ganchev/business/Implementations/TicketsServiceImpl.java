@@ -62,8 +62,9 @@ public class TicketsServiceImpl implements TicketsService {
 
     protected List<TicketEntity> saveTickets(OrderEntity order)
     {
-
         List<TicketEntity> currentTickets = new ArrayList<>();
+
+        if (requestAccessToken.getUserId().equals(order.getUser().getId())) {
 
             for (int i = 0; i != order.getTicketNumber(); i++) {
 
@@ -79,6 +80,8 @@ public class TicketsServiceImpl implements TicketsService {
                 ticketRepository.save(newTicket);
                 currentTickets.add(newTicket);
             }
+        }
+
         return currentTickets;
     }
 }
