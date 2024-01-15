@@ -48,7 +48,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"admin"})
-    void addConcerts_shouldReturn201ResponseWithMethodBeingCalledCorrectly() throws Exception {
+    void addConcerts_shouldReturn201Response_withMethodBeingCalledCorrectly() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -69,7 +69,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getConcerts_shouldReturn200ResponseWithConcertsArray() throws Exception {
+    void getConcerts_shouldReturn200Response_withConcertsArray() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -126,7 +126,7 @@ public class ConcertControllerTests {
     }
 
     @Test
-    void filterConcerts_shouldReturn200ResponseWithConcertsArray() throws Exception {
+    void filterConcerts_shouldReturn200Response_withConcertsArray() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -196,7 +196,7 @@ public class ConcertControllerTests {
     }
 
     @Test
-    void lowerTicketNumber_shouldReturn204ResponseWithMethodBeingCalledCorrectly() throws Exception {
+    void lowerTicketNumber_shouldReturn204Response_withMethodBeingCalledCorrectly() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
@@ -222,7 +222,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getConcerts_shouldReturn200ResponseWithAConcertOfID1() throws Exception {
+    void getConcerts_shouldReturn200Response_withAConcertOfID1() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -255,7 +255,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void getConcerts_shouldReturn200ResponseWithEmptyArray() throws Exception {
+    void getConcerts_shouldReturn200Response_withEmptyArray() throws Exception {
 
         List<Concert> response = new ArrayList<>();
 
@@ -276,7 +276,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"admin"})
-    void updateConcerts_shouldReturn200ResponseWithMethodBeingCalledCorrectly() throws Exception {
+    void updateConcerts_shouldReturn200Response_withMethodBeingCalledCorrectly() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -305,7 +305,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void addConcerts_shouldThrow403Forbidden() throws Exception {
+    void addConcerts_shouldThrow403Forbidden_whenUserIsUnauthorized() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
@@ -326,7 +326,7 @@ public class ConcertControllerTests {
 
     @Test
     @WithMockUser(username = "testuser", roles = {"user"})
-    void updateConcerts_shouldThrow403Forbidden() throws Exception {
+    void updateConcerts_shouldThrow403Forbidden_whenUserIsUnauthorized() throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 

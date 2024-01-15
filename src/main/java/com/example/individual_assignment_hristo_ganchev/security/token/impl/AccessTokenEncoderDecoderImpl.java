@@ -15,8 +15,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-
-
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

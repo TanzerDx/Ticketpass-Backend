@@ -61,6 +61,9 @@ class OrdersServiceImplTest {
                 "+31613532345", 3, 14.15, "Ideal");
 
 
+        when(accessToken.getUserId()).thenReturn(1L);
+
+
         OrdersServiceImpl sut = new OrdersServiceImpl(orderRepositoryMock, accessToken);
 
 
@@ -248,7 +251,7 @@ class OrdersServiceImplTest {
     }
 
     @Test
-    void getOrder_shouldThrowNullPointerException() throws Exception {
+    void getOrder_shouldThrowNullPointerException_whenOrderIsCalledFromDatabase() throws Exception {
 
         //Arrange
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

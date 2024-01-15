@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ConcertRepository extends JpaRepository<ConcertEntity, Long> {
-    @Query("SELECT c FROM ConcertEntity c WHERE c.artist LIKE %:keyword% OR c.musicGenre LIKE %:keyword% OR c.city LIKE %:keyword%")
+    @Query("SELECT c FROM ConcertEntity c WHERE (c.artist LIKE %:keyword% OR c.musicGenre LIKE %:keyword% OR c.city LIKE %:keyword%) AND c.date > CURRENT_DATE")
     List<ConcertEntity> getByKeyword(@Param("keyword") String keyword);
 }
