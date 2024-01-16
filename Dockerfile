@@ -8,6 +8,9 @@ WORKDIR /app
 # Copy the compiled JAR file into the container
 COPY build/libs/Individual_Assignment_Hristo_Ganchev-0.0.1-SNAPSHOT.jar /app/app.jar
 
+# Copy the .env file where the jwt secret key is stored
+COPY D:/Uni/Semester 3/Individual Project/jwt-secret-key.env /app/
+
 # Install bash
 RUN apk --no-cache add bash
 
