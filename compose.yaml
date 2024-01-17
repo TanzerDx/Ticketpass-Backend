@@ -21,7 +21,7 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      - D:/Uni/Semester 3/Individual Project/jwt-secret-key.env
+      - jwt-secret-key.env
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ticketpass #  datasource URL 'mysql'
       SPRING_DATASOURCE_USERNAME: "root"
