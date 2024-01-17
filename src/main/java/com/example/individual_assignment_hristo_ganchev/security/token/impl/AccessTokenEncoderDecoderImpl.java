@@ -29,7 +29,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
     private static final Logger logger = LoggerFactory.getLogger(AccessTokenEncoderDecoderImpl.class);
 
     Dotenv dotenv = Dotenv.configure()
-            .directory("D:\\Uni\\Semester 3\\Individual Project")
+//            .directory("D:\\Uni\\Semester 3\\Individual Project\\ticketpass-hristo-ganchev-backend")
             .filename("jwt-secret-key.env")
             .load();
 
