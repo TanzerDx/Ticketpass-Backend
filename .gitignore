@@ -38,4 +38,4 @@ out/
 
 
 ### env ###
-jwt-secret-key.env
+*.env
