@@ -1,0 +1,32 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password #  authentication plugin
+    container_name: mysqldb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Debgubakmo5"
+      MYSQL_DATABASE: 'ticketpass'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - jwt-secret-key.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/ticketpass #  datasource URL 'mysql'
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "Debgubakmo5"
+    depends_on:
+      - mysql # 'spring-app' starts after 'mysql'
+volumes:
+  mysql-data:
