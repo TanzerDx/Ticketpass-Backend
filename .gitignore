@@ -36,6 +36,17 @@ out/
 ### VS Code ###
 .vscode/
 
-
 ### env ###
 jwt-secret-key.env
+
+### properties ###
+application.properties
+
+### yaml ###
+compose.yaml
+
+### gradle ###
+build.gradle
+
+### json ###
+*.json
