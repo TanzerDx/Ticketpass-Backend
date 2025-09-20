@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysqldb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "your_very_secret_password"
+      MYSQL_DATABASE: "your_very_secret_database_name"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - jwt-secret-key.env
+    environment:
+      SPRING_DATASOURCE_URL: your_very_secret_url
+      SPRING_DATASOURCE_USERNAME: "your_very_secret_username"
+      SPRING_DATASOURCE_PASSWORD: "your_very_secret_password"
+    depends_on:
+      - mysql
+volumes:
+  mysql-data:
