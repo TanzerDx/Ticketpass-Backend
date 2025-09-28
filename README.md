@@ -8,6 +8,7 @@
 
 - [📺 Overview] 
 - [🗂️ Project Structure]
+- [🛠️ Tech Stack]
 - [✅ Results & Learnings]
 
 ---
@@ -36,7 +37,9 @@ The application is divided into two separate repositories for easier development
 - **Ticketpass-Frontend:** React.js application (UI and client-side logic)  
 - **Ticketpass-Backend:** Spring Boot REST API (business logic and data access)
 
-### 🛠️ Tech Stack
+---
+
+## 🛠️ Tech Stack
 
 - 🖥️ **Frontend:** React (JavaScript)  
 - ⚙️ **Backend:** Spring Boot (Spring MVC)  
