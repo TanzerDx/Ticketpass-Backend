@@ -25,6 +25,8 @@ The application implements essential features such as:
 The project focuses on clean architecture, maintainable code, and security best practices.  
 > ⚠️ Since this is a personal project, it is not publicly hosted online.
 
+(Project Demo: https://youtu.be/ug14rF1E3fs)
+
 ---
 
 ## 🗂️ Project Structure
@@ -51,3 +53,4 @@ Building **Ticketpass** helped me strengthen my skills in:
 - 🧠 **Project Architecture:** Designing a full-stack application with clear separation of concerns  
 - 🔒 **Security Best Practices:** Implementing authentication and authorization, safeguarding user data, and applying secure coding principles 
 - 🎨 **UI & UX Design:** Creating a user-friendly and intuitive interface
+
